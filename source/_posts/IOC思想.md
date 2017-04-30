@@ -2,6 +2,7 @@
 title: IOC思想
 date: 2016-12-29 13:19:40
 tags: [Android,Java,Butterknife,DI,Dagger2,IOC,Spring,xUtils]
+toc: true
 ---
 
 ### 简介：

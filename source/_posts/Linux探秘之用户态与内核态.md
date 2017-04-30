@@ -2,6 +2,7 @@
 title: Linux探秘之用户态与内核态
 date: 2017-03-13 18:20:19
 tags: [Linux,用户态,内核态]
+toc: true
 ---
 
 原文地址：[Linux探秘之用户态与内核态](http://www.cnblogs.com/bakari/p/5520860.html)

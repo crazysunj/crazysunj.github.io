@@ -2,6 +2,7 @@
 title: Android代码规范
 date: 2017-01-12 14:38:29
 tags: [Android,Java,代码规范]
+toc: true
 ---
 
 # 1.源文件基础

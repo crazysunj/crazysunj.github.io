@@ -2,6 +2,7 @@
 title: 打造炫酷的多类型RecyclerView的Adapter
 date: 2017-04-01 14:10:12
 tags: [Android,RecyclerView,Adapter,DiffUtil]
+toc: false
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RecyclerView渐渐地走进了我们的项目里面，UI越来越复杂，高效快捷开发出复杂的页面是我们所追求的。
