@@ -54,7 +54,9 @@ return '\ufeff' + content; // byte order mark | Good，对于非打印字符，�
 * package语句
 * import语句
 * 一个顶级类(只有一个)以上每个部分之间用一个空行隔开。
+
 <!--more-->
+
 ## 2.1 许可证或版权信息
 如果一个文件包含许可证或版权信息，那么它应当被放在文件最前面。
 

@@ -73,27 +73,8 @@ protected void handleResult(DiffUtil.DiffResult diffResult) {
 下面是介绍如何把该adapter加载到我们的recyclerview中
 
 ```
-recyclerView.setLayoutManager(new LinearLayoutManager(this) {
-            @Override
-    public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-        try {
-            super.onLayoutChildren(recycler, state);
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
-    }
-    @Override
-    public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
-        try {
-            return super.scrollVerticallyBy(dy, recycler, state);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-});
+recyclerView.setLayoutManager(new LinearLayoutManager(this));
 ```
-大家最好是把这个方法try一下，官方BUG，小弟无能为力。
 
 ```
 adapter.notifyMoudleDataAndHeaderChanged(list, new HeaderThirdItem("我是第三种类型的头", adapter.getRefreshHeaderId()), SampleAdapter.TYPE_FOUR);
@@ -122,7 +103,7 @@ protected boolean isDetectMoves() {
 }
 ```
 
-关于DiffUtil的用法，大家可以去看看，我这里不多介绍，但大家要注意的地方是，这个类在24.2.0版本才出现的。暂时提供DiffUtil.Callback和参数detectMoves，你可以实现自己的比较规则。这里有几个注意点，在比较的时候都是同步的，也就是说数据量比较大的时候，可能会出现anr，但是大多时候是没有问题的，我一般会做分页或者说刷新的时候都不会改动太大，我测试了一下，5000条数据，大概有2s左右的停滞。其实这都是我找的借口，当我写的时候我就注意到了，然后打算异步刷新，但是遇到了几个问题，大概涉及到这几个类的问题，GapWorker,ViewFlinger,ItemTouchHelper等，具体我也记不清了，大概crash原因都是recyclerview在回收的时候，数据的更新，还有view的回收时产生动画等，各种冲突产生crash，Google的大神们什么时候给我们一个完美的RecylcerView啊！但我会继续奋斗研究的，现在我提议是在比较数据的时候，可以加载进度框，简直是天才的想法。。。。。。好像哪里不对？主线程都阻塞了，你显示个蛋啊！话是这么说，我还是提供了对话框的功能，如果在用异步刷新的时候出现crash，最好把recyclerview的版本提至24.2.0版本。
+关于DiffUtil的用法，大家可以去看看，我这里不多介绍，但大家要注意的地方是，这个类在24.2.0版本才出现的。暂时提供DiffUtil.Callback和参数detectMoves，你可以实现自己的比较规则。这里有几个注意点，在比较的时候都是同步的，也就是说数据量比较大的时候，可能会出现anr，但是大多时候是没有问题的，我一般会做分页或者说刷新的时候都不会改动太大。当然你也可以使用异步计算。
 
 接下来说说，我另外加的一个库StickyHeaderDecoration，我对它稍微做了点优化。库中的东西我没有全部集成，单单拿下了单粘性头的用法。大致用法如下：
 
@@ -151,7 +132,7 @@ compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.1'
 compile 'com.android.support:appcompat-v7:24.2.0'
 ```
 
-你可以自己设置相应的版本依赖，关于recyclerview的版本最好在24.2.0及以下，不然在异步刷新的时候可能会引起GapWork这货的异常问题，不用这家伙总没问题了把。
+你可以自己设置相应的版本依赖。
 
 Gradle依赖
 
