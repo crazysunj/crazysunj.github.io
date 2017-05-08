@@ -140,7 +140,7 @@ Flowable.just(new HandleBase<MultiHeaderEntity>(newData, newHeader, type, refres
                 });
 ```
 
-**温馨提示:** 如果你的Adapter起始并不是你的数据集合，比如你设置headerLayout等，请重写getListUpdateCallback()，在相应的位置刷新，以免数据错乱异常。
+**温馨提示:** 如果你的Adapter起始并不是你的数据集合，比如你设置headerLayout等，请重写getListUpdateCallback()，在相应的位置刷新，以免数据错乱异常。关于实体类的id为long类型，考虑的是比较效率，大家可以用hashcode，注意冲突，如果勉强不妨自定义DiffCallBack。
 
 ### 关键字高亮
 
