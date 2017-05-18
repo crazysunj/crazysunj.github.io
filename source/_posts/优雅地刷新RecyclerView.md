@@ -9,6 +9,8 @@ tags: [Android,RecyclerView,Adapter,Helper,Error]
 
 还是那句话，RecyclerView的viewType增多，逻辑变复杂，几个月后，你确定还能理清思路吗？假设我们服务端是多个接口返回数据，你确定能正确刷新相应type吗？想一个RecyclerView高效快捷管理整个界面吗？你还在使用notifyDataSetChanged无脑刷新吗？你想单个viewType在loadingView,dataView,errorView自如切换吗？如果你迟疑了，那你不妨试试本库。
 
+<!--  more-->
+
 ## 特点
 
 * 与Adapter为组合关系，可配合大多数Adapter
