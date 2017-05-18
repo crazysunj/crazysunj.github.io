@@ -44,6 +44,7 @@ tags: [Android,RecyclerView,Adapter,Helper,Error]
 * 链式注册资源
 * 支持刷新单个数据
 * 提供helper的清除单个type，清除整个界面api
+* 提供getHeaderId的默认实现抽象类
 
 ### 支持刷新type错误页面(可自定义)
 
@@ -113,6 +114,10 @@ public void clearMoudle(int type);
  */
 public void clear();
 ```
+
+### 提供getHeaderId的默认实现抽象类
+
+假设你不实现粘性头而强制要写getHeaderId确实挺讨厌的，由于现在android还不是很好地兼容java8，因此暂时提供DefaultMultiHeaderEntity。
 
 ### 使用注意点
  type 取值范围
