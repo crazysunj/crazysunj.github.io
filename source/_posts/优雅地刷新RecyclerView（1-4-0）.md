@@ -48,6 +48,8 @@ RecyclerView的viewType增多，逻辑变复杂，几个月后，你确定还能
 * 支持加载相应type空页面
 * 优化清除数据
 * 优化异常命名
+* 优化getHeaderId()
+* 泛型规范Adapter
 * 支持标准(一个type对应一个集合)和混合(一般的多类型集合)自如切换(自动排序集合)
 * ......
 
@@ -97,6 +99,28 @@ public void notifyMoudleEmptyChanged(int type);
 
 ### 优化异常命名
 库中抛出的异常都为自定义，很友爱，嘿嘿。
+
+### 优化getHeaderId()
+
+```
+public long getHeaderId(int position) {
+
+    int preDataCount = getPreDataCount();
+    if (position < preDataCount) {
+        return StickyHeaderDecoration.NO_HEADER_ID;
+    }
+    return mData.get(position - preDataCount).getHeaderId();
+}
+```
+
+兼容Adapter，保持position一致。
+
+### 泛型规范Adapter
+
+```
+public abstract class RecyclerViewAdapterHelper<T extends MultiHeaderEntity, A extends RecyclerView.Adapter>
+```
+自己用着挺舒服的，待考验。
 
 ### 支持标准(一个type对应一个集合)和混合(一般的多类型集合)自如切换(自动排序集合)
 
