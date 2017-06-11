@@ -134,7 +134,7 @@ int[] type();
 int[] type();
 ```
 
-仔细看完的同学内心独白：WTF？放下菜刀，听我慢慢讲来，注解PreDataCount我就不用说了吧，注意点一直强调；该注解以下的注解更强调多个type共用了同个资源；注解BindDefaultType用来注解只有一种type的时候；注解AdapterHelper用来注解需要生成helper的adapter，其中参数superObj为生成helper的父类，entity为实体类，adapter为绑定adapter，参数类型为类引用路径。如何生成，不用我说了吧，我猜你已经轻车熟路。
+仔细看完的同学内心独白：WTF？放下菜刀，听我慢慢讲来，注解PreDataCount我就不用说了吧，注意点一直强调；该注解以下的注解更强调多个type共用了同个资源；注解BindDefaultType用来注解只有一种type的时候；注解AdapterHelper用来注解需要生成helper的adapter，其中参数superObj为生成helper的父类，entity为实体类，adapter为绑定adapter，参数类型为类引用路径。如何生成，不用我说了吧，我猜你已经轻车熟路，生成类名暂时为Adapter类型+Helper。
 
 ## 注意点
 ### Type 取值范围
