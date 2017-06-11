@@ -2,7 +2,7 @@
 title: 优雅地刷新RecyclerView（1.4.0）
 toc: true
 date: 2017-05-29 15:39:55
-tags:
+tags: [Android,RecyclerView,Adapter,Helper]
 ---
 
 ## 前言
