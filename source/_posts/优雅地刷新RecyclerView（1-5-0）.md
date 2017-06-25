@@ -20,7 +20,7 @@ RecyclerView的viewType增多，逻辑变复杂，几个月后，你确定还能
 * 支持加载相应type错误页面
 * 支持加载相应type空页面
 * 支持标准(一个type对应一个集合)和混合(一般的多类型集合)自如切换(自动排序集合)
-* 支持集合set,add,remove,clear等操作刷新
+* 支持集合set，add，remove，clear等操作刷新
 * 支持注解生成类，减少工作量
 * 支持刷新生命周期回调
 
@@ -51,7 +51,6 @@ RecyclerView的viewType增多，逻辑变复杂，几个月后，你确定还能
 * 支持配置全局loading页面
 * 支持刷新生命周期回调
 * 支持注解生成类，减少工作量
-* gradle依赖name从multitypeadapter改为adapterhelper
 * ......
 
 ### 支持配置全局loading页面
@@ -137,10 +136,6 @@ int[] type();
 
 仔细看完的同学内心独白：WTF？放下菜刀，听我慢慢讲来，注解PreDataCount我就不用说了吧，注意点一直强调；该注解以下的注解更强调多个type共用了同个资源；注解BindDefaultType用来注解只有一种type的时候；注解AdapterHelper用来注解需要生成helper的adapter，其中参数superObj为生成helper的父类，entity为实体类，adapter为绑定adapter，参数类型为类引用路径。如何生成，不用我说了吧，我猜你已经轻车熟路，生成类名暂时为Adapter类名+Helper。
 
-### gradle依赖name从multitypeadapter改为adapterhelper
-
-原先取multitypeadapter是因为我们直接继承于Adapter，后来改为组合的形式，取名为AdapterHelper更为合适。
-
 ## 注意点
 ### Type 取值范围
 
@@ -189,18 +184,19 @@ protected int getPreDataCount();
 **欢迎大家的star(fork)和反馈(可发issues或者我的邮箱）。**
 ## gradle依赖
 
-**<font color="red">name从multitypeadapter改为adapterhelper</font>**
+```
+compile 'com.crazysunj:multitypeadapter:1.5.0'
+```
+如果想用注解生成可依赖
 
 ```
-compile 'com.crazysunj:adapterhelper:1.5.0'
-apt 'com.crazysunj:adapterhelper-compiler:1.5.0'
+apt 'com.crazysunj:multitypeadapter-compiler:1.5.0'
 ```
-如果想用注解生成可依赖，记得在项目gradle中添加
+记得在项目gradle中添加
 
 ```
 classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 ```
-
 主Module中添加
 
 ```

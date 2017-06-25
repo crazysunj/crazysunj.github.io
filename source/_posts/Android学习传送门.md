@@ -34,10 +34,6 @@ tags: [Android,Java,Linux,学习]
 * [https://github.com/opendigg/awesome-github-android-ui](https://github.com/opendigg/awesome-github-android-ui)
 ### Android开发网站
 * [https://mp.weixin.qq.com/s/-tt3IMjIRUFvU-Xw8mjFtw](https://mp.weixin.qq.com/s/-tt3IMjIRUFvU-Xw8mjFtw)
-### TCP/IP
-* [https://juejin.im/post/58e36d35b123db15eb748856](https://juejin.im/post/58e36d35b123db15eb748856)
-### Android状态栏
-* [https://juejin.im/post/58ad9ca70ce463006b24f134](https://juejin.im/post/58ad9ca70ce463006b24f134)
 ### Android Gradle
 * [https://juejin.im/post/582d606767f3560063320b21](https://juejin.im/post/582d606767f3560063320b21)
 ### Android ADB
@@ -47,7 +43,7 @@ tags: [Android,Java,Linux,学习]
 ### Java学习之路
 * [http://www.hollischuang.com/archives/489](http://www.hollischuang.com/archives/489)
 ### Java多线程
-* [http://www.jianshu.com/p/40d4c7aebd66](http://www.jianshu.com/p/40d4c7aebd66)
+* [http://blog.csdn.net/Evankaka/article/category/6262786](http://blog.csdn.net/Evankaka/article/category/6262786)
 ### Java哈希表
 * [http://www.jianshu.com/p/138ccbc75803](http://www.jianshu.com/p/138ccbc75803)
 ### Java常用排序算法/程序员必须掌握的8大排序算法
