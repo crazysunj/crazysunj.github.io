@@ -14,7 +14,6 @@ tags: [Android,Framework,Activity]
 ![](/img/kaiche.gif)
 
 <!--more-->
-
 ## 启动流程
 **以下解析基于SDK25**
 ### Activity
@@ -304,7 +303,9 @@ final int startActivityLocked(IApplicationThread caller, Intent intent, Intent e
 
 又是一个贼JB长的方法，喝杯冰镇可乐，继续继续。
 
+
 ![](/img/kele.jpg)
+
 
 callerApp ，sourceRecord，resultRecord是当中比较关键的变量，但都是为变量r服务，因为它记录着整个方法杂七杂八的各种判断结果，然后带着变量r调用startActivityUnchecked方法，继续跟进。
 
@@ -378,7 +379,7 @@ mWindowManager.setAppVisibility(r.appToken, true);这句话表示这个Activity�
 ![](/img/activity5.png)
 
 ### ActivityThread
-终于调IApplicationThread的scheduleLaunchActivity方法啦！
+终于调ApplicationThread的scheduleLaunchActivity方法啦！
 
 ```
 @Override
@@ -439,7 +440,7 @@ private class H extends Handler {
     }
 }
 ```
-我们直接看我们发的消息，它调用了自己的handleLaunchActivity方法。
+我们直接看我们发的消息，它调用了ActivityThread的handleLaunchActivity方法。
 
 
 ```
