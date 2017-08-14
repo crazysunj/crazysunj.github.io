@@ -358,7 +358,7 @@ compile 'com.crazysunj:multitypeadapter:1.7.0'
 compile 'com.android.support:recyclerview-v7:xxx'
 ```
 
-### 传送门
+## 传送门
 Github：[https://github.com/crazysunj/MultiTypeRecyclerViewAdapter](https://github.com/crazysunj/MultiTypeRecyclerViewAdapter)
 
 博客：[http://crazysunj.com/](http://crazysunj.com/)
