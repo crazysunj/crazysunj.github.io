@@ -6,7 +6,7 @@ tags: [Android,RecyclerView,Adapter]
 ---
 
 ## 前言
-遥想Android当年，UI出来了，两眼一定，一Bean一XML，谈笑间，设计师瑟瑟发抖。额，不要在意这首尬诗，请忽略- -!物是人非啊，现在动不动掏出个淘宝页面，还条目不固定，还能愉快玩耍吗？再加上杂七杂八的技术加进去，比如说埋点，UI框架越来越沉重，都是泪啊！如果我们能回到过去那该多好，来吧，朋友，这是真的这不是梦。
+遥想Android当年，UI出来了，两眼一定，一Bean一XML，谈笑间，设计师瑟瑟发抖。额，不要在意这首尬诗，请忽略- -!物是人非啊，现在动不动掏出个淘宝页面，还条目不固定，还能愉快玩耍吗？再加上各种其它需求，比如说埋点，初始化展示Loading页面，错误时又要切换错误页面等，UI框架越来越沉重，都是泪啊！如果我们能回到过去那该多好，来吧，朋友，这是真的这不是梦。
 
 ![](/img/mocamoca.jpg)
 
@@ -87,7 +87,145 @@ public abstract class BaseAdapter<T extends MutiTypeTitleEntity, K extends BaseV
 在构造方法中，让Helper去绑定Adapter，并把自己的数据源还给Adapter，在onCreateDefViewHolder方法中，把Helper注册的资源还给Adapter，ItemViewType同理。到这里，BaseAdapter封装就结束了，并没有什么难度，代码量也不大。
 
 ### XML和Bean
-Bean我就不说了哈，跟服务端同志好好沟通，嗯，好好沟通。既然Helper接管了Adapter的数据源和资源，然后再把自己创建的提供给Adapter即可，提供方法在BaseAdapter封装已经介绍过了，那么它是如何创建的呢？
+Bean我就不说了哈，跟服务端同志好好沟通，嗯，好好沟通。
+
+现在我要展示没有使用我们库的时候xml的布局，前方高能，注意安全！
+
+```
+<android.support.v4.widget.NestedScrollView
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/head_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            ...
+            省略40行
+            ...
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/type1_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            ...
+            省略10行
+            .../>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            ...
+            省略40行
+            ...
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/type2_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            ...
+            省略100行
+            ...
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            ...
+            省略40行
+            ...
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/type3_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                ...
+                省略40行
+                ...
+            </LinearLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/footer_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabBackground="@color/color_white"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabTextColor="@color/color_333333" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/footer_pager"
+                android:layout_width="match_parent"
+                android:layout_height="135dp" />
+
+            <TextView
+                style="@style/text_14_F7657D"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:padding="10dp"
+                android:text="@string/copyright" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+```
+
+全部看完的的同学，我给你82分，剩下的18分以666的形式给你。如果有想看省略部分的朋友，我直接给跪(demo中有)。哥们，如果你接手了这样的代码，我真的很心疼你。这里给点意见，赶紧用include和merge标签，让xml层次更清晰点。玩过这样的布局的同学，肯定搜了不少文章，如何嵌套？如何不卡顿？等等。不多BB，如果使用该库，那么将会是这样：
+
+```
+<android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+```
+忍住，朋友，我知道你想说卧槽，我可以告诉你个好消息，从本质上，xml量是不会变的，不然怎么展示一样的视图？但是，后者更趋向于模块化开发的思想，可以分配具体某个type到某个人，就算换了个人，也能很快的接手，不仅如此，开发效率大大地提高，怎么说？每人到手的就是一个HelloWord渲染在Activity里面，这个都不会？高端点说，View层和Modle层分开了，Helper就是我们的P层，甚至我们可以忽略Model层的逻辑，下文会简单提到。而前者需要自己去封装，谷歌看见这样的场景会流泪的，关于使用RecyclerView的好处，只有用了才知道。
+
+朋友，我还想再贴Activity里面一堆初始化和渲染的代码。
+
+![](/img/chouju.jpeg)
+
+一堆关于一会儿显示这一会儿显示那，一会儿又不显示，诸如此类的代码都让人看得头疼。想想这样布局，来个全局loading的需求，Boom!不敢多说了，恐怕有小伙伴已经拿起了菜刀，我好好做人，请放下！
+
+继续今天的头条，话说Helper是接管了Adapter的数据源和资源，然后再把自己创建的提供给Adapter即可，提供方法在BaseAdapter封装已经介绍过了，那么它是如何创建的呢？
 
 ![](/img/lizi.jpeg)
 
@@ -112,19 +250,13 @@ public class MyAdapterHelper extends AsynAdapterHelper<MutiTypeTitleEntity, Base
 }
 ```
 
-最简单的时候，只要这样就行了，这里的工作量就是每一个Adapter可能会多创建一个Helper，这里用可能是因为我们有时候可以复用。在构造函数中注入数据源，当然你也可以像示例代码中传null，它会默认创建一个空集合。我们可以为每个ItemType注册对应xml视图，正如过去每个Activity对应一个xml，当然资源注册功能远远不止这些，比如我们的库把一个ItemType视图，分为header，data，footer三个部分，你可以分别填充不同的资源，单个Type你又可以在data，loading，empty，error这几个视图自如切换，毫无压力。其它还有很多，我就不介绍了，不然篇幅太长，很多手机党要骂娘了。
+最简单的时候，只要这样就行了，这里的工作量就是每一个Adapter可能会多创建一个Helper，这里用可能是因为我们有时候可以复用。在构造函数中注入数据源，当然你也可以像示例代码中传null，它会默认创建一个空集合。我们可以为每个ItemType注册对应xml视图，正如过去每个Activity对应一个xml，当然资源注册功能远远不止这些，比如我们的库把一个ItemType视图，分为header，data，footer三个部分，你可以分别填充不同的资源，单个Type你又可以在data，loading，empty，error这几个视图自如切换，毫无压力，如果你用嵌套这种布局，会不会加班到天明啊。。。行行行，放下，我不说了。关于库的其它功能还有很多，我就不介绍了，不然篇幅太长，很多手机党要骂娘了。
 
 ### 回归Adapter
 Helper创建完资源后总是要回归于Adapter，在BaseAdapter封装中，我们已经知道，Helper是如何和Adapter绑定在一起的。来看下Adapter的示例代码，结合代码更加形象直观。
 
 ```
 public class MyAdapter extends BaseAdapter<MutiTypeTitleEntity, BaseViewHolder, MyAdapterHelper> {
-
-
-    private CommonHeadEntity entity1Header = new CommonHeadEntity(ItemEntity1.HEADER_TITLE, ItemEntity1.TYPE_1);
-    private CommonHeadEntity entity2Header = new CommonHeadEntity(ItemEntity2.HEADER_TITLE, ItemEntity2.TYPE_2);
-    private CommonHeadEntity entity4Header = new CommonHeadEntity(ItemEntity2.HEADER_TITLE, ItemEntity4.TYPE_4);
-    private CommonFooterEntity entity1Footer = new CommonFooterEntity(Constants.EXPAND, ItemEntity1.TYPE_1);
 
     public MyAdapter() {
         super(new MyAdapterHelper());
@@ -150,34 +282,21 @@ public class MyAdapter extends BaseAdapter<MutiTypeTitleEntity, BaseViewHolder, 
     }
 
     private void renderEntity1(BaseViewHolder helper, ItemEntity1 item) {
-        helper.setImageResource(R.id.item_1_img, item.getImg());
-        helper.setText(R.id.item_1_title, item.getTitle());
-        helper.setText(R.id.item_1_content, item.getContent());
-        helper.setText(R.id.item_1_time, item.getTime());
-        helper.setText(R.id.item_1_time_flag, item.getTimeFlag());
+    	...
+    	渲染Entity1
+    	...
     }
 
 	...
 
     private void renderHeader(BaseViewHolder helper, CommonHeadEntity item) {
-        helper.setText(R.id.title, item.getTitle());
+    	渲染header
     }
 
     private void renderFooter(BaseViewHolder helper, final CommonFooterEntity item) {
-        final int type = item.getItemType() + RecyclerViewAdapterHelper.FOOTER_TYPE_DIFFER;
-        final TextView footer = helper.getView(R.id.item_footer);
-        footer.setText(item.getTitle());
-        footer.setOnClickListener(v -> {
-            if (Constants.EXPAND.equals(item.getTitle())) {
-                item.setTitle(Constants.FOLD);
-                mHelper.foldType(type, false);
-            } else {
-                item.setTitle(Constants.EXPAND);
-                mHelper.foldType(type, true);
-            }
-            footer.setText(item.getTitle());
-        });
-
+    	...
+    	渲染footer
+    	...
     }
 	...
     public void notifyType1(List<ItemEntity1> itemEntity1s) {
@@ -187,7 +306,10 @@ public class MyAdapter extends BaseAdapter<MutiTypeTitleEntity, BaseViewHolder, 
 }
 ```
 
-这么一个复杂视图，就这么点代码，你没有看错。核心方法就是convert()方法，根据ItemType渲染相对应的视图，这正如对应不同的Activity有相对应的xml，Bean和渲染逻辑。关于render()方法，我就不说了吧，估计大家都写吐了。Helper除了支持整个数据源注入外，还支持单个Type注入，甚至细化到单个Type中一个小Type，例如header。简直炫酷的不要不要的。而这里的notifyType1()方法是为了注入type为ItemEntity1.TYPE_1相对应的数据，取这个方法是因为它把所有小类型都体现了。这里有个小tips是，建议大家把刷新的方法封装在Adapter中，万一哪天版本大升级，直接使用helper的朋友可要改死了，这个也同我们在开发中封装图片加载库的需要二次封装一个工具类，万一哪天换库了，你不会想跑路吧？
+这么一个复杂视图，就这么点代码，你没有看错。核心方法就是convert()方法，根据ItemType渲染相对应的视图，这正如对应不同的Activity有相对应的xml，Bean和渲染逻辑，在这里你只要关心View层的渲染逻辑就行了。关于render()方法，我就不说了吧，估计大家都写吐了。Helper除了支持整个数据源注入外，还支持单个Type注入，甚至细化到单个Type中一个小Type，例如header。简直炫酷的不要不要的。而这里的notifyType1()方法是为了注入type为ItemEntity1.TYPE_1相对应的数据，取这个方法是因为所有类型都体现了(header,data,footer)。
+
+	Tips:建议大家把刷新的方法封装在Adapter中，万一哪天版本大升级，直接使用helper的朋友可要改死了，这个也同我们在开发中封装图片加载库的需要二次封装一个工具类，万一哪天换库了，你不会想跑路吧？
+
 ![](/img/huaji.jpg)
 
 ## 原理分析
