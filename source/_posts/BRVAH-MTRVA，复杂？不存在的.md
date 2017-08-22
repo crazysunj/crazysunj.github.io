@@ -115,7 +115,7 @@ public class MyAdapterHelper extends AsynAdapterHelper<MutiTypeTitleEntity, Base
 最简单的时候，只要这样就行了，这里的工作量就是每一个Adapter可能会多创建一个Helper，这里用可能是因为我们有时候可以复用。在构造函数中注入数据源，当然你也可以像示例代码中传null，它会默认创建一个空集合。我们可以为每个ItemType注册对应xml视图，正如过去每个Activity对应一个xml，当然资源注册功能远远不止这些，比如我们的库把一个ItemType视图，分为header，data，footer三个部分，你可以分别填充不同的资源，单个Type你又可以在data，loading，empty，error这几个视图自如切换，毫无压力。其它还有很多，我就不介绍了，不然篇幅太长，很多手机党要骂娘了。
 
 ### 回归Adapter
-Helper创建完资源后总是给回归于Adapter，在Base封装中，我们已经知道，Helper是如何和Adapter绑定在一起的。来看下Adapter的示例代码，结合代码更加形象直观。
+Helper创建完资源后总是要回归于Adapter，在BaseAdapter封装中，我们已经知道，Helper是如何和Adapter绑定在一起的。来看下Adapter的示例代码，结合代码更加形象直观。
 
 ```
 public class MyAdapter extends BaseAdapter<MutiTypeTitleEntity, BaseViewHolder, MyAdapterHelper> {
@@ -206,7 +206,7 @@ adapter.notifyItemRangeRemoved(position, count);
 adapter.notifyItemMoved(fromPosition, toPosition);
 adapter.notifyItemRangeChanged(position, count, payload);
 ```
-这样一来，我们可以跟notifyDataSetChanged说88啦。那么新老数据集怎么来？
+这样一来，我们可以跟notifyDataSetChanged说88啦。那么新老数据源怎么来？
 
 ### 数据
 以下type新老数据集，简称数据集，整个数据集，简称数据源。
@@ -227,11 +227,10 @@ mNewData.remove(oldItemHeader);//移除老数据集
 
 mNewData.addAll(header == null ? positionStart : positionStart + 1, data);
 mNewData.add(positionStart, newHeader);
-
 mNewData.add(positionStart, footer);//添加新数据集      
 ```
 
-细心的同学可能发现，positionStart怎么来的？它是靠map遍历得到的，但它是不完全遍历（这里涉及到最优时间复杂度）。
+细心的同学可能发现，positionStart怎么来的？它是靠map遍历得到的，但它是不完全遍历。
 
 到这里，新老数据源都有了，剩下的就是交给diffutil去更新UI。
 
@@ -339,6 +338,8 @@ public Object getChangePayload(int oldItemPosition, int newItemPosition) {
 
 好了，这里栗子用的Bundle，大家可以看到数据类型其实是Object，之所以用Bundle是因为我们要跟随谷歌爸爸的脚步，Bundle在Android数据通信这一块作用还是很大的。
 
+    Tips：如果想用第五个方法带来的好处，要版本23以上哦，因为adapter的3参数notifyItemRangeChanged是在23上加的。那是不是说23以下，我们库不能用了？细心的同学肯定会去查diffutil在什么版本出现的，不妨告诉你，24.2.0出现的，我靠，玩个毛线。放心，我这里有兼容方案，只要你用RecyclerView，那么，朋友，就放心用这个库吧，没毛病！关于兼容方案，这里就不给出了。使用说明书上有。
+
 ### 异步
 
 上面result与diffResult不一致是我采用了两个方法，原因是DiffUtil造成的。
@@ -364,6 +365,7 @@ if (pollData != null) {
 
 ## 结束语
 这里感谢下孙老师提供的设计以及一直支持我的人，很感谢。关于库的使用确实就那么点流程，很简单。如果想体验更多的用法，可以在github上看使用说明书。如果使用和原理都写下来，手机党要开枪了！嘿嘿。
+
 ![](/img/biekaiqiang.jpeg)
 
 ## 传送门
