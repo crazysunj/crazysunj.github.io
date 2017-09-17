@@ -354,7 +354,7 @@ protected int getPreDataCount();
 ## gradle依赖
 
 ```
-compile 'com.crazysunj:multitypeadapter:1.7.0'
+compile 'com.crazysunj:multitypeadapter:1.8.0'
 compile 'com.android.support:recyclerview-v7:xxx'
 ```
 

@@ -36,6 +36,7 @@ tags: [Android,Java,Linux,学习]
 * [https://mp.weixin.qq.com/s/-tt3IMjIRUFvU-Xw8mjFtw](https://mp.weixin.qq.com/s/-tt3IMjIRUFvU-Xw8mjFtw)
 ### Android Gradle
 * [https://juejin.im/post/582d606767f3560063320b21](https://juejin.im/post/582d606767f3560063320b21)
+* [http://www.jianshu.com/p/642641dc7df3](http://www.jianshu.com/p/642641dc7df3)
 ### Android ADB
 * [https://github.com/mzlogin/awesome-adb](https://github.com/mzlogin/awesome-adb)
 ### Android设计模式
