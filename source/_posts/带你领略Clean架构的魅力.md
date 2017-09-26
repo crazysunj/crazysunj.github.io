@@ -62,7 +62,7 @@ tags: [Clean,Android,MVP,架构]
 #### 数据层 (Data Layer)
 ![](/img/clean_model_data.jpg)
 
-这是一种Repository模式，具体的可以看[这里](https://msdn.microsoft.com/en-us/library/ff649690.aspx)（需要翻墙）。以我现在的见解，只能说只要项目复杂而需要分层，那么就应该用这个模式，它让clean架构的clean更加亮眼。
+这是一种Repository模式，具体的可以看[这里](https://msdn.microsoft.com/en-us/library/ff649690.aspx)。以我现在的见解，只能说只要项目复杂而需要分层，那么就应该用这个模式，它让clean架构的clean更加亮眼。
 
 这个本来就是概念，我相信大家也不愿意看，所以就简单介绍。如果想详细了解，可以戳[这里](https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/)，
 
