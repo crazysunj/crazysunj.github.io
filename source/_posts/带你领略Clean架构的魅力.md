@@ -64,7 +64,7 @@ tags: [Clean,Android,MVP,架构]
 
 这是一种Repository模式，具体的可以看[这里](https://msdn.microsoft.com/en-us/library/ff649690.aspx)。以我现在的见解，只能说只要项目复杂而需要分层，那么就应该用这个模式，它让clean架构的clean更加亮眼。
 
-这个本来就是概念，我相信大家也不愿意看，所以就简单介绍。如果想详细了解，可以戳[这里](https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/)，
+这个本来就是概念，我相信大家也不愿意看，所以就简单介绍。如果想详细了解，可以戳[这里](https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/)。
 
 #### 总结
 现在谈谈自己的看法，后者是相对前者较为具体的一种符合Android的结构。在这插一个clean架构的依赖性规则：内层不能依赖外层。三者也都分别解释了是干什么用的，那么为什么有分为这三者，它们又有什么联系？我是个俗人，那就应该用俗话来讲，从数据层利用Repository模式让领域层感觉不到数据访问层的存在，即原始数据是独立的，业务规则不绑定具体哪一种数据，通俗点讲就是你要什么数据？我给你取，但你不需要知道我从哪里取的；因此领域层对数据层怎么实现的是一无所知，而领域层主要工作就是你给了我数据，那我就要用，怎么用？都是我来决定；用完之后再回调给表现层渲染UI。因此大多数的业务逻辑都在领域层，可以说是一个APP的核心。我认为这里透露着一个很重要的设计理念就是数据驱动UI，我都想给自己点个赞，哈哈。其实，到这里，你心里已经有点13数的话，可以跳到Why，因为怎么用已经是具体的东西，而架构本身就是一种共识，是抽象的，从Java角度讲你可以多个类去实现这个接口。下面的使用只是我对Clean架构理解的一点代码体现。
@@ -110,7 +110,7 @@ public class ZhihuDataRepository implements ZhihuRepository {
     this.userEntityDataMapper = userEntityDataMapper;
   }
 ```
-UserDataStoreFactory是从不同地方获取数据的一个工厂类，UserEntityDataMapper是我们的数据包装类，不知道还记得上面的Interface Adapters吗？细心的朋友可以关注到ZhihuDataRepository实现了ZhihuRepository，但是ZhihuRepository并非数据层的东西，而是领域层的东西，很显然，以接口进行关联，但内容独立，没错，这就是传送中的依赖倒置原则。
+UserDataStoreFactory是从不同地方获取数据的一个工厂类，UserEntityDataMapper是我们的数据包装类，不知道还记得上面的Interface Adapters吗？细心的朋友可以关注到ZhihuDataRepository实现了ZhihuRepository，但是ZhihuRepository并非数据层的东西，而是领域层的东西，很显然，以接口进行关联，但内容独立，没错，这就是传说中的依赖倒置原则。
 
 ![](/img/666.jpeg)
 
