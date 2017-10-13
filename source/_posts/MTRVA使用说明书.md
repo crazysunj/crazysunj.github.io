@@ -11,17 +11,19 @@ MTRVA是对RecyclerViewAdapter的扩展，可以配合大多数的Adapter，核�
 <!--  more-->
 ## 特点
 
-* 简单快捷，可配合大多数Adapter
-* 一行代码刷新单个type，支持一般的set，add，remove，clear等刷新
+* 使用简单快捷，可配合大多数Adapter
+* 一行代码刷新单个type，支持一般的set，add，remove，clear等刷新，刷新带有动画
+* 支持增删改查操作
 * 支持异步，高频率刷新，可扩展(如配合RxJava)
-* 单个type支持Loading，Empty，Error页面切换
+* 单个type支持Loading(加载)，Empty(空)，Error(错误)页面切换
 * 单个type支持header，footer
 * 单个type支持展开和合拢(可设置合拢最小值)
+* 支持加载全局Loading(加载)页面
 * 支持注解生成类，减少工作量
 * 支持刷新生命周期回调
 * 兼容低版本RecyclerView
 
-### 简单快捷，可配合大多数Adapter
+### 使用简单快捷，可配合大多数Adapter
 
 Helper因为是跟Adapter配合，所以会增加无畏的工作量，那就是每个Adapter可能要创建一个Helper，所以要善于封装，复用等。这里提供BaseAdapter的封装示例。
 
@@ -51,7 +53,7 @@ public abstract class BaseAdapter<T extends MutiTypeTitleEntity, K extends BaseV
     }
 }
 ```
-在构造函数中，与Adapter绑定，向Adapter提供资源和相应position对应的itemType，基本工作就算完成。
+在构造函数中，与Adapter绑定，向Adapter提供资源和相应position对应的itemType(注意，一定要保证内外position一致，如果你是用的第三方Adapter，可能position等于0的时候是你Adapter的headView)，基本工作就算完成。
 
 Helper简单示例：
 
@@ -113,8 +115,8 @@ public class MyAdapter extends BaseAdapter<MutiTypeTitleEntity, BaseViewHolder, 
 
 只要根据返回data的itemType进行判断，渲染相应的视图就行了。到此，与Adapter的配合就结束了，相当的简单。
 
-### 一行代码刷新单个type，支持一般的set，add，remove，clear等刷新
-回顾上面的示例代码，发现notifyType1方法，而里面调用的是Helper的notifyMoudleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用diffutil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是diffutil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。
+### 一行代码刷新单个type，支持一般的set，add，remove，clear等刷新，刷新带有动画
+回顾上面的示例代码，发现notifyType1方法，而里面调用的是Helper的notifyMoudleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用diffutil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是diffutil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。由于底层是diffutil，所以刷新的时候是局部刷新并带有动画，原理可以看我这篇文章[《BRVAH+MTRVA，复杂？不存在的》](http://crazysunj.com/2017/08/14/BRVAH-MTRVA%EF%BC%8C%E5%A4%8D%E6%9D%82%EF%BC%9F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84/)。
 
 库中默认提供DiffCallBack：
 
@@ -140,6 +142,33 @@ public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
 
 刷新支持2种模式，一种是常规的数据源，就是说List是乱的，没有按type连在一起，另一种就是标准的，两者可以相互切换，但是要注意，并不是随便切换，具体看注释。
 
+### 支持增删改查操作
+这个比较好理解，除了上面的add，remove，set（增删改）以外，还支持在单个type的基础上进行操作，如：
+
+```
+public void notifyMoudleDataInserted(T data, int type);
+
+public void notifyMoudleDataInserted(List<? extends T> data, int type);
+```
+
+此外，你还可以进行查的操作，比如这样：
+
+```
+public List<T> getData();
+
+public LevelData<T> getDataWithType(int type);
+```
+getData可以帮助我们查到原始数据源，而getDataWithType可以帮助我们根据type查到对应的数据，而现在是可以对查到的数据进行直接操作修改，但大家尽量不要在这里直接操作数据。
+
+这里提供了强力的删操作：
+
+```
+public void clearMoudle(int... type);
+
+public void remainMoudle(int... type);
+```
+从方法命名上我们可以知道clearMoudle可以清楚多个type的数据，而remainMoudle是保留多个type的数据，意味着没有保留的都会被删除。
+
 ### 支持异步，高频率刷新，可扩展(如配合RxJava)
 能快速找到要刷新的数据，这里借用了DiffUtil，具体用法我就不介绍了，但是有个缺陷就是如果数据量过大的时候，计算的时候很费时，因此把它放在线程中不影响用户操作。库中的异步刷新实现是传统的handler方法，但是我把计算和处理结果的接口提供了，大家可以打造自己的异步处理，这里举个DEMO中栗子，利用RxAndroid(这里是2.0)实现：
 
@@ -164,7 +193,7 @@ Flowable.just(new HandleBase<MultiHeaderEntity>(newData, newHeader, type, refres
 
 之所以能实现高频率刷新而不错乱，是因为采用了串行的结构，内部有队列管理每次的刷新。
 
-### 单个type支持Loading，Empty，Error页面切换
+### 单个type支持Loading(加载)，Empty(空)，Error(错误)页面切换
 如果你想在单个type中进行Loading，Empty，Error之间的切换，请调用如下方法。
 
 ```
@@ -199,17 +228,7 @@ public void notifyMoudleErrorChanged(T errorData, int type);
 public void notifyMoudleErrorChanged(int type);
 ```
 
-如果Error和Empty调用带data的刷新方法，那么无需设置相应的Adapter，但是Loading必须要。Loading还有全局初始化方法。
-
-```
- public void initGlobalLoadingConfig(LoadingConfig loadingConfig);
-
- public void notifyLoadingChanged(int type);
-
- public void notifyLoadingChanged();
-```
-
-如果是通过这种设置的，那么请调用下面的刷新方法，当然2种刷新方法可以结合使用，并不冲突。
+如果Error和Empty调用带data的刷新方法，那么无需设置相应的Adapter，但是Loading必须要。
 
 ### 单个type支持header，footer
 在Helper注册资源的时候可以，添加。如：
@@ -244,6 +263,19 @@ public void foldType(int type, boolean isFold);
 ```
 
 isDataFolded方法是用来判断对应type所处的状态，foldType方法是用来展开和合拢用的。
+
+### 支持加载全局Loading(加载)页面
+如果你得项目页面有刚进入需要展示加载页面，可以参考[首页Demo](https://www.pgyer.com/sOVg)。
+
+```
+ public void initGlobalLoadingConfig(LoadingConfig loadingConfig);
+
+ public void notifyLoadingChanged(int type);
+
+ public void notifyLoadingChanged();
+```
+
+如果是通过这种设置的，那么请调用下面的刷新方法，而在loading的小节中也有相应的刷新方法，细心的朋友会发现只是少了数量这个参数，因为在全局初始化的时候已经设置好了，因此这2种刷新方法可以结合使用，并不冲突。
 
 ### 支持注解生成类，减少工作量
 这个东西不知道该不该介绍，主要用于简单注解，太多的并没有简单多数。在最新的版本1.7.0已结没有默认添加注解，如果需要使用则要另添加。具体添加方法。
@@ -347,18 +379,18 @@ protected int getPreDataCount();
 
 调用刷新方法的时候请注意刷新模式，有些方法只支持相应刷新模式，需要注意的都加有check语句。
 
-关于entity的id为long类型是考虑刷新效率，你大可采用多种属性的加密（MD5）的hashCode或者就是普通hashCode作为主键。倘若还支持不了你的数据(出现哈希冲突，并不是没刷新，可打日志调试)，就自定义DiffCallback(可参数demo)。
+关于entity的id为long类型是考虑刷新效率，倘若支持不了你的数据，例如服务器返回的主键是字符串类型的，你又不想把String转化为long，就自定义DiffCallback(可参数demo)。
 
-具体可参考Demo，建议把helper封装在Adapter中。
+建议把helper封装在Adapter中。
+
+**有什么好的意见或者建议都可以加我QQ或者发我邮箱，谢谢支持！**
 
 ## gradle依赖
 
 ```
-compile 'com.crazysunj:multitypeadapter:1.8.0'
+compile 'com.crazysunj:multitypeadapter:1.8.1'
 compile 'com.android.support:recyclerview-v7:xxx'
 ```
-
-**有什么好的意见或者建议都可以加我QQ或者发我邮箱，谢谢支持！**
 
 ## 传送门
 Github：[https://github.com/crazysunj/MultiTypeRecyclerViewAdapter](https://github.com/crazysunj/MultiTypeRecyclerViewAdapter)
