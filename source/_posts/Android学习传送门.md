@@ -23,14 +23,11 @@ tags: [Android,Java,Linux,学习]
 * [https://github.com/GeniusVJR/LearningNotes](https://github.com/GeniusVJR/LearningNotes)
 ### Android Studio快捷键
 * [http://www.jianshu.com/p/bc8f6bfe12c6](http://www.jianshu.com/p/bc8f6bfe12c6)
-### Android性能优化
-* [http://blog.tingyun.com/web/article/detail/155](http://blog.tingyun.com/web/article/detail/155)
 ### Android工具类
 * [https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md](https://github.com/Blankj/AndroidUtilCode/blob/master/README-CN.md)
 ### Android开源库
 * [http://androidblog.cn/index.php/Source/](http://androidblog.cn/index.php/Source/)
 ### Android开发工具
-* [http://www.jianshu.com/p/0911efbf8009](http://www.jianshu.com/p/0911efbf8009)
 * [https://github.com/opendigg/awesome-github-android-ui](https://github.com/opendigg/awesome-github-android-ui)
 ### Android开发网站
 * [https://mp.weixin.qq.com/s/-tt3IMjIRUFvU-Xw8mjFtw](https://mp.weixin.qq.com/s/-tt3IMjIRUFvU-Xw8mjFtw)
