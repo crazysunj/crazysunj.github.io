@@ -12,7 +12,7 @@ MTRVA是对RecyclerViewAdapter的扩展，可以配合大多数的Adapter，核�
 ## 特点
 
 * 使用简单快捷，可配合大多数Adapter
-* 一行代码刷新单个type，支持一般的set，add，remove，clear等刷新，刷新带有动画
+* 一行代码刷新单个type，刷新带有动画
 * 支持增删改查操作
 * 支持异步，高频率刷新，可扩展(如配合RxJava)
 * 单个type支持Loading(加载)，Empty(空)，Error(错误)页面切换
@@ -22,6 +22,7 @@ MTRVA是对RecyclerViewAdapter的扩展，可以配合大多数的Adapter，核�
 * 支持注解生成类，减少工作量
 * 支持刷新生命周期回调
 * 兼容低版本RecyclerView
+* 进阶用法，比如打造自己的headerView和footerView，让页面在多种页面之间自由切换。
 
 ### 使用简单快捷，可配合大多数Adapter
 
@@ -115,7 +116,7 @@ public class MyAdapter extends BaseAdapter<MutiTypeTitleEntity, BaseViewHolder, 
 
 只要根据返回data的itemType进行判断，渲染相应的视图就行了。到此，与Adapter的配合就结束了，相当的简单。
 
-### 一行代码刷新单个type，支持一般的set，add，remove，clear等刷新，刷新带有动画
+### 一行代码刷新单个type，刷新带有动画
 回顾上面的示例代码，发现notifyType1方法，而里面调用的是Helper的notifyMoudleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用diffutil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是diffutil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。由于底层是diffutil，所以刷新的时候是局部刷新并带有动画，原理可以看我这篇文章[《BRVAH+MTRVA，复杂？不存在的》](http://crazysunj.com/2017/08/14/BRVAH-MTRVA%EF%BC%8C%E5%A4%8D%E6%9D%82%EF%BC%9F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84/)。
 
 库中默认提供DiffCallBack：
@@ -341,6 +342,51 @@ protected ListUpdateCallback getListUpdateCallback(final BaseAdapter adapter) {
 }
 ```
 
+### 进阶用法
+由于我们是多个type的定义，因此有没有想过，level最高级为headerView，level最低级为footerView，而且完全自定义封装；这还不是重点，作为一个Activity拥有一个RecyclerView就够了，很多情况，我们可能会有数据为空的情况，那么就需要一个展示空数据的页面，同理，错误页面也是这样。其实这，本库也能做到。比如像这样：
+
+```
+registerMoudle(SwtichType.TYPE_A)
+            .level(4)
+            .layoutResId(R.layout.item_switch_type)
+            .register();
+
+registerMoudle(SwtichType.TYPE_B)
+        .level(5)
+        .layoutResId(R.layout.item_switch_type)
+        .register();
+
+
+registerMoudle(SwtichType.TYPE_C)
+        .level(6)
+        .layoutResId(R.layout.item_switch_type)
+        .register();
+
+registerMoudle(SwtichType.TYPE_D)
+        .level(7)
+        .layoutResId(R.layout.item_switch_type)
+        .register();
+        
+        
+public void notifyA() {
+    mHelper.notifyDataByDiff(new SwtichType(SwtichType.TYPE_A, "我是typeA"));
+}
+
+public void notifyB() {
+    mHelper.notifyDataByDiff(new SwtichType(SwtichType.TYPE_B, "我是typeB"));
+}
+
+public void notifyC() {
+    mHelper.notifyDataByDiff(new SwtichType(SwtichType.TYPE_C, "我是typeC"));
+}
+
+public void notifyD() {
+    mHelper.notifyDataByDiff(new SwtichType(SwtichType.TYPE_D, "我是typeD"));
+}
+```
+
+代码共展示了4种类型，一个空和错误页面根本不在话下，甚至你可以定义更多种异常情况的页面。甚至使用notifyDataByDiff方法可以在多个列表页面自由切换。
+
 ## 注意点
 ### Type 取值范围
 
@@ -383,7 +429,7 @@ protected int getPreDataCount();
 
 建议把helper封装在Adapter中。
 
-**有什么好的意见或者建议都可以加我QQ或者发我邮箱，谢谢支持！**
+**欢迎大家的star(fork)和反馈(可发issues或者我的邮箱）。**
 
 ## gradle依赖
 
