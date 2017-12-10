@@ -295,6 +295,8 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 具体使用方法戳[这里](http://crazysunj.com/2017/06/11/%E4%BC%98%E9%9B%85%E5%9C%B0%E5%88%B7%E6%96%B0RecyclerView%EF%BC%881-5-0%EF%BC%89/)
 
+**注意点:**如果你使用的是as3.0，那么请移除上面的的插件依赖，且apt改为annotationProcessor。
+
 ### 支持刷新生命周期回调
 
 ```
