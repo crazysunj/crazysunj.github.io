@@ -29,7 +29,7 @@ tags: [Android,Weex,Js,Vue]
 ![](/img/guaiqiao.gif)
 ### 开战
 #### 基本布局
-现在我们开始，关于什么环境配置，如何在Android studio上成功跑动demo类似这种我就不说了，你要时刻记住你是一名优秀的程序员，这篇文章要讲的更多的Android视角，如何在已有项目中集成weex。
+现在我们开始，关于什么环境配置，如何在Android studio上成功跑动demo类似这种我就不说了，你要时刻记住你是一名优秀的程序员，这篇文章要讲的更多的是Android视角，如何在已有项目中集成weex。
 
 我们简单分析一下效果图，如果是我们原生开发，那么TabLayout+ViewPager+Fragment+RecyclerView是一种常见的选择。前三者在weex中并没有现成的组件，但RecyclerView有啊！在weex中有一个叫[list](https://weex.apache.org/cn/references/components/list.html)的组件可以达到这样的效果。先上最终的代码：
 
@@ -61,6 +61,8 @@ list组件里面的loadmore是监听我们的上拉加载事件，相当于我�
 list与我们的RecyclerView一样只不过是容器，更好管理我们的条目，与我们item(ViewHolder)相对应的就是cell组件，这里你要知道一个思想，数据驱动UI，我们的数据源去控制我们UI的渲染。而weex是基于MVVM的，这里的[v-for](https://cn.vuejs.org/v2/api/#v-for)主要对集合的操作，item就是所处索引为index的值。相当于我们在onBindViewHolder根据position拿到数据，这很好理解。而cell组件里面的就是我们的onCreateViewHolder创建的view。
 
 其中[text](https://weex.apache.org/cn/references/components/text.html)和[image](https://weex.apache.org/cn/references/components/image.html)我就不过多介绍了，相应链接都给出了。如果没接触过前端的同学肯定很好奇它是如何布局摆放的，像什么宽高啊，padding和margin啊，这其实是我们的[css](https://weex.apache.org/cn/wiki/common-styles.html)去控制的，但是是阉割版的，如果已经看过v-for链接的同学，发现是vue的官网，是的，weex基于vue，原来编写这样的文件格式为we，而现在要改为vue格式才能[编译](https://weex.apache.org/cn/tools/toolkit.html)成正确运行的js文件。
+
+上面说了weex是MVVM模式，其实是vue采用MVVM模式，如果对Android的MVVM模式开发很熟悉的话，越看上面的文件越像我们的xml，我一直想说这个，xml在我们Android Studio中可以预览，如果上面的文件可以预览那该多好？No problem!我们可以利用Playground进行在线编写以及运行调试，甚至可以利用Playground的客户端扫码进行在手机端上调试，简直吊炸天。
 
 #### Component
 Component，也就是我上面说的组件，也就是我们的控件，除了官方内置的几种组件外，我们还可以自定义控件哦，是不是有点小兴奋，想当年也是因为自定义控件入行了Android，最前面所说的TabLayout+ViewPager+Fragment我把集成为一个控件，这样的做法，很明显的一个缺点就是耦合性增强了。我们现在处于学习嘛，怎么简单怎么来，先上我们的代码。
@@ -123,7 +125,7 @@ style="flex:1;"用来指定它的宽高，你可以理解为LinearLayout的weigh
 </script>
 ```
 
-这是的写法也有各种各样的意义，我学的时候也是一头雾水，比如带return属性写法表示只能在该组件生效，反之全局生效，可能会造成变量污染。这里的datas你可以理解我们的成员变量，就我们WXTabPagerComponent组件来说，我们return的datas直接以:titledata="datas"这样的形式进行绑定，一旦datas变量变化相应绑定的组件随之变化，所以叫属性方法。这里再多嘴一下，:titledata其实是缩写，全写是[v-bind](https://cn.vuejs.org/v2/api/#v-bind):titledata，这样是不是更好理解了？
+这里的花样也是百花齐放，我学的时候也是一头雾水，比如带return属性写法表示只能在该组件生效，反之全局生效，可能会造成变量污染。这里的datas你可以理解我们的成员变量，就我们WXTabPagerComponent组件来说，我们return的datas直接以:titledata="datas"这样的形式进行绑定，一旦datas变量变化相应绑定的组件随之变化，所以叫属性方法。这里再多嘴一下，:titledata其实是缩写，全写是[v-bind](https://cn.vuejs.org/v2/api/#v-bind):titledata，这样是不是更好理解了？与最上面事件的@写法如出一辙，@写法的全写是v-on:，这些都是vue的东西。
 
 ![](/img/6fanle .jpg)
 
@@ -325,6 +327,7 @@ public class WXHttpAdapter implements IWXHttpAdapter {
 听我一一道来，关于Weex的[工作原理](https://weex.apache.org/cn/wiki/index.html)的示意图如下：
 
 ![](/img/weex_yuanli.png)
+
 对于这种原理我也是半知半解，无能为力了。
 
 关于Android原生执行js文件一般有两种，一种是从网络上获取，一种直接执行本地的js文件。
@@ -333,7 +336,7 @@ public class WXHttpAdapter implements IWXHttpAdapter {
 mWXSDKInstance.render("GankioList", WXFileUtils.loadAsset("gankiolist.js", context), options, null, WXRenderStrategy.APPEND_ASYNC);
 mWXSDKInstance.renderByUrl();
 ```
-前者是执行本地，后者是网络获取，比较常用可能会操作options，可以给js传递一些native的参数。
+前者是执行本地，后者是网络获取，我们常常会操作options以此给js传递一些native的参数。
 
 关于最后一个问题，我也很无奈啊，原来这个项目就是卡片阴影背景，一开始发现weex也有这样的样式，欣喜若狂，后来发现这个问题，我一度以为我使用姿势错了，急忙回去看文档，天空飘来仅仅支持ios几个字。
 
@@ -346,11 +349,7 @@ mWXSDKInstance.renderByUrl();
 
 ![](/img/zhuangbiciji.gif)
 
-![](/img/zhuangbicijipao.gif)
-
 最后，感谢一直支持我的人！
-
-![](/img/lang.gif)
 ## 传送门
 Github：[https://github.com/crazysunj/](https://github.com/crazysunj/)
 
