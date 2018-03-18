@@ -345,7 +345,7 @@ mWXSDKInstance.renderByUrl();
 为何ios这么叼？为何ios这么叼？为何ios这么叼？
 
 ## 杂谈
-这算是对自己这几天学习Weex的一点小总结，小弟不才，已经尽力了，希望对想入门或者刚入门Weex的同学有所帮助，同时希望Weex的前辈能够指出其中错误。文中的代码已经集成到我开源项目[CrazyDaily](https://github.com/crazysunj/CrazyDaily)。学习Weex主要还是看重它基于Vue，传说Vue是以为长得很帅的国人创立的，请给我一个理由不支持？
+这算是对自己这几天学习Weex的一点小总结，小弟不才，已经尽力了，希望对想入门或者刚入门Weex的同学有所帮助，同时希望Weex的前辈能够指出其中错误。文中的代码已经集成到我开源项目[CrazyDaily](https://github.com/crazysunj/CrazyDaily)。学习Weex主要还是看重它基于Vue，传说Vue是一位长得很帅的国人创立的，请给我一个理由不支持？大家学习的时候最好还是以官方文档为主，刚开始看不懂也正常，先通读一遍，然后自己敲Demo碰到问题再回去精读一遍。
 
 ![](/img/zhuangbiciji.gif)
 
