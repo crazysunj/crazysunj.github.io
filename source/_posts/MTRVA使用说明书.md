@@ -9,6 +9,14 @@ tags: [Android,RecyclerView,Adapter]
 MTRVA是对RecyclerViewAdapter的扩展，可以配合大多数的Adapter，核心功能是接管了Adapter中的资源和数据源。让用户真正的在Adapter中关心自己的业务逻辑。配合BRVAH更加简单，因此以下的示例都以BRVAH为例。
 
 <!--  more-->
+## gradle依赖
+
+```
+compile 'com.crazysunj:multitypeadapter:1.8.2'
+compile 'com.android.support:recyclerview-v7:xxx'
+```
+以下示例都以BRVAH为基础，所以添加BRVAH的依赖点[这里](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)，如果想看不依赖BRVAH的示例代码请看demo。
+
 ## 特点
 
 * 使用简单快捷，可配合大多数Adapter
@@ -432,13 +440,6 @@ protected int getPreDataCount();
 建议把helper封装在Adapter中。
 
 **欢迎大家的star(fork)和反馈(可发issues或者我的邮箱）。**
-
-## gradle依赖
-
-```
-compile 'com.crazysunj:multitypeadapter:1.8.2'
-compile 'com.android.support:recyclerview-v7:xxx'
-```
 
 ## 传送门
 Github：[https://github.com/crazysunj/MultiTypeRecyclerViewAdapter](https://github.com/crazysunj/MultiTypeRecyclerViewAdapter)
