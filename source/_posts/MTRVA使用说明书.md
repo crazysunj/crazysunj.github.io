@@ -439,6 +439,8 @@ protected int getPreDataCount();
 
 建议把helper封装在Adapter中。
 
+大家不必在意MultiType这个字眼，当时自己也陷入了type的思维定势陷阱中并取了这样的名字（后缀为Adapter是因为早期是继承Adapter，但这样并不灵活），虽然讲道理也并没有错，RecyclerView不就是拿来支持多type的吗（嘿嘿嘿）？但我们负责的是Adapter中的资源和数据源，利用规范的数据去驱动UI，像什么多类型Adapter，动画Adapter，下拉刷新上拉加载Adapter等等都是支持的。
+
 **欢迎大家的star(fork)和反馈(可发issues或者我的邮箱）。**
 
 ## 传送门
