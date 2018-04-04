@@ -4,15 +4,16 @@ toc: true
 date: 2017-08-14 11:23:21
 tags: [Android,RecyclerView,Adapter]
 ---
-
+![](/img/mtrva_logo.png)
 ## 介绍
 MTRVA是对RecyclerViewAdapter的扩展，可以配合大多数的Adapter，核心功能是接管了Adapter中的资源和数据源。让用户真正的在Adapter中关心自己的业务逻辑。配合BRVAH更加简单，因此以下的示例都以BRVAH为例。
-
+## 架构
+![](/img/mtrva_architecture.png)
 <!--  more-->
 ## gradle依赖
 
 ```
-compile 'com.crazysunj:multitypeadapter:1.8.2'
+compile 'com.crazysunj:multitypeadapter:2.0.0'
 compile 'com.android.support:recyclerview-v7:xxx'
 ```
 以下示例都以BRVAH为基础，所以添加BRVAH的依赖点[这里](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)，如果想看不依赖BRVAH的示例代码请看demo。
@@ -20,17 +21,17 @@ compile 'com.android.support:recyclerview-v7:xxx'
 ## 特点
 
 * 使用简单快捷，可配合大多数Adapter
-* 一行代码刷新单个type，刷新带有动画
+* 一行代码刷新单个level，可对应多个type，刷新带有动画
 * 支持增删改查操作
 * 支持异步，高频率刷新，可扩展(如配合RxJava)
-* 单个type支持Loading(加载)，Empty(空)，Error(错误)页面切换
-* 单个type支持header，footer
-* 单个type支持展开和合拢(可设置合拢最小值)
+* 单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换
+* 单个level支持header，footer
+* 单个level支持展开和合拢(可设置合拢最小值)
 * 支持加载全局Loading(加载)页面
 * 支持注解生成类，减少工作量
 * 支持刷新生命周期回调
 * 兼容低版本RecyclerView
-* 进阶用法，比如打造自己的headerView和footerView，让页面在多种页面之间自由切换。
+* 进阶用法，比如打造自己的headerView和footerView，让页面在多种页面之间自由切换
 
 ### 使用简单快捷，可配合大多数Adapter
 
@@ -77,16 +78,18 @@ public class MyAdapterHelper extends AsynAdapterHelper<MutiTypeTitleEntity, Base
     protected void registerMoudle() {
 
 		...
-        registerMoudle(ItemEntity3.TYPE_3)
-                .level(2)
+        registerMoudle(LEVEL_3)
+                .type(ItemEntity3.TYPE_3)
                 .layoutResId(R.layout.item_3)
+                .loading()
+                .loadingLayoutResId(R.layout.layout_loading)
                 .register();
 		...
     }
 }
 ```
 
-AsynAdapterHelper是继承于RecyclerViewAdapterHelper，内部是采用Handler实现异步处理。下文会说其它的实现方法。registerMoudle是抽象方法，大家可以通过调用registerMoudle进行链式注册，基本的type，level，layoutId是必须的。level是type的序列等级，比如type1的level是0，type2的level是1，那么type1就在type2的前面。其它还有很多注册方法，例如loading,error等。
+AsynAdapterHelper是继承于RecyclerViewAdapterHelper，内部是采用Handler实现异步处理。下文会说其它的实现方法。registerMoudle是抽象方法，大家可以通过调用registerMoudle进行链式注册，基本的level是必须的。level是type的序列等级，比如type1的level是0，type2的level是1，那么type1就在type2的前面。其它还有很多注册方法，例如loading,error等。
 
 实战Adapter中运用：
 
@@ -124,7 +127,7 @@ public class MyAdapter extends BaseAdapter<MutiTypeTitleEntity, BaseViewHolder, 
 
 只要根据返回data的itemType进行判断，渲染相应的视图就行了。到此，与Adapter的配合就结束了，相当的简单。
 
-### 一行代码刷新单个type，刷新带有动画
+### 一行代码刷新单个level，可对应多个type，刷新带有动画
 回顾上面的示例代码，发现notifyType1方法，而里面调用的是Helper的notifyMoudleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用diffutil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是diffutil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。由于底层是diffutil，所以刷新的时候是局部刷新并带有动画，原理可以看我这篇文章[《BRVAH+MTRVA，复杂？不存在的》](http://crazysunj.com/2017/08/14/BRVAH-MTRVA%EF%BC%8C%E5%A4%8D%E6%9D%82%EF%BC%9F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84/)。
 
 库中默认提供DiffCallBack：
@@ -149,15 +152,27 @@ public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
 
 先用type过滤掉一部分，然后根据id比较。如果这没法满足你得需求，请重写getDiffCallBack方法，实现自己的DiffCallBack。
 
+上面一节了解到资源的注册，其实可以多个type一起注册在一个level中，比如像这样：
+
+```
+registerMoudle(LEVEL_FIRST)
+        .type(TypeOneItem.TYPE_ONE)
+        .layoutResId(R.layout.item_first)
+        .type(TypeTwoItem.TYPE_TWO)
+        .layoutResId(R.layout.item_second)
+        ...
+        .register();
+```
+
 刷新支持2种模式，一种是常规的数据源，就是说List是乱的，没有按type连在一起，另一种就是标准的，两者可以相互切换，但是要注意，并不是随便切换，具体看注释。
 
 ### 支持增删改查操作
-这个比较好理解，除了上面的add，remove，set（增删改）以外，还支持在单个type的基础上进行操作，如：
+这个比较好理解，除了上面的add，remove，set（增删改）以外，还支持在单个level的基础上进行操作，如：
 
 ```
-public void notifyMoudleDataInserted(T data, int type);
+public void notifyMoudleDataInserted(T data, int level);
 
-public void notifyMoudleDataInserted(List<? extends T> data, int type);
+public void notifyMoudleDataInserted(List<? extends T> data, int level);
 ```
 
 此外，你还可以进行查的操作，比如这样：
@@ -165,18 +180,20 @@ public void notifyMoudleDataInserted(List<? extends T> data, int type);
 ```
 public List<T> getData();
 
+public LevelData<T> getDataWithLevel(int level);
+
 public LevelData<T> getDataWithType(int type);
 ```
-getData可以帮助我们查到原始数据源，而getDataWithType可以帮助我们根据type查到对应的数据，而现在是可以对查到的数据进行直接操作修改，但大家尽量不要在这里直接操作数据。
+getData可以帮助我们查到原始数据源，而getDataWithType/getDataWithLevel可以帮助我们根据type/level查到对应的数据，而现在是可以对查到的数据进行直接操作修改，但大家尽量不要在这里直接操作数据。
 
 这里提供了强力的删操作：
 
 ```
-public void clearMoudle(int... type);
+public void clearMoudle(int... level);
 
-public void remainMoudle(int... type);
+public void remainMoudle(int... level);
 ```
-从方法命名上我们可以知道clearMoudle可以清楚多个type的数据，而remainMoudle是保留多个type的数据，意味着没有保留的都会被删除。
+从方法命名上我们可以知道clearMoudle可以清楚多个level的数据，而remainMoudle是保留多个level的数据，意味着没有保留的都会被删除。
 
 ### 支持异步，高频率刷新，可扩展(如配合RxJava)
 能快速找到要刷新的数据，这里借用了DiffUtil，具体用法我就不介绍了，但是有个缺陷就是如果数据量过大的时候，计算的时候很费时，因此把它放在线程中不影响用户操作。库中的异步刷新实现是传统的handler方法，但是我把计算和处理结果的接口提供了，大家可以打造自己的异步处理，这里举个DEMO中栗子，利用RxAndroid(这里是2.0)实现：
@@ -188,7 +205,7 @@ Flowable.just(new HandleBase<MultiHeaderEntity>(newData, newHeader, type, refres
         .map(new Function<HandleBase<MultiHeaderEntity>, DiffUtil.DiffResult>() {
             @Override
             public DiffUtil.DiffResult apply(@NonNull HandleBase<MultiHeaderEntity> handleBase) throws Exception {
-                return handleRefresh(handleBase.getNewData(), handleBase.getNewHeader(), handleBase.getType(), handleBase.getRefreshType());
+                return handleRefresh(handleBase.getNewData(), handleBase.getNewHeader(), handleBase.getLevel(), handleBase.getRefreshType());
             }
         })
         .observeOn(AndroidSchedulers.mainThread())
@@ -202,8 +219,8 @@ Flowable.just(new HandleBase<MultiHeaderEntity>(newData, newHeader, type, refres
 
 之所以能实现高频率刷新而不错乱，是因为采用了串行的结构，内部有队列管理每次的刷新。
 
-### 单个type支持Loading(加载)，Empty(空)，Error(错误)页面切换
-如果你想在单个type中进行Loading，Empty，Error之间的切换，请调用如下方法。
+### 单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换
+如果你想在单个level中进行Loading，Empty，Error之间的切换，请调用如下方法。
 
 ```
 public void setLoadingAdapter(LoadingEntityAdapter<T> adapter) {
@@ -222,56 +239,56 @@ public void setErrorAdapter(ErrorEntityAdapter<T> adapter) {
 这是创建资源的时候所需要的适配器，同RecyclerView的Adapter，而调用刷新方法：
 
 ```
-public void notifyLoadingDataChanged(int type, @IntRange(from = 1) int dataCount);
+public void notifyLoadingDataChanged(int level, @IntRange(from = 1) int dataCount);
 
-public void notifyLoadingHeaderChanged(int type);
+public void notifyLoadingHeaderChanged(int level);
 
-public void notifyLoadingDataAndHeaderChanged(int type, @IntRange(from = 1) int dataCount);
+public void notifyLoadingDataAndHeaderChanged(int level, @IntRange(from = 1) int dataCount);
 
-public void notifyMoudleEmptyChanged(T emptyData, int type);
+public void notifyMoudleEmptyChanged(T emptyData, int level);
 
-public void notifyMoudleEmptyChanged(int type);
+public void notifyMoudleEmptyChanged(int level);
 
-public void notifyMoudleErrorChanged(T errorData, int type);
+public void notifyMoudleErrorChanged(T errorData, int level);
 
-public void notifyMoudleErrorChanged(int type);
+public void notifyMoudleErrorChanged(int level);
 ```
 
 如果Error和Empty调用带data的刷新方法，那么无需设置相应的Adapter，但是Loading必须要。
 
-### 单个type支持header，footer
+### 单个level支持header，footer
 在Helper注册资源的时候可以，添加。如：
 
 ```
-registerMoudle(FirstOCEntity.OC_FIRST_TYPE)
-            .level(0)
-            .layoutResId(R.layout.item_first)
-            .headerResId(R.layout.item_header)
-            .footerResId(R.layout.item_footer)
-            .isFolded(true)
-            .minSize(3)
-            .loading()
-            .loadingHeaderResId(R.layout.layout_default_shimmer_header_view)
-            .loadingLayoutResId(R.layout.layout_default_shimmer_view)
-            .error()
-            .errorLayoutResId(R.layout.layout_error_two)
-            .empty()
-            .emptyLayoutResId(R.layout.layout_empty)
-            .register();
+registerMoudle(LEVEL_FIRST)
+        .type(FirstOCEntity.OC_FIRST_TYPE)
+        .layoutResId(R.layout.item_first)
+        .headerResId(R.layout.item_header)
+        .footerResId(R.layout.item_footer)
+        .isFolded(true)
+        .minSize(3)
+        .loading()
+        .loadingHeaderResId(R.layout.layout_default_shimmer_header_view)
+        .loadingLayoutResId(R.layout.layout_default_shimmer_view)
+        .error()
+        .errorLayoutResId(R.layout.layout_error_two)
+        .empty()
+        .emptyLayoutResId(R.layout.layout_empty)
+        .register();
 ```
 
 这是比较全的注册资源链。
 
-### 单个type支持展开和合拢(可设置合拢最小值)
+### 单个level支持展开和合拢(可设置合拢最小值)
 查看上面示例代码，发现isFolded和minSize方法，前者是设置是否合拢，默认为false，后者是合拢时候的最小值。使用方法：
 
 ```
-public boolean isDataFolded(int type);
+public boolean isDataFolded(int level);
 
-public void foldType(int type, boolean isFold);
+public void foldType(int level, boolean isFold);
 ```
 
-isDataFolded方法是用来判断对应type所处的状态，foldType方法是用来展开和合拢用的。
+isDataFolded方法是用来判断对应level所处的状态，foldType方法是用来展开和合拢用的。
 
 ### 支持加载全局Loading(加载)页面
 如果你得项目页面有刚进入需要展示加载页面，可以参考[首页Demo](https://www.pgyer.com/sOVg)。
@@ -279,7 +296,7 @@ isDataFolded方法是用来判断对应type所处的状态，foldType方法是�
 ```
  public void initGlobalLoadingConfig(LoadingConfig loadingConfig);
 
- public void notifyLoadingChanged(int type);
+ public void notifyLoadingChanged(int level);
 
  public void notifyLoadingChanged();
 ```
@@ -301,7 +318,7 @@ classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 apply plugin: 'com.neenbedankt.android-apt'
 ```
 
-具体使用方法戳[这里](http://crazysunj.com/2017/06/11/%E4%BC%98%E9%9B%85%E5%9C%B0%E5%88%B7%E6%96%B0RecyclerView%EF%BC%881-5-0%EF%BC%89/)
+具体使用方法戳[这里](http://crazysunj.com/2017/06/11/%E4%BC%98%E9%9B%85%E5%9C%B0%E5%88%B7%E6%96%B0RecyclerView%EF%BC%881-5-0%EF%BC%89/)，2.0.0版本布局架构改变，因此相应的注解也有所改变，但使用方法不变，可与之前的注解对比使用。
 
 **注意点:**如果你使用的是as3.0，那么请移除上面的的插件依赖，且apt改为annotationProcessor。
 
@@ -310,10 +327,10 @@ apply plugin: 'com.neenbedankt.android-apt'
 ```
 protected void onStart();
 protected void onEnd();
-public int getCurrentRefreshType();
+public int getCurrentRefreshLevel();
 ```
 
-需要使用生命周期回调方法的时候重写，再熟悉不过了，我知道回调的时候比较依赖当前type，因此提供了getCurrentRefreshType，用例比如需要在刷新前清除缓存，刷新后需要通知其他界面等。
+需要使用生命周期回调方法的时候重写，再熟悉不过了，我知道回调的时候比较依赖当前level，因此提供了getCurrentRefreshLevel，用例比如需要在刷新前清除缓存，刷新后需要通知其他界面等。
 
 ### 兼容低版本RecyclerView
 为什么产生兼容是因为我们底层用的是diffutil，然而这是在24.2.0出来了，低版本并没有。兼容方案如下：
@@ -353,27 +370,17 @@ protected ListUpdateCallback getListUpdateCallback(final BaseAdapter adapter) {
 ```
 
 ### 进阶用法
-由于我们是多个type的定义，因此有没有想过，level最高级为headerView，level最低级为footerView，而且完全自定义封装；这还不是重点，作为一个Activity拥有一个RecyclerView就够了，很多情况，我们可能会有数据为空的情况，那么就需要一个展示空数据的页面，同理，错误页面也是这样。其实这，本库也能做到。比如像这样：
+由于我们是多个level的定义，因此有没有想过，level最高级为headerView，level最低级为footerView，而且完全自定义封装；这还不是重点，作为一个Activity拥有一个RecyclerView就够了，很多情况，我们可能会有数据为空的情况，那么就需要一个展示空数据的页面，同理，错误页面也是这样。其实这，本库也能做到。比如像这样：
 
 ```
-registerMoudle(SwtichType.TYPE_A)
-            .level(4)
-            .layoutResId(R.layout.item_switch_type)
-            .register();
-
-registerMoudle(SwtichType.TYPE_B)
-        .level(5)
+registerMoudle(LEVEL_SWITCH)
+        .type(SwtichType.TYPE_A)
         .layoutResId(R.layout.item_switch_type)
-        .register();
-
-
-registerMoudle(SwtichType.TYPE_C)
-        .level(6)
+        .type(SwtichType.TYPE_B)
         .layoutResId(R.layout.item_switch_type)
-        .register();
-
-registerMoudle(SwtichType.TYPE_D)
-        .level(7)
+        .type(SwtichType.TYPE_C)
+        .layoutResId(R.layout.item_switch_type)
+        .type(SwtichType.TYPE_D)
         .layoutResId(R.layout.item_switch_type)
         .register();
         
@@ -395,7 +402,7 @@ public void notifyD() {
 }
 ```
 
-代码共展示了4种类型，一个空和错误页面根本不在话下，甚至你可以定义更多种异常情况的页面。甚至使用notifyDataByDiff方法可以在多个列表页面自由切换。
+代码共展示了4种类型，一个空和错误页面根本不在话下，甚至你可以定义更多种异常情况的页面。使用notifyDataByDiff方法可以在多个列表页面自由切换。
 
 ## 注意点
 ### Type 取值范围
