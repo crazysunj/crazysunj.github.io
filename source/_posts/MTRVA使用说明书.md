@@ -453,8 +453,6 @@ protected int getPreDataCount();
 ## 传送门
 Github：[https://github.com/crazysunj/MultiTypeRecyclerViewAdapter](https://github.com/crazysunj/MultiTypeRecyclerViewAdapter)
 
-博客：[http://crazysunj.com/](http://crazysunj.com/)
-
 谷歌邮箱：twsunj@gmail.com
 
 QQ邮箱：387953660@qq.com
