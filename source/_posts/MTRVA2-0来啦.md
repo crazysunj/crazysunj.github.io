@@ -122,5 +122,5 @@ T createLoadingEntity(int type);===>T createLoadingEntity(int type, int level);
 ## 传送门
 Github：[https://github.com/crazysunj/MultiTypeRecyclerViewAdapter](https://github.com/crazysunj/MultiTypeRecyclerViewAdapter)
 
-博客：[http://crazysunj.com/](http://crazysunj.com/)
+文档：[http://crazysunj.com/2017/08/14/MTRVA%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6/](http://crazysunj.com/2017/08/14/MTRVA%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E4%B9%A6/)
 
