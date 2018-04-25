@@ -120,9 +120,6 @@ T createLoadingEntity(int type);===>T createLoadingEntity(int type, int level);
 
 最后，感谢一直支持我的人！
 
-等等，那...那个...帮忙...那个...点...点...点下star。
-
-![](/img/kelianxixi.jpg)
 ## 传送门
 Github：[https://github.com/crazysunj/MultiTypeRecyclerViewAdapter](https://github.com/crazysunj/MultiTypeRecyclerViewAdapter)
 
