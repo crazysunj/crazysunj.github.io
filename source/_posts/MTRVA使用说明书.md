@@ -13,8 +13,8 @@ MTRVA是对RecyclerViewAdapter的扩展，可以配合大多数的Adapter，核�
 ## gradle依赖
 
 ```
-compile 'com.crazysunj:multitypeadapter:2.0.0'
-compile 'com.android.support:recyclerview-v7:xxx'
+implementation 'com.crazysunj:multitypeadapter:2.0.3'
+implementation 'com.android.support:recyclerview-v7:xxx'
 ```
 以下示例都以BRVAH为基础，所以添加BRVAH的依赖点[这里](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)，如果想看不依赖BRVAH的示例代码请看demo。
 
