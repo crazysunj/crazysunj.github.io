@@ -37,6 +37,7 @@ tags: [Android,Animator,Lottie,3D,Transition]
 * 跨平台，支持Web、Android、iOS和React Native
 * 在线更新动画，意味着不用发版和减少资源的占用体积等
 * 相对于原生动画和GIF更为轻量
+* 代码实现简单，易于上手和维护
 
 我们再来看看这样的一个效果图（官方效果图）：
 
