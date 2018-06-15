@@ -6,24 +6,27 @@ tags: [Android,RecyclerView,Adapter]
 ---
 ![](/img/mtrva_logo.png)
 ## 介绍
-MTRVA是对RecyclerViewAdapter的扩展，可以配合大多数的Adapter，核心功能是接管了Adapter中的资源和数据源。让用户真正的在Adapter中关心自己的业务逻辑。配合BRVAH更加简单，因此以下的示例都以BRVAH为例。
+MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑。
+
+支持高灵活、低耦合、健壮性、高效性以及MVP。
 ## 架构
 ![](/img/mtrva_architecture.png)
 <!--  more-->
 ## gradle依赖
 
 ```
-implementation 'com.crazysunj:multitypeadapter:2.0.3'
+implementation 'com.crazysunj:multitypeadapter:2.1.0'
 implementation 'com.android.support:recyclerview-v7:xxx'
 ```
 以下示例都以BRVAH为基础，所以添加BRVAH的依赖点[这里](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)，如果想看不依赖BRVAH的示例代码请看demo。
 
+根据反馈，后续文档将以原生Adapter为例，敬请关注！
 ## 特点
 
-* 使用简单快捷，可配合大多数Adapter
-* 一行代码刷新单个level，可对应多个type，刷新带有动画
-* 支持增删改查操作
-* 支持异步，高频率刷新，可扩展(如配合RxJava)
+* 使用简单快捷，支持大多数Adapter(高灵活、低耦合)
+* 一行代码刷新(附动画)单个level(可对应多个type)
+* 支持增删改查操作(健壮性)
+* 支持异步，高频率刷新，可扩展(如配合RxJava，高效性)
 * 单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换
 * 单个level支持header，footer
 * 单个level支持展开和合拢(可设置合拢最小值)
@@ -31,9 +34,9 @@ implementation 'com.android.support:recyclerview-v7:xxx'
 * 支持注解生成类，减少工作量
 * 支持刷新生命周期回调
 * 兼容低版本RecyclerView
-* 进阶用法，比如打造自己的headerView和footerView，让页面在多种页面之间自由切换
+* 进阶用法，比如在多种页面之间自由切换
 
-### 使用简单快捷，可配合大多数Adapter
+### 使用简单快捷，支持大多数Adapter(高灵活、低耦合)
 
 Helper因为是跟Adapter配合，所以会增加无畏的工作量，那就是每个Adapter可能要创建一个Helper，所以要善于封装，复用等。这里提供BaseAdapter的封装示例。
 
@@ -127,7 +130,7 @@ public class MyAdapter extends BaseAdapter<MutiTypeTitleEntity, BaseViewHolder, 
 
 只要根据返回data的itemType进行判断，渲染相应的视图就行了。到此，与Adapter的配合就结束了，相当的简单。
 
-### 一行代码刷新单个level，可对应多个type，刷新带有动画
+### 一行代码刷新(附动画)单个level(可对应多个type)
 回顾上面的示例代码，发现notifyType1方法，而里面调用的是Helper的notifyMoudleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用diffutil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是diffutil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。由于底层是diffutil，所以刷新的时候是局部刷新并带有动画，原理可以看我这篇文章[《BRVAH+MTRVA，复杂？不存在的》](http://crazysunj.com/2017/08/14/BRVAH-MTRVA%EF%BC%8C%E5%A4%8D%E6%9D%82%EF%BC%9F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84/)。
 
 库中默认提供DiffCallBack：
@@ -166,7 +169,7 @@ registerMoudle(LEVEL_FIRST)
 
 刷新支持2种模式，一种是常规的数据源，就是说List是乱的，没有按type连在一起，另一种就是标准的，两者可以相互切换，但是要注意，并不是随便切换，具体看注释。
 
-### 支持增删改查操作
+### 支持增删改查操作(健壮性)
 这个比较好理解，除了上面的add，remove，set（增删改）以外，还支持在单个level的基础上进行操作，如：
 
 ```
@@ -195,7 +198,15 @@ public void remainMoudle(int... level);
 ```
 从方法命名上我们可以知道clearMoudle可以清楚多个level的数据，而remainMoudle是保留多个level的数据，意味着没有保留的都会被删除。
 
-### 支持异步，高频率刷新，可扩展(如配合RxJava)
+此外，很多用户习惯直接操作数据，但这样其实是不会通知Adapter的，因此这里提供了3种刷新方法(底层均调用Adapter的notifyItemRangeChanged方法)。
+
+```
+public void notifyDataChanged(); //全局刷新一遍
+public void notifyDataChanged(@NonNull T data);//刷新单个数据
+public void notifyDataChanged(int level);//刷新整个level
+```
+
+### 支持异步，高频率刷新，可扩展(如配合RxJava，高效性)
 能快速找到要刷新的数据，这里借用了DiffUtil，具体用法我就不介绍了，但是有个缺陷就是如果数据量过大的时候，计算的时候很费时，因此把它放在线程中不影响用户操作。库中的异步刷新实现是传统的handler方法，但是我把计算和处理结果的接口提供了，大家可以打造自己的异步处理，这里举个DEMO中栗子，利用RxAndroid(这里是2.0)实现：
 
 ```
@@ -438,15 +449,15 @@ public static final int FOOTER_TYPE_DIFFER = 6000;
 ```
 protected int getPreDataCount();
 ```
-获取数据前条目数量，保持数据与Adapter一致，比如Adapter的position=0添加的是headerView，如果你的Adapter有这样的条件，请重写该方法或者自己处理数据的时候注意，否则数据混乱，甚至崩溃都是有可能的。
+保持数据position与Adapter一致，比如Adapter的position=0添加的是headerView，如果你的Adapter有这样的条件，请重写该方法或者自己处理数据的时候注意，否则数据混乱。
 
-调用刷新方法的时候请注意刷新模式，有些方法只支持相应刷新模式，需要注意的都加有check语句。
+调用刷新方法的时候请注意刷新模式，当前支持两种模式。
 
 关于entity的id为long类型是考虑刷新效率，倘若支持不了你的数据，例如服务器返回的主键是字符串类型的，你又不想把String转化为long，就自定义DiffCallback(可参数demo)。
 
 建议把helper封装在Adapter中，不刷新时考虑一下DiffCallback的比较key，最常见的可能是引用问题，MTRVA还提供很多其它的刷新方法哦，多看注释！
 
-不必在意MultiType这个字眼，当时自己也陷入了type的思维定势陷阱中并取了这样的名字（后缀为Adapter是因为早期是继承Adapter，但这样并不灵活），虽然讲道理也并没有错，RecyclerView不就是拿来支持多type的吗（嘿嘿嘿）？但我们负责的是Adapter中的资源和数据源，利用规范的数据去驱动UI，像什么多类型Adapter，动画Adapter，下拉刷新上拉加载Adapter等等都是支持的。
+不必在意MultiType这个字眼，当时自己也陷入了type的思维定势陷阱中并取了这样的名字（后缀为Adapter是因为早期是继承Adapter，但这样并不灵活），虽然讲道理也并没有错，RecyclerView不就是拿来支持多type的吗？但我们负责的是Adapter中的资源和数据源，利用规范的数据去驱动UI，像什么多类型Adapter，动画Adapter，下拉刷新上拉加载Adapter等等都是支持的。
 
 **欢迎大家的star(fork)和反馈(可发issues或者我的邮箱）。**
 
