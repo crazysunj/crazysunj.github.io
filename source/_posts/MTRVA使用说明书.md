@@ -15,12 +15,9 @@ MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功�
 ## gradle依赖
 
 ```
-implementation 'com.crazysunj:multitypeadapter:2.1.0'
+implementation 'com.crazysunj:multitypeadapter:2.2.0'
 implementation 'com.android.support:recyclerview-v7:xxx'
 ```
-以下示例都以BRVAH为基础，所以添加BRVAH的依赖点[这里](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)，如果想看不依赖BRVAH的示例代码请看demo。
-
-根据反馈，后续文档将以原生Adapter为例，敬请关注！
 ## 特点
 
 * 使用简单快捷，支持大多数Adapter(高灵活、低耦合)
@@ -38,57 +35,62 @@ implementation 'com.android.support:recyclerview-v7:xxx'
 
 ### 使用简单快捷，支持大多数Adapter(高灵活、低耦合)
 
-Helper因为是跟Adapter配合，所以会增加无畏的工作量，那就是每个Adapter可能要创建一个Helper，所以要善于封装，复用等。这里提供BaseAdapter的封装示例。
+Helper是Adapter的扩展类，会增加无畏的工作量，每个Adapter可能要创建一个Helper，所以要善于封装，复用等。这里提供BaseHelperAdapter的封装示例以示Helper与和Adapter的配合。
 
 ```
-public abstract class BaseAdapter<T extends MutiTypeTitleEntity, K extends BaseViewHolder, H extends RecyclerViewAdapterHelper<T, BaseAdapter>> extends BaseQuickAdapter<T, K> {
+public abstract class BaseHelperAdapter<T extends MultiTypeEntity, VH extends BaseViewHolder, H extends RecyclerViewAdapterHelper<T>> extends RecyclerView.Adapter<VH> {
 
+    protected Context mContext;
+    protected LayoutInflater mLayoutInflater;
+    protected List<T> mData;
     protected H mHelper;
 
-    public BaseAdapter(H helper) {
-        super(helper.getData());
+    public BaseHelperAdapter(H helper) {
+        mData = helper.getData();
+        helper.bindAdapter(this);
         mHelper = helper;
-        mHelper.bindAdapter(this);
     }
 
     @Override
-    protected K onCreateDefViewHolder(ViewGroup parent, int viewType) {
-        return createBaseViewHolder(parent, mHelper.getLayoutId(viewType));
-    }
-
-    @Override
-    protected int getDefItemViewType(int position) {
+    public int getItemViewType(int position) {
         return mHelper.getItemViewType(position);
     }
-
-    public H getHelper() {
-        return mHelper;
+    ...
+    @NonNull
+    @Override
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return createBaseViewHolder(parent, mHelper.getLayoutId(viewType));
     }
+    ...
 }
 ```
-在构造函数中，与Adapter绑定，向Adapter提供资源和相应position对应的itemType(注意，一定要保证内外position一致，如果你是用的第三方Adapter，可能position等于0的时候是你Adapter的headView)，基本工作就算完成。
+在构造函数中，与Adapter绑定，向Adapter提供资源和相应position对应的itemType(注意，一定要保证内外position一致，如果你是用的第三方Adapter，可能position等于0的时候是你Adapter的headView)，基本工作完成。这里省略无关代码，想看全部可到demo中查看。
 
 Helper简单示例：
 
 ```
-public class MyAdapterHelper extends AsynAdapterHelper<MutiTypeTitleEntity, BaseAdapter> {
-
-    public MyAdapterHelper() {
-        super(null);
+public class TestLevelAdapterHelper extends AsynAdapterHelper<MultiTypeTitleEntity> {
+    ...
+    public TestLevelAdapterHelper(List<MultiTypeTitleEntity> data) {
+        super(data);
     }
 
     @Override
     protected void registerMoudle() {
-
-		...
-        registerMoudle(LEVEL_3)
-                .type(ItemEntity3.TYPE_3)
-                .layoutResId(R.layout.item_3)
+        registerMoudle(LEVEL_FIRST)
+                .type(TypeOneItem.TYPE_ONE)
+                .layoutResId(R.layout.item_first)
+                .type(TypeTwoItem.TYPE_TWO)
+                .layoutResId(R.layout.item_second)
+                .headerResId(R.layout.item_header)
+                .footerResId(R.layout.item_footer)
                 .loading()
-                .loadingLayoutResId(R.layout.layout_loading)
+                .loadingHeaderResId(R.layout.layout_default_shimmer_header_view)
+                .loadingLayoutResId(R.layout.layout_default_shimmer_view)
                 .register();
-		...
+        ...
     }
+    ...
 }
 ```
 
@@ -97,41 +99,38 @@ AsynAdapterHelper是继承于RecyclerViewAdapterHelper，内部是采用Handler�
 实战Adapter中运用：
 
 ```
-public class MyAdapter extends BaseAdapter<MutiTypeTitleEntity, BaseViewHolder, MyAdapterHelper> {
-
-    public MyAdapter() {
-        super(new MyAdapterHelper());
+public class TestLevelAdapter extends BaseHelperAdapter<MultiTypeTitleEntity, BaseViewHolder, TestLevelAdapterHelper> {
+    ...
+    public TestLevelAdapter(List<MultiTypeTitleEntity> data) {
+        super(new TestLevelAdapterHelper(data));
+        ...
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MutiTypeTitleEntity item) {
-        int itemType = item.getItemType();
+    protected void convert(BaseViewHolder holder, MultiTypeTitleEntity item) {
+        final int itemType = item.getItemType();
         switch (itemType) {
-            case ItemEntity1.TYPE_1:
-                renderEntity1(helper, (ItemEntity1) item);
+            case TypeOneItem.TYPE_ONE:
+            case TypeTwoItem.TYPE_TWO:
+            case TYPE_LEVEL_FIRST_HEADER:
+            case TYPE_LEVEL_FIRST_FOOTER:
+                mFirstItemConvert.convert(holder, item);
                 break;
-          	...
+            ...
         }
     }
-
-    private void renderEntity1(BaseViewHolder helper, ItemEntity1 item) {
-        helper.setImageResource(R.id.item_1_img, item.getImg());
-        helper.setText(R.id.item_1_title, item.getTitle());
-        helper.setText(R.id.item_1_content, item.getContent());
-        helper.setText(R.id.item_1_time, item.getTime());
-        helper.setText(R.id.item_1_time_flag, item.getTimeFlag());
+	...
+    public void notifyLevelFirst(MultiTypeTitleEntity header, List<MultiTypeTitleEntity> data, MultiTypeTitleEntity footer) {
+        mHelper.notifyMoudleDataAndHeaderAndFooterChanged(data, header, footer, TestLevelAdapterHelper.LEVEL_FIRST);
     }
 	...
-    public void notifyType1(List<ItemEntity1> itemEntity1s) {
-        mHelper.notifyMoudleDataAndHeaderAndFooterChanged(entity1Header, itemEntity1s, entity1Footer, ItemEntity1.TYPE_1);
-    }
-	...
+}
 ```
 
-只要根据返回data的itemType进行判断，渲染相应的视图就行了。到此，与Adapter的配合就结束了，相当的简单。
+只要根据返回data的itemType或者说item的类型进行判断，渲染相应的视图就行了。到此，与Adapter的配合就结束了，相当的简单。
 
 ### 一行代码刷新(附动画)单个level(可对应多个type)
-回顾上面的示例代码，发现notifyType1方法，而里面调用的是Helper的notifyMoudleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用diffutil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是diffutil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。由于底层是diffutil，所以刷新的时候是局部刷新并带有动画，原理可以看我这篇文章[《BRVAH+MTRVA，复杂？不存在的》](http://crazysunj.com/2017/08/14/BRVAH-MTRVA%EF%BC%8C%E5%A4%8D%E6%9D%82%EF%BC%9F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84/)。
+回顾上面的示例代码，发现notifyLevelFirst方法，而里面调用的是Helper的notifyMoudleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用DiffUtil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是DiffUtil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。由于底层是DiffUtil，所以刷新的时候是局部刷新并带有动画，原理可以看我这篇文章[《BRVAH+MTRVA，复杂？不存在的》](http://crazysunj.com/2017/08/14/BRVAH-MTRVA%EF%BC%8C%E5%A4%8D%E6%9D%82%EF%BC%9F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84/)。
 
 库中默认提供DiffCallBack：
 
@@ -167,18 +166,18 @@ registerMoudle(LEVEL_FIRST)
         .register();
 ```
 
-刷新支持2种模式，一种是常规的数据源，就是说List是乱的，没有按type连在一起，另一种就是标准的，两者可以相互切换，但是要注意，并不是随便切换，具体看注释。
+刷新支持2种模式，一种是常规的数据源，就是说List是乱的，没有按level连在一起，另一种就是标准的，两者可以相互切换，但是要注意，并不是随便切换，具体看注释。
+
+此外，很多用户习惯直接操作数据，然后再调用我们的notify方法，但这样其实是不会通知Adapter的，因为引用没变，对比的是同一引用。故这里提供了3种刷新方法(底层均调用Adapter的notifyItemRangeChanged方法)。
+
+```
+public void notifyDataChanged(); //全局刷新一遍
+public void notifyDataChanged(@NonNull T data);//刷新单个数据
+public void notifyDataChanged(int level);//刷新整个level
+```
 
 ### 支持增删改查操作(健壮性)
-这个比较好理解，除了上面的add，remove，set（增删改）以外，还支持在单个level的基础上进行操作，如：
-
-```
-public void notifyMoudleDataInserted(T data, int level);
-
-public void notifyMoudleDataInserted(List<? extends T> data, int level);
-```
-
-此外，你还可以进行查的操作，比如这样：
+这个比较好理解，除了上面的add，remove，set（增删改）以外，你还可以进行查的操作，比如这样：
 
 ```
 public List<T> getData();
@@ -198,16 +197,10 @@ public void remainMoudle(int... level);
 ```
 从方法命名上我们可以知道clearMoudle可以清楚多个level的数据，而remainMoudle是保留多个level的数据，意味着没有保留的都会被删除。
 
-此外，很多用户习惯直接操作数据，但这样其实是不会通知Adapter的，因此这里提供了3种刷新方法(底层均调用Adapter的notifyItemRangeChanged方法)。
-
-```
-public void notifyDataChanged(); //全局刷新一遍
-public void notifyDataChanged(@NonNull T data);//刷新单个数据
-public void notifyDataChanged(int level);//刷新整个level
-```
+库中的增删改查做了很多兼容性，增强代码的健壮性，本来你以为会报错，结果没报错，可以具体查看代码中的逻辑。
 
 ### 支持异步，高频率刷新，可扩展(如配合RxJava，高效性)
-能快速找到要刷新的数据，这里借用了DiffUtil，具体用法我就不介绍了，但是有个缺陷就是如果数据量过大的时候，计算的时候很费时，因此把它放在线程中不影响用户操作。库中的异步刷新实现是传统的handler方法，但是我把计算和处理结果的接口提供了，大家可以打造自己的异步处理，这里举个DEMO中栗子，利用RxAndroid(这里是2.0)实现：
+能快速找到要刷新的数据，这里借用了DiffUtil，具体用法我就不介绍了，但是有个缺陷就是如果数据量过大的时候，计算的时候很费时，因此把它放在线程中不影响用户操作。库中的异步刷新实现是传统的handler方法，但是我把计算和处理结果的接口提供了，大家可以打造自己的异步处理，这里举个DEMO中例子，利用RxAndroid(这里是2.0)实现：
 
 ```
 Flowable.just(new HandleBase<MultiHeaderEntity>(newData, newHeader, type, refreshType))
@@ -455,9 +448,9 @@ protected int getPreDataCount();
 
 关于entity的id为long类型是考虑刷新效率，倘若支持不了你的数据，例如服务器返回的主键是字符串类型的，你又不想把String转化为long，就自定义DiffCallback(可参数demo)。
 
-建议把helper封装在Adapter中，不刷新时考虑一下DiffCallback的比较key，最常见的可能是引用问题，MTRVA还提供很多其它的刷新方法哦，多看注释！
+建议把helper封装在Adapter中，不刷新时考虑一下DiffCallback的比较key，最常见的可能是引用问题，MTRVA还提供很多其它的刷新方法哦，上面有提到！
 
-不必在意MultiType这个字眼，当时自己也陷入了type的思维定势陷阱中并取了这样的名字（后缀为Adapter是因为早期是继承Adapter，但这样并不灵活），虽然讲道理也并没有错，RecyclerView不就是拿来支持多type的吗？但我们负责的是Adapter中的资源和数据源，利用规范的数据去驱动UI，像什么多类型Adapter，动画Adapter，下拉刷新上拉加载Adapter等等都是支持的。
+不必在意库名MultiType这个字眼，当时自己也陷入了type的思维定势陷阱中并取了这样的名字（后缀为Adapter是因为早期是继承Adapter，但这样并不灵活），虽然讲道理也并没有错，RecyclerView不就是拿来支持多type的吗？但我们负责的是Adapter中的资源和数据源，利用规范的数据去驱动UI，像什么多类型Adapter，动画Adapter，下拉刷新上拉加载Adapter等等都是支持的。
 
 **欢迎大家的star(fork)和反馈(可发issues或者我的邮箱）。**
 
