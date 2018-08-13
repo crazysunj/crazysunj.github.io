@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://yoursite.com/img/kaiche.png">
 <meta property="og:image" content="http://yoursite.com/img/genbushang.png">
 <meta property="og:image" content="http://yoursite.com/img/wotm.jpg">
-<meta property="og:updated_time" content="2018-08-12T12:59:43.818Z">
+<meta property="og:updated_time" content="2018-08-13T11:57:03.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="玩一玩Android下载框架">
 <meta name="twitter:description" content="前言继上篇《不一样的HTTP缓存体验》已经有一段时间了，一直没写教学型文章不是因为太忙，想了很久不知道以什么为主题，有个哥们看了我的开源项目CrazyDaily，好像对下载挺感兴趣，那我就写一篇吧！下载框架似乎是我们入门必学的一个技术点，因为它囊括了很多方面的知识，优秀的开源下载框架非常多，各有千秋。那么，此刻，大家一起跟着我来打造一款下载框架！准备好了吗？  效果一贯作风！No picture，">
@@ -177,8 +177,7 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>继上篇<a href="https://juejin.im/post/5b2fb529e51d4558864932e6" target="_blank" rel="noopener">《不一样的HTTP缓存体验》</a>已经有一段时间了，一直没写教学型文章不是因为太忙，想了很久不知道以什么为主题，有个哥们看了我的开源项目<a href="https://github.com/crazysunj/CrazyDaily" target="_blank" rel="noopener">CrazyDaily</a>，好像对下载挺感兴趣，那我就写一篇吧！下载框架似乎是我们入门必学的一个技术点，因为它囊括了很多方面的知识，优秀的开源下载框架非常多，各有千秋。那么，此刻，大家一起跟着我来打造一款下载框架！准备好了吗？</p>
 <p><img src="/img/kaishibiaoyan_small.jpg" alt=""></p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>一贯作风！No picture，say a J8！</p>
-<p><img src="/img/download_effect.gif" alt=""></p>
-<p>就是要高清无码的。<br><a id="more"></a></p>
+<p><img src="/img/download_effect.gif" alt=""><br><a id="more"></a></p>
 <h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>我们从效果图上简单分析一下执行流程，首先打开二维码，扫描一个下载链接；解析到下载链接跳转下载中转页并弹出下载信息确认框；确认下载，通知栏回显进度；下载完成，点击可查看。</p>
 <p>OK，很实用的一个流程，扫码和下载可以算是我们天天都会用到的两个技术。</p>
 <h3 id="扫码"><a href="#扫码" class="headerlink" title="扫码"></a>扫码</h3><p>没什么悬念，我选择zxing，谷歌出品，必属精品。这里我选择zxing-android-embedded，它是基于zxing简单封装，可扩展，用不用其实无所谓，我们的重点并不在这里。我们看到的二维码效果，本身并不是这样的，我写的效果是模仿微信的，那是如何做的呢？文末告诉你答案。</p>
@@ -495,11 +494,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
+                <a href="javascript:void(0)" class="js-tag color4">用户态</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
+                <a href="javascript:void(0)" class="js-tag color4">内核态</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -524,14 +523,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">xUtils</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">用户态</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">内核态</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -571,7 +562,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代理模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -587,15 +582,23 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Error</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Expand</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Footer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Error</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代理模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,10 +627,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">对象</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -671,6 +670,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">泛型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
@@ -679,7 +682,27 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Retrofit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">接口</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -695,11 +718,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">泛型</a>
+                <a href="javascript:void(0)" class="js-tag color1">装饰者模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
+                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -707,23 +734,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">类</a>
+                <a href="javascript:void(0)" class="js-tag color1">适配器模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">接口</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Retrofit</a>
+                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,22 +763,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JMM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">装饰者模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">适配器模式</a>
               </li>
             
             <div class="clearfix"></div>
