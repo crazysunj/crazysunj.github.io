@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>来一份Android动画全家桶 | 欢迎来到crazysunjの博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言自上次《MTRVA2.0来啦》发布后，马上就有小伙伴问我有哪些Android动画，过了一段时间又有小伙伴问我啥时候发布Android动画。其实，在写《MTRVA2.0来啦》的时候，这次要讲的Android动画已经完成的差不多了，而在写这篇文章的时候，下个版本的内容也快写的差不多了（捂脸）。想提前学习的同学可以去我的开源项目CrazyDaily的develop分支，然后再跟我的文章过一遍，挺不错">
+<meta name="keywords" content="Android,Animator,Lottie,3D,Transition">
+<meta property="og:type" content="article">
+<meta property="og:title" content="来一份Android动画全家桶">
+<meta property="og:url" content="http://yoursite.com/2018/05/19/来一份Android动画全家桶/index.html">
+<meta property="og:site_name" content="欢迎来到crazysunjの博客">
+<meta property="og:description" content="前言自上次《MTRVA2.0来啦》发布后，马上就有小伙伴问我有哪些Android动画，过了一段时间又有小伙伴问我啥时候发布Android动画。其实，在写《MTRVA2.0来啦》的时候，这次要讲的Android动画已经完成的差不多了，而在写这篇文章的时候，下个版本的内容也快写的差不多了（捂脸）。想提前学习的同学可以去我的开源项目CrazyDaily的develop分支，然后再跟我的文章过一遍，挺不错">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/img/jidong.jpg">
+<meta property="og:image" content="http://yoursite.com/img/crazydaily_anim.gif">
+<meta property="og:image" content="http://yoursite.com/img/example_lottie_1.gif">
+<meta property="og:image" content="http://yoursite.com/img/ae_example.gif">
+<meta property="og:image" content="http://yoursite.com/img/kepa.jpg">
+<meta property="og:image" content="http://yoursite.com/img/frame_3d_single.png">
+<meta property="og:image" content="http://yoursite.com/img/lrcoordinatesystem.png">
+<meta property="og:image" content="http://yoursite.com/img/mengbi_normal.jpg">
+<meta property="og:image" content="http://yoursite.com/img/threed_top_out.png">
+<meta property="og:image" content="http://yoursite.com/img/threed_top_out_1.png">
+<meta property="og:image" content="http://yoursite.com/img/soudesinei.jpg">
+<meta property="og:image" content="http://yoursite.com/img/threed_top_in_1.png">
+<meta property="og:image" content="http://yoursite.com/img/bishi.jpg">
+<meta property="og:image" content="http://yoursite.com/img/example_vignette.jpg">
+<meta property="og:image" content="http://yoursite.com/img/jujue.jpg">
+<meta property="og:image" content="http://yoursite.com/img/niubimao.jpg">
+<meta property="og:image" content="http://yoursite.com/img/honglingjing.jpg">
+<meta property="og:image" content="http://yoursite.com/img/dawoa.jpg">
+<meta property="og:updated_time" content="2018-06-25T00:33:01.457Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="来一份Android动画全家桶">
+<meta name="twitter:description" content="前言自上次《MTRVA2.0来啦》发布后，马上就有小伙伴问我有哪些Android动画，过了一段时间又有小伙伴问我啥时候发布Android动画。其实，在写《MTRVA2.0来啦》的时候，这次要讲的Android动画已经完成的差不多了，而在写这篇文章的时候，下个版本的内容也快写的差不多了（捂脸）。想提前学习的同学可以去我的开源项目CrazyDaily的develop分支，然后再跟我的文章过一遍，挺不错">
+<meta name="twitter:image" content="http://yoursite.com/img/jidong.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="欢迎来到crazysunjの博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" type="text/css" href="/./main.50cb86.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#afdfe4,#7bbfea);
+    }
+  </style>
+  
+
+  
+
+</head>
+
+<body>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/blog.jpg" class="js-avatar">
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">crazysunj</a></h1>
+		</hgroup>
+		
+		<p class="header-subtitle">简简单单</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+    		
+    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/crazysunj" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="juejin" target="_blank" href="https://juejin.im/user/58a122f6128fe1005823c2e2" title="juejin"><i class="icon-juejin"></i></a>
+		        
+					<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=387953660&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
+		        
+					<a class="weixin" target="_blank" href="http://www.gbtags.com/gb/qrcode?t=https://u.wechat.com/MGArbcEH3f27ocr5cJgQChg&s=300" title="weixin"><i class="icon-weixin"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/blog.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author js-header-author">crazysunj</h1>
+			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>简简单单<i class="icon icon-quo-right"></i></p>
+			
+			
+			
+			
+			
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/crazysunj" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="juejin" target="_blank" href="https://juejin.im/user/58a122f6128fe1005823c2e2" title="juejin"><i class="icon-juejin"></i></a>
+			        
+						<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=387953660&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
+			        
+						<a class="weixin" target="_blank" href="http://www.gbtags.com/gb/qrcode?t=https://u.wechat.com/MGArbcEH3f27ocr5cJgQChg&s=300" title="weixin"><i class="icon-weixin"></i></a>
+			        
+				</div>
+			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 50%">
+				
+				
+				</ul>
+			</nav>
+		</header>				
+	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-来一份Android动画全家桶" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      来一份Android动画全家桶
+    </h1>
+  
+
+        
+        <a href="/2018/05/19/来一份Android动画全家桶/" class="archive-article-date">
+  	<time datetime="2018-05-19T12:07:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-19</time>
+</a>
+        
+      </header>
+    
+
+
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自上次<a href="https://juejin.im/post/5adb6322518825671a635aac" target="_blank" rel="noopener">《MTRVA2.0来啦》</a>发布后，马上就有小伙伴问我有哪些Android动画，过了一段时间又有小伙伴问我啥时候发布Android动画。其实，在写《MTRVA2.0来啦》的时候，这次要讲的Android动画已经完成的差不多了，而在写这篇文章的时候，下个版本的内容也快写的差不多了（捂脸）。想提前学习的同学可以去我的开源项目<a href="https://github.com/crazysunj/CrazyDaily" target="_blank" rel="noopener">CrazyDaily</a>的develop分支，然后再跟我的文章过一遍，挺不错的学习方法。废话不多说，Android动画似乎已经是老生常谈的技术点，老生常谈的技术感觉总是潜移默化成为Android程序员的必备技能。今天，大家再跟我一起过一遍Android动画及进阶使用。</p>
+<p><img src="/img/jidong.jpg" alt=""></p>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p>国际惯例，No picture,say a J8!</p>
+<p><img src="/img/crazydaily_anim.gif" alt=""></p>
+<p>先来看看今天讲解的内容吧！</p>
+<ul>
+<li>lottie</li>
+<li>3D动画</li>
+<li>列表侧滑删除</li>
+<li>列表展开闭合</li>
+<li>转场动画进阶</li>
+<li>卫星菜单</li>
+</ul>
+<p>一个大类可能包含多种动画，比如转场动画用到了贝塞尔曲线的路径动画。再则说到Android动画总是避免不了扯到View，所以期间会带大家玩一玩自定义View。</p>
+<p><code>高能预警：本篇较长，可以先选择自己喜欢的内容进行阅读或者收藏一下有空再看。</code></p>
+<p><strong>温馨提示</strong>：想看针对第五章节额外附送的属性动画源码分析请点<a href="http://crazysunj.com/2018/05/19/%E7%8E%A9%E4%B8%80%E7%8E%A9Android%E5%B1%9E%E6%80%A7%E5%8A%A8%E7%94%BB%E6%BA%90%E7%A0%81/" target="_blank" rel="noopener">这里</a>。<br><a id="more"></a></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>这次的分析随着效果图的展示顺序一一讲解，首先，向我们迎面走来的是…额，不是，首先，是我们的可能是动画趋势的lottie动画。</p>
+<h3 id="lottie"><a href="#lottie" class="headerlink" title="lottie"></a>lottie</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p><a href="https://github.com/airbnb/lottie-android" target="_blank" rel="noopener">lottie</a>可能是一个革命性的动画库。为什么这么说？当然也只是我想这么说，先来看看lottie的震撼特点：</p>
+<ul>
+<li>跨平台，支持Web、Android、iOS和React Native</li>
+<li>在线更新动画，意味着不用发版和减少资源的占用体积等</li>
+<li>相对于原生动画和GIF更为轻量</li>
+<li>代码实现简单，易于上手和维护</li>
+</ul>
+<p>我们再来看看这样的一个效果图（官方效果图）：</p>
+<p><img src="/img/example_lottie_1.gif" alt=""></p>
+<p>这么说吧，这种效果原生肯定是能写的，但是非常费脑子和精力，不信的同学可以尝试一下。其次用帧动画，缺点也很明显，资源占用很大。最简单的就是一张GIF图片，没有什么动画是GIF搞不定的（手动滑稽），但这应该是最差的方案了。</p>
+<p>而lottie只要一份记录动画信息的json文件，就可以在各大平台跑起来。是不是很炫酷？</p>
+<h4 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h4><p>So Easy！除了这个词我还真没想到怎么形容。废话不多说，先上代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">implementation &apos;com.airbnb.android:lottie:2.5.4&apos; //gradle依赖</span><br><span class="line"></span><br><span class="line">&lt;com.airbnb.lottie.LottieAnimationView</span><br><span class="line">        android:id=&quot;@+id/splash_lottie&quot;</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;@dimen/splash_height&quot;</span><br><span class="line">        app:lottie_autoPlay=&quot;true&quot;</span><br><span class="line">        app:lottie_fileName=&quot;lottie/mtrva.json&quot;</span><br><span class="line">        app:lottie_imageAssetsFolder=&quot;images/mtrva/&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>是的，就是这么简单，只要把你的json文件传给LottieAnimationView，它就可以流畅地播放起来，像如何在代码中使用及其它我就不一一贴出来了，大家可以点<a href="http://airbnb.io/lottie/android/android.html" target="_blank" rel="noopener">这里</a>。</p>
+<h4 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h4><p>这才是重头戏，面试的时候说自己会实现复杂的动画可能是个卖点，但现在似乎这个工作可以被设计师取代，我们先不谈什么级别的设计师，我们先来说说为啥我们Android程序员不可以来完成这份工作呢？跟我抢饭碗？不可能！</p>
+<p>正如项目中Splash页面底下文字<code>[什么都懂一点，生活更多彩一些][廋金体]</code>，感兴趣就玩一玩，真的很有意思！</p>
+<p>简单分析一下，Splash页面的动画，logo图标沿着s型的路径，淡入，放大。很简单的一个动画，原生实现也是很简单的。重点在于如何开发这样的lottie动画，只需要<a href="https://zh.wikipedia.org/wiki/Adobe_After_Effects" target="_blank" rel="noopener">Adobe After Effects</a>+<a href="https://cdnjs.com/libraries/bodymovin" target="_blank" rel="noopener">bodymovin</a>就可以轻松导出一份这样的json文件。而详细的安装及环境配置可以点<a href="https://github.com/airbnb/lottie-web" target="_blank" rel="noopener">这里</a>，不过英文要好哦，不然只能看看蹩脚的翻译。</p>
+<p>简单的开发可以很快入门，我刚玩了一会儿，就开发了这样的一个效果：</p>
+<p><img src="/img/ae_example.gif" alt=""></p>
+<p>很可惜，好像导出在Android端运行不太兼容，没有达到预期的效果，可能是我使用姿势不对。就玩了一会儿，弊端就体现出来了，这也是各种跨端的弊端，兼容性问题。一个库开源，使用者总是避免不了踩坑，例如上面xml中lottie_imageAssetsFolder属性添加是因为json中有图片资源，需要图片资源的路径且图片资源名要改为image_0，具体原因可以打开json文件瞧一瞧。</p>
+<p>那么有同学问有没有什么现成的json吗？AE这玩意好像学起来挺麻烦的，这个肯定有，<a href="https://www.lottiefiles.com/" target="_blank" rel="noopener">lottiefiles</a>挺不错的一个网站，点击preview可以拖拽你的json文件进行预览和简单地编辑。</p>
+<p>关于lottie动画介绍差不多就到这里，关键点都说了，剩下的可能是你的AE熟练度了。这玩意没法速成，需要大量经验积累！难点并不是技术，而是创意！创意！创意！</p>
+<p><img src="/img/kepa.jpg" alt=""></p>
+<h3 id="3D动画"><a href="#3D动画" class="headerlink" title="3D动画"></a>3D动画</h3><p>进入首页，最先刺激我眼球的是右下角的妹子，其次是它的动画，这样的效果我最先在百度贴吧上看到的，现在好像去掉了，这也是我第一家公司面试的时候的作品，很有亲切感！</p>
+<p>我们简单地拆解一下动画，可以分为这些：3D翻转、平移、阴影渐变和vignette。</p>
+<h4 id="3D翻转"><a href="#3D翻转" class="headerlink" title="3D翻转"></a>3D翻转</h4><p>这个动画的核心，用的是补间动画，你也可以植入view中，我相信这对你来说并不难。</p>
+<p>拆解动画：view分为两面，一面翻上去或者一面翻下去，然后展示另一面，所以分为4个动画TopInAnimation、TopOutAnimation、BottomInAnimation和BottomOutAnimation，Top和Bottom为反向操作，因此这里只分析Top。</p>
+<p>如果没图，我猜有些同学不好理解，这里给出一张中间单帧图，画得不好，谅解，谅解。</p>
+<p><img src="/img/frame_3d_single.png" alt=""></p>
+<p>不知道大家了解setRotationX这个方法吗，不清楚的可以点<a href="https://developer.android.google.cn/reference/android/view/View#setrotationx" target="_blank" rel="noopener">这里</a>。最常见就是我们的车轮，车轴就是X轴，然后侧着看。这样一想，是不是A和B都在做rotationX动画，但这是不够的，假如A面绕的X轴是高度中间等分线，直到A消失，也是消失在等分线的位置，脑补一下，而事实是A消失于顶部水平线，因此得做平移动画，也就是一边rotationX一边translationY。</p>
+<p>了解这个后，我们再来了解两个核心类<a href="https://developer.android.google.cn/reference/android/graphics/Camera" target="_blank" rel="noopener">Camera</a>和<a href="https://developer.android.google.cn/reference/android/graphics/Matrix" target="_blank" rel="noopener">Matrix</a>。篇幅原因，只给出链接，大家可以深入了解，其实就算整片文章都介绍，那也说不完。这里说一下Camera的主要作用是将3D模型投影在2D的屏幕上，而Matrix主要通过一个3x3的矩阵对图像进行平移、旋转、缩放和错切变化。</p>
+<p>在上代码之前，补充一个知识，左右手坐标系。</p>
+<p><img src="/img/lrcoordinatesystem.png" alt=""></p>
+<p>Camera是基于左手坐标系的，它也应该是基于OpenGL的，OpenGL貌似是右手坐标系，而Android屏幕坐标系的Y轴方向正好与Camera的Y轴方向相反。</p>
+<p><img src="/img/mengbi_normal.jpg" alt=""></p>
+<p>Camera比较好理解，你可以想象摄影大哥扛着摄像机对着屏幕左上角（原点），这个挺形象吧！Camera的默认位置是（0,0,-8），单位是英寸。Matrix相对比较复杂一点，大家可以看看这篇文章<a href="https://blog.csdn.net/pathuang68/article/details/6991867" target="_blank" rel="noopener">Android中图像变换Matrix的原理、代码验证和应用</a>，这是我早期学习时收藏的文章，优秀！</p>
+<p>简单介绍完这两大核心类，我们来看看在项目中的运用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">static class TopOutAnimation extends Animation &#123;</span><br><span class="line">	...</span><br><span class="line">    @Override</span><br><span class="line">    protected void applyTransformation(float interpolatedTime, Transformation t) &#123;</span><br><span class="line">        mCamera.save();</span><br><span class="line">        final float rotate = -DEGREE + DEGREE * interpolatedTime;</span><br><span class="line">        mCamera.rotateX(rotate);</span><br><span class="line">        mCamera.getMatrix(mMatrix);</span><br><span class="line">        mCamera.restore();</span><br><span class="line">        mMatrix.preTranslate(-mWidth / 2, 0);</span><br><span class="line">        mMatrix.postTranslate(mWidth / 2, mHeight - mHeight * interpolatedTime);</span><br><span class="line">        t.getMatrix().postConcat(mMatrix);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> static class TopInAnimation extends Animation &#123;</span><br><span class="line"> 	...</span><br><span class="line">    @Override</span><br><span class="line">    protected void applyTransformation(float interpolatedTime, Transformation t) &#123;</span><br><span class="line">        mCamera.save();</span><br><span class="line">        final float rotate = DEGREE * interpolatedTime;</span><br><span class="line">        mCamera.translate(0, -mHeight + interpolatedTime * mHeight, 0);</span><br><span class="line">        mCamera.rotateX(rotate);</span><br><span class="line">        mCamera.getMatrix(mMatrix);</span><br><span class="line">        mCamera.restore();</span><br><span class="line">        mMatrix.preTranslate(-mWidth / 2, -mHeight);</span><br><span class="line">        mMatrix.postTranslate(mWidth / 2, 0);</span><br><span class="line">        t.getMatrix().postConcat(mMatrix);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先来分析一下TopOutAnimation，当interpolatedTime=0的时候，rotate=-90即模型是与屏幕是垂直的，当interpolatedTime=1的时候，rotate=0即正常位置。preTranslate是在旋转前平移模型的位置，至于为什么是-mWidth/2和0，原因也很简单，记住Camera核心作用就行了，就是我上面说的，将3D模型投影在2D的屏幕上，由于Camera的初始位置就是屏幕的原点，做旋转的时候，投影到画布的图形肯定是不正常的，因为不是正向的，那么只要在camera旋转前向左平移宽度的一半即为正向，但要在旋转后回到原来的位置，因此调用postTranslate且x值为mWidth/2。我相信这个比较好理解，所以不贴图了，至于preTranslate的y值是0是因为我们初始化定义的camera的rotateX是-90即与屏幕垂直，是这样的一个变换过程：</p>
+<p><img src="/img/threed_top_out.png" alt=""></p>
+<p>有同学问，那我可不可一开始就在底部，这样我postTranslate的时候就不用移动了，从逻辑上一点毛病都没有，但事实上效果诧异，为什么呢？因为Matrix操作的是我们的模型而非屏幕，甚至移动的距离是原来的几倍，还发现变小了，为什么呢？这很简单，你离光源越远，肯定越小，至于为啥移动距离是原来的几倍，我给你画张图：</p>
+<p><img src="/img/threed_top_out_1.png" alt=""></p>
+<p><img src="/img/soudesinei.jpg" alt=""></p>
+<p>那么是不是就这一种方法呢？那肯定不是，感兴趣的同学可以自己去尝试，自己动手实践过才印象最深刻。回到我们讨论点，由于我们preTranslate的y值是0使得投影效果在最顶部因此需要最终的view从底部不断往上偏移，故调用postTranslate的y值是mHeight-mHeight*interpolatedTime。</p>
+<p>有了TopOutAnimation的基础分析，我们理解TopInAnimation相对容易一点。</p>
+<p>上面的代码其实可以改成这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> static class TopInAnimation extends Animation &#123;</span><br><span class="line"> 	...</span><br><span class="line">    @Override</span><br><span class="line">    protected void applyTransformation(float interpolatedTime, Transformation t) &#123;</span><br><span class="line">        mCamera.save();</span><br><span class="line">        final float rotate = DEGREE * interpolatedTime;</span><br><span class="line">        mCamera.rotateX(rotate);</span><br><span class="line">        mCamera.getMatrix(mMatrix);</span><br><span class="line">        mCamera.restore();</span><br><span class="line">        mMatrix.preTranslate(-mWidth / 2, -mHeight);</span><br><span class="line">        mMatrix.postTranslate(mWidth / 2, mHeight - interpolatedTime * mHeight);</span><br><span class="line">        t.getMatrix().postConcat(mMatrix);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那是不是Camera的y轴平移等同于Matrix的postTranslate平移呢？只能说近似等同。这次我直接画变换过程：</p>
+<p><img src="/img/threed_top_in_1.png" alt=""></p>
+<p>最后跟TopOutAnimation一样调用postTranslate的平移就行了。</p>
+<p>关于3D翻转就先介绍到这，不懂的可以问我，如果哪里不对的或者有歧义的地方欢迎指正。</p>
+<h4 id="平移"><a href="#平移" class="headerlink" title="平移"></a>平移</h4><p>这个就比较简单了，直接上代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public void start(boolean isTop, int index) &#123;</span><br><span class="line">        final float distance = -mTranslationYDistance * index;</span><br><span class="line">    if (isTop) &#123;</span><br><span class="line">        mForegroundView.startAnimation(mTopOutAnimation);</span><br><span class="line">        mBackgroundView.startAnimation(mTopInAnimation);</span><br><span class="line">        ValueAnimator animator = ValueAnimator.ofFloat(0f, 1.0f)</span><br><span class="line">                .setDuration(DURATION);</span><br><span class="line">        animator.setInterpolator(new AccelerateDecelerateInterpolator());</span><br><span class="line">        animator.addUpdateListener(animation -&gt; &#123;</span><br><span class="line">            final float value = (float) animation.getAnimatedValue();</span><br><span class="line">            final float oppositeValue = 1 - value;</span><br><span class="line">            ...</span><br><span class="line">            setTranslationY(distance * oppositeValue);</span><br><span class="line">        &#125;);</span><br><span class="line">        animator.start();</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        mForegroundView.startAnimation(mBottomInAnimation);</span><br><span class="line">        mBackgroundView.startAnimation(mBottomOutAnimation);</span><br><span class="line">        ValueAnimator animator = ValueAnimator.ofFloat(0f, 1.0f)</span><br><span class="line">                .setDuration(DURATION);</span><br><span class="line">        animator.setInterpolator(new AccelerateDecelerateInterpolator());</span><br><span class="line">        animator.addUpdateListener(animation -&gt; &#123;</span><br><span class="line">            final float value = (float) animation.getAnimatedValue();</span><br><span class="line">            final float oppositeValue = 1 - value;</span><br><span class="line">			...</span><br><span class="line">            setTranslationY(distance * value);</span><br><span class="line">        &#125;);</span><br><span class="line">        animator.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码也给出3D翻转的调用，向上平移的时候向下翻转，向下平移的时候向上翻转，平移动画用的是ValueAnimator，因为我们还需要根据value计算阴影的颜色，一起来看看吧！</p>
+<h4 id="阴影渐变"><a href="#阴影渐变" class="headerlink" title="阴影渐变"></a>阴影渐变</h4><p>为啥要搞个渐变呢？因为要真，当立方体翻滚的时候，由于光线原因，一部分肯定越来越暗，一部分越来越亮。卧槽，物理这么6？还行，也就每次考试90来分。</p>
+<p><img src="/img/bishi.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//top</span><br><span class="line">int foreStartColor = (int) mArgbEvaluator.evaluate(oppositeValue * 0.8f, 0x00000000, 0xff000000);</span><br><span class="line">int foreCenterColor = (int) mArgbEvaluator.evaluate(oppositeValue * 0.4f, 0x00000000, 0xff000000);</span><br><span class="line">int[] foreColors = &#123;foreStartColor, foreCenterColor, 0x00000000&#125;;</span><br><span class="line">int backStartColor = (int) mArgbEvaluator.evaluate(value * 0.8f, 0x00000000, 0xff000000);</span><br><span class="line">int backCenterColor = (int) mArgbEvaluator.evaluate(value * 0.4f, 0x00000000, 0xff000000);</span><br><span class="line">int[] backColors = &#123;backStartColor, backCenterColor, 0x00000000&#125;;</span><br><span class="line">mForegroundDrawable.setColors(foreColors);</span><br><span class="line">mBackgroundDrawable.setColors(backColors);</span><br><span class="line">//bottom</span><br><span class="line">int foreStartColor = (int) mArgbEvaluator.evaluate(value * 0.8f, 0x00000000, 0xff000000);</span><br><span class="line">int foreCenterColor = (int) mArgbEvaluator.evaluate(value * 0.4f, 0x00000000, 0xff000000);</span><br><span class="line">int[] foreColors = &#123;foreStartColor, foreCenterColor, 0x00000000&#125;;</span><br><span class="line">int backStartColor = (int) mArgbEvaluator.evaluate(oppositeValue * 0.8f, 0x00000000, 0xff000000);</span><br><span class="line">int backCenterColor = (int) mArgbEvaluator.evaluate(oppositeValue * 0.4f, 0x00000000, 0xff000000);</span><br><span class="line">int[] backColors = &#123;backStartColor, backCenterColor, 0x00000000&#125;;</span><br><span class="line">mForegroundDrawable.setColors(foreColors);</span><br><span class="line">mBackgroundDrawable.setColors(backColors);</span><br></pre></td></tr></table></figure>
+<p>mArgbEvaluator是Android提供的ArgbEvaluator类用来根据[0,1]某个值获取两种颜色渐变过程该进度时候的颜色值，好像挺拗口。我们这里操作的是drawable来实现渐变，那么drawable是谁的呢？是用户设置的子view吗？那肯定不是，不然要被打死。是我们在获取用户子view的时候在这基础上添加了一个ImageView与子view平级，上代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> @Override</span><br><span class="line">protected void onFinishInflate() &#123;</span><br><span class="line">    super.onFinishInflate();</span><br><span class="line">    ...</span><br><span class="line">    View foregroundView = getChildAt(1);</span><br><span class="line"></span><br><span class="line">    FrameLayout foregroundLayout = new FrameLayout(context);</span><br><span class="line">    LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);</span><br><span class="line"></span><br><span class="line">    removeAllViewsInLayout();</span><br><span class="line">    ...</span><br><span class="line">    ImageView foregroundImg = new ImageView(context);</span><br><span class="line">    ...</span><br><span class="line">    foregroundImg.setImageDrawable(mForegroundDrawable);</span><br><span class="line">    ...</span><br><span class="line">    foregroundLayout.addView(foregroundView);</span><br><span class="line">    foregroundLayout.addView(foregroundImg);</span><br><span class="line"></span><br><span class="line">    addViewInLayout(foregroundLayout, 0, params);</span><br><span class="line">    ...</span><br><span class="line">    mForegroundView = (FrameLayout) getChildAt(1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里只给出ForegroundView的代码，其它贴出来毫无意义，代码也很简单，在子view外层套一层FrameLayout，然后添加负责阴影渐变的ImageView，渐变效果与我们平移时进度有关。</p>
+<h4 id="vignette"><a href="#vignette" class="headerlink" title="vignette"></a>vignette</h4><p>之所以加这个，跟我们的阴影渐变一样，要真。什么是vignette？vignette大概就是暗角的意思。举个栗子？</p>
+<p><img src="/img/example_vignette.jpg" alt=""></p>
+<p>其主要特征就是在图像四个角有较为显著的亮度下降。这种效果自己去研究又是一堆公式，好在有大佬提供了方便。这里我们使用<a href="https://github.com/CyberAgent/android-gpuimage" target="_blank" rel="noopener">GPUImage</a>来达到这样的效果，该库主要提供各种各样的图像处理滤镜，并且支持照相机和摄像机的实时滤镜。很可惜的是这玩意创意来自于iOS。</p>
+<p>那我们如何在Android中使用呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GPUImageVignetteFilter filter = new GPUImageVignetteFilter();</span><br><span class="line">filter.setVignetteCenter(new PointF(0.5f, 0.5f));</span><br><span class="line">filter.setVignetteColor(new float[]&#123;0.0f, 0.0f, 0.0f&#125;);</span><br><span class="line">filter.setVignetteStart(0.0f);</span><br><span class="line">filter.setVignetteEnd(0.75f);</span><br><span class="line">GPUImage gpuImage = new GPUImage(context);</span><br><span class="line">BitmapDrawable bitmapDrawable = (BitmapDrawable) ContextCompat.getDrawable(context, id);</span><br><span class="line">gpuImage.setImage(bitmapDrawable.getBitmap());</span><br><span class="line">gpuImage.setFilter(filter);</span><br><span class="line">Bitmap bitmap = gpuImage.getBitmapWithFilterApplied();</span><br></pre></td></tr></table></figure>
+<p>id是我们的资源id，主要就是要拿到一个bitmap对象，其它还支持file和uri。vignetteCenter就是我们向外扩展的起始点，一般在中心，例如我们上面的图片例子，vignetteColor是暗角的颜色，vignetteStart和vignetteEnd就是渐变程度。</p>
+<p>3D动画是不是So Easy？是不是很炫酷？想不想自己实现一个？</p>
+<p><img src="/img/jujue.jpg" alt=""></p>
+<p>关于3D动画先到这结束了，占用篇幅相对较长，看到这挺有耐心。</p>
+<h3 id="列表侧滑删除"><a href="#列表侧滑删除" class="headerlink" title="列表侧滑删除"></a>列表侧滑删除</h3><p>long long ago，这个效果貌似是模仿…模仿啥来着？记不起来了，算了，早期的时候我也写过这个玩意，代码找不到了，哈哈，其实挺简单，主要就是触摸事件的运用，难点可能是用户体验，滑起来卡卡的，那玩个毛。</p>
+<p>但现在都什么年代了，实现这种效果更简单了，Android直接给我们提供了<a href="https://developer.android.google.cn/reference/android/support/v7/widget/helper/ItemTouchHelper" target="_blank" rel="noopener">ItemTouchHelper</a>快速实现拖拽和侧滑删除。但需要简单地修改一下，因为Android提供给我们的好像与预期差了那么一点点，由于我比较懒且正好看到一个库<a href="https://github.com/loopeer/itemtouchhelper-extension" target="_blank" rel="noopener">itemtouchhelper-extension</a>是针对侧滑删除的，体验还不错，但还是没法满足我的需求，例如我想用户关闭界面的时候知道菜单是否是打开状态。那我只能使用CV大法然后修改，果然最灵活的还是CV源码进行修改。</p>
+<p>本节主要是想介绍ItemTouchHelper，除了这，Android还提供了很多RecyclerView的帮助类，例如DiffUtil[<a href="https://github.com/crazysunj/MultiTypeRecyclerViewAdapter" target="_blank" rel="noopener">MTRVA</a>就是基于这个]，SnapHelper[帮助我们在某一个地方停住，例如你想尝试用RecyclerView实现卡片滑动，不妨试试]，这两个比较常用，当然还有其它的哦，大家不妨去看看这个包[androidx.recyclerview.widget]里面的东西，当然支持包里面也有，说不定有你想要的。</p>
+<h3 id="列表展开闭合"><a href="#列表展开闭合" class="headerlink" title="列表展开闭合"></a>列表展开闭合</h3><p>关于这个点貌似挺尴尬的，因为用<a href="https://github.com/crazysunj/MultiTypeRecyclerViewAdapter" target="_blank" rel="noopener">MTRVA</a>可以轻松实现，我都不知道要不要介绍，关键有几个用户同学会问这个，趁这个机会简单说一下吧。</p>
+<p>比如效果图中到联系人列表有展开闭合的效果，怎么实现的呢？首先我们要排除直接操作view，比如让view隐藏等等。这是不可取的，应该用数据去驱动UI，这个我已经强调很多遍了。先看一看代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private void switchStatus(ContactHeader item, View icon) &#123;</span><br><span class="line">    final int index = mData.indexOf(item);</span><br><span class="line">    final String flag = item.getIndex();</span><br><span class="line">    if (item.isFlod()) &#123;</span><br><span class="line">        icon.animate().rotation(90).setDuration(500).start();</span><br><span class="line">        mHelper.addData(index + 1, item.getChilds());</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        icon.animate().rotation(-90).setDuration(500).start();</span><br><span class="line">        ...</span><br><span class="line">        childs = mHelper.removeData(index + 1, count);</span><br><span class="line">        item.setChilds(childs);</span><br><span class="line">    &#125;</span><br><span class="line">    item.switchStatus();</span><br><span class="line">    mHelper.setData(index, item);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很简单的逻辑，如果当前是闭合状态，icon需要选择90度且添加数据，反之，旋转-90度并移除数据。</p>
+<p>关键点就在于addData和removeData，底层调用的是adapter的notifyItemRangeInserted和notifyItemRangeRemoved方法，因此是附带动画的，且对数组越界做了优化，例如addData的position大于或等于集合数量，那么直接将应添加的数据直接添加在集合的末尾，而不是抛异常。</p>
+<p>本节主要希望大家利用添加和移除数据来达到展开闭合的效果。</p>
+<h3 id="转场动画进阶"><a href="#转场动画进阶" class="headerlink" title="转场动画进阶"></a>转场动画进阶</h3><p>每次玩Material Design产品的时候，总是有很多炫酷的转场动画刺激我。相信也有很多同学跟我一样，很喜欢这种风格。今天我就带大家了解一下转场动画并自定义转场动画，走起！</p>
+<h4 id="常见转场动画"><a href="#常见转场动画" class="headerlink" title="常见转场动画"></a>常见转场动画</h4><ul>
+<li><a href="https://developer.android.google.cn/reference/android/support/v4/app/ActivityOptionsCompat.html#makecliprevealanimation" target="_blank" rel="noopener">makeClipRevealAnimation (View source, int startX, int startY, int width, int height)</a>：从一个原点以圆形扩展至满屏，需要传入新Activity动画开始的view，因为其实坐标(startX, startY)都是相对source的，width和height是新Activity的初始宽高</li>
+<li><a href="https://developer.android.google.cn/reference/android/support/v4/app/ActivityOptionsCompat.html#makecustomanimation" target="_blank" rel="noopener">makeCustomAnimation (Context context, int enterResId, int exitResId)</a>：这个类似我们的overridePendingTransition，传入进退动画即可</li>
+<li><a href="https://developer.android.google.cn/reference/android/support/v4/app/ActivityOptionsCompat.html#makescaleupanimation" target="_blank" rel="noopener">makeScaleUpAnimation (View source, int startX, int startY, int startWidth, int startHeight)</a>                         ：与makeClipRevealAnimation相似，文档主要区别是setSourceBounds的设置</li>
+<li><a href="https://developer.android.google.cn/reference/android/support/v4/app/ActivityOptionsCompat.html#makethumbnailscaleupanimation" target="_blank" rel="noopener">makeThumbnailScaleUpAnimation (View source, Bitmap thumbnail, int startX, int startY)</a>：指定一张缩略图缩放转场，参数与makeClipRevealAnimation意义相同</li>
+<li><a href="https://developer.android.google.cn/reference/android/support/v4/app/ActivityOptionsCompat.html#makescenetransitionanimation_4" target="_blank" rel="noopener">makeSceneTransitionAnimation (Activity activity, View sharedElement, String sharedElementName)</a>：可能是最常用的，场景动画，从一个场景转到另一个场景，需要共享元素sharedElement协助过度且其必须指定sharedElementName即目标Activity共享元素的transitionName              </li>
+<li><a href="https://developer.android.google.cn/reference/android/support/v4/app/ActivityOptionsCompat.html#makescenetransitionanimation" target="_blank" rel="noopener">makeSceneTransitionAnimation (Activity activity, Pair…&lt;View, String&gt; sharedElements)</a>：意义与上面相同，只是支持多个共享元素</li>
+</ul>
+<h4 id="场景动画核心框架"><a href="#场景动画核心框架" class="headerlink" title="场景动画核心框架"></a>场景动画核心框架</h4><ul>
+<li><a href="https://developer.android.google.cn/reference/android/transition/Scene" target="_blank" rel="noopener">Scene</a>：用来保存场景应用中View           的属性集合</li>
+<li><a href="https://developer.android.google.cn/reference/android/transition/Transition" target="_blank" rel="noopener">Transition</a>：负责元素的过渡，你可以在不同场景根据属性值操作元素打造不同的动画<ul>
+<li>普通过渡<ul>
+<li><a href="https://developer.android.google.cn/reference/android/transition/Explode" target="_blank" rel="noopener">Explode</a>：从场景中心进入或移除，一种爆炸的感觉</li>
+<li><a href="https://developer.android.google.cn/reference/android/transition/Fade" target="_blank" rel="noopener">Fade</a>：最熟悉的淡入淡出</li>
+<li><a href="https://developer.android.google.cn/reference/android/transition/Slide" target="_blank" rel="noopener">Slide</a>：从场景边缘进入或移除</li>
+<li><a href="https://developer.android.google.cn/reference/android/transition/AutoTransition" target="_blank" rel="noopener">AutoTransition</a>：默认过渡，Fade+ChangeBounds</li>
+</ul>
+</li>
+<li>共享元素过渡<ul>
+<li><a href="https://developer.android.google.cn/reference/android/transition/ChangeBounds" target="_blank" rel="noopener">ChangeBounds</a>：根据场景前后布局界限变化执行过渡动画</li>
+<li><a href="https://developer.android.google.cn/reference/android/transition/ChangeClipBounds" target="_blank" rel="noopener">ChangeClipBounds</a>：根据场景前后getClipBounds变化执行过渡动画</li>
+<li><a href="https://developer.android.google.cn/reference/android/transition/ChangeImageTransform" target="_blank" rel="noopener">ChangeImageTransform</a>：根据场景前后ImageView的矩阵变化执行过渡动画</li>
+<li><a href="https://developer.android.google.cn/reference/android/transition/ChangeScroll" target="_blank" rel="noopener">ChangeScroll</a>：根据场景前后目标滚动属性的变化执行过渡动画</li>
+<li><a href="https://developer.android.google.cn/reference/android/transition/ChangeTransform" target="_blank" rel="noopener">ChangeTransform</a>：根据场景前后视图缩放和旋转变化执行过渡动画，当然也可以根据父视图的改变</li>
+</ul>
+</li>
+<li>场景切换调用[共享元素添加SharedElement]<ul>
+<li>setEnterTransition：A-&gt;B，B进入的过渡</li>
+<li>setExitTransition：A-&gt;B，A退出的过渡</li>
+<li>setReturnTransition：B-&gt;A，B返回的过渡</li>
+<li>setReenterTransition：B-&gt;A，A重进的过渡</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://developer.android.google.cn/reference/android/transition/TransitionManager" target="_blank" rel="noopener">TransitionManager</a>：把上面Scene和Transition结合起来，常见的有通过setTransition(Scene, Transition)结合</li>
+</ul>
+<h4 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h4><p>前一小节貌似有点翻译的味道，但很多都是我亲自体验总结的，同时这也是必不可少的，我们要理论结合实践,再从实践中领悟真理。</p>
+<p><img src="/img/niubimao.jpg" alt=""></p>
+<h5 id="场景分析"><a href="#场景分析" class="headerlink" title="场景分析"></a>场景分析</h5><p>以联系人列表页为出发点，点击条目跳转到联系人详情页。期间发生了什么呢？</p>
+<p>列表页条目的头像(其实过渡的时候已经是详情页的头像了）以贝塞尔曲线路径移动且缩放至详情页的头像；地址和名字平滑过渡到详情页；在共享元素过渡的时候，下一个场景也开始了进场动画，右下角的菜单跟小球一样弹跳下来同时背景以屏幕中心以圆形向外扩散。</p>
+<h5 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h5><p>首先我们先分析一下进场动画，因为这个相对比较好理解。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">public class CircularRevealTransition extends Visibility &#123;</span><br><span class="line"></span><br><span class="line">	private static final String PROPNAME_ALPHA = &quot;crazysunj:circularReveal:alpha&quot;;</span><br><span class="line">	private static final String PROPNAME_RADIUS = &quot;crazysunj:circularReveal:radius&quot;;</span><br><span class="line">	private static final String PROPNAME_TRANSLATION_Y = &quot;crazysunj:circularReveal:translationY&quot;;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public void captureStartValues(TransitionValues transitionValues) &#123;</span><br><span class="line">	    super.captureStartValues(transitionValues);</span><br><span class="line">	    transitionValues.values.put(PROPNAME_ALPHA, 0.2f);</span><br><span class="line">	    final View view = transitionValues.view;</span><br><span class="line">	    transitionValues.values.put(PROPNAME_RADIUS, 0);</span><br><span class="line">	    transitionValues.values.put(PROPNAME_TRANSLATION_Y, -view.getBottom());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public void captureEndValues(TransitionValues transitionValues) &#123;</span><br><span class="line">	    super.captureEndValues(transitionValues);</span><br><span class="line">	    transitionValues.values.put(PROPNAME_ALPHA, 1.0f);</span><br><span class="line">	    final View view = transitionValues.view;</span><br><span class="line">	    int radius = (int) Math.hypot(view.getWidth(), view.getHeight());</span><br><span class="line">	    transitionValues.values.put(PROPNAME_RADIUS, radius);</span><br><span class="line">	    transitionValues.values.put(PROPNAME_TRANSLATION_Y, 0);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public Animator onAppear(ViewGroup sceneRoot, View view, TransitionValues startValues, TransitionValues endValues) &#123;</span><br><span class="line">	    if (null == startValues || null == endValues) &#123;</span><br><span class="line">	        return null;</span><br><span class="line">	    &#125;</span><br><span class="line">	    final int id = view.getId();</span><br><span class="line">	    switch (id) &#123;</span><br><span class="line">	        case R.id.satellite_menu:</span><br><span class="line">	            int startTranslationY = (int) startValues.values.get(PROPNAME_TRANSLATION_Y);</span><br><span class="line">	            float startAlpha = (float) startValues.values.get(PROPNAME_ALPHA);</span><br><span class="line">	            int endTranslationY = (int) endValues.values.get(PROPNAME_TRANSLATION_Y);</span><br><span class="line">	            float endAlpha = (float) endValues.values.get(PROPNAME_ALPHA);</span><br><span class="line">	            PropertyValuesHolder translationY = PropertyValuesHolder.ofFloat(&quot;translationY&quot;, startTranslationY, endTranslationY);</span><br><span class="line">	            PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat(&quot;alpha&quot;, startAlpha, endAlpha);</span><br><span class="line">	            ObjectAnimator menuAnim = ObjectAnimator.ofPropertyValuesHolder(view, translationY, alpha);</span><br><span class="line">	            menuAnim.setInterpolator(new BounceInterpolator());</span><br><span class="line">	            menuAnim.setDuration(1000);</span><br><span class="line">	            return menuAnim;</span><br><span class="line">	        case R.id.cool_bg_view:</span><br><span class="line">	            int startRadius = (int) startValues.values.get(PROPNAME_RADIUS);</span><br><span class="line">	            int endRadius = (int) endValues.values.get(PROPNAME_RADIUS);</span><br><span class="line">	            Animator coolAnim = new NoPauseAnimator(ViewAnimationUtils.createCircularReveal(view, view.getWidth() / 2, view.getHeight() / 2, startRadius, endRadius));</span><br><span class="line">	            coolAnim.setDuration(1000);</span><br><span class="line">	            coolAnim.setInterpolator(new AccelerateDecelerateInterpolator());</span><br><span class="line">	            return coolAnim;</span><br><span class="line">	        default:</span><br><span class="line">	            return null;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public Animator onDisappear(ViewGroup sceneRoot, View view, TransitionValues startValues, TransitionValues endValues) &#123;</span><br><span class="line">	  ...</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>captureStartValues用来保存动画需要的初始值，key-value的形式，至于key可以模仿系统以两个’:’分离，captureEndValues用来保存动画需要的结束值。我们这里，小球透明度从0.2开始，同时从相同x的屏幕顶部掉落，背景初始的半径为0；结束时小球透明度正常，小球回到老地方，背景扩展至满屏，这里半径取了背景宽高的平方和的二次方根，关于值大家可以自己调。 </p>
+<p>重点是继承了Visibility，像这种进场动画最好继承Visibility，因为它很好地提供了view的出现和消失方法。</p>
+<p>我们再来看看onAppear方法，我们利用id来标识一个view，但这样就不灵活了。我们利用PropertyValuesHolder把translationY和alpha在一个view上同时执行，像这种针对同一个view且需要执行多个属性动画，就可以采用PropertyValuesHolder。背景的圆形扩散可以用<a href="https://developer.android.google.cn/reference/android/view/ViewAnimationUtils" target="_blank" rel="noopener">ViewAnimationUtils</a>来创建，这是Android提供的，必属精品。传入操作的view，扩散点坐标以及起始和结束半径。</p>
+<p>onDisappear就是一个相反的过程，就不介绍了。我们再来看看共享元素动画代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public class BezierTransition extends Transition &#123;</span><br><span class="line">	...</span><br><span class="line">    public BezierTransition() &#123;</span><br><span class="line">        setPathMotion(new PathMotion() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Path getPath(float startX, float startY, float endX, float endY) &#123;</span><br><span class="line">                Path path = new Path();</span><br><span class="line">                path.moveTo(startX, startY);</span><br><span class="line">                float controlPointX = (startX + endX) / 4;</span><br><span class="line">                float controlPointY = (startY + endY) * 1.0f / 2;</span><br><span class="line">                path.quadTo(controlPointX, controlPointY, endX, endY);</span><br><span class="line">                return path;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void captureValues(TransitionValues transitionValues) &#123;</span><br><span class="line">        Rect rect = new Rect();</span><br><span class="line">        transitionValues.view.getGlobalVisibleRect(rect);</span><br><span class="line">        transitionValues.values.put(PROPNAME_SCREEN_LOCATION, rect);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void captureStartValues(@NonNull TransitionValues transitionValues) &#123;</span><br><span class="line">        captureValues(transitionValues);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void captureEndValues(@NonNull TransitionValues transitionValues) &#123;</span><br><span class="line">        captureValues(transitionValues);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Animator createAnimator(ViewGroup sceneRoot,</span><br><span class="line">                                   TransitionValues startValues, TransitionValues endValues) &#123;</span><br><span class="line">        if (null == startValues || null == endValues) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        final int id = startValues.view.getId();</span><br><span class="line">        if (id &lt;= 0) &#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        Rect startRect = (Rect) startValues.values.get(PROPNAME_SCREEN_LOCATION);</span><br><span class="line">        Rect endRect = (Rect) endValues.values.get(PROPNAME_SCREEN_LOCATION);</span><br><span class="line">        final View view = endValues.view;</span><br><span class="line">        Path path = getPathMotion().getPath(startRect.centerX(), startRect.centerY(), endRect.centerX(), endRect.centerY());</span><br><span class="line">        return ObjectAnimator.ofObject(view, new PropPosition(PointF.class, &quot;position&quot;, new PointF(endRect.centerX(), endRect.centerY())), null, path);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先发现我们继承的是Transition，其次在构造函数里面我们执行了setPathMotion方法。<a href="https://developer.android.google.cn/reference/android/transition/PathMotion" target="_blank" rel="noopener">PathMotion</a>是Transition的一种扩展，提供以某种路径运动，有两个实现类<a href="https://developer.android.google.cn/reference/android/transition/ArcMotion" target="_blank" rel="noopener">ArcMotion</a>和<a href="https://developer.android.google.cn/reference/android/transition/PatternPathMotion" target="_blank" rel="noopener">PatternPathMotion</a>，感兴趣的可以研究下它的算法。前者是三阶贝塞尔曲线，后者是矢量曲线。</p>
+<p>我们先来看看我们自己实现的有点low的算法，哈哈，就是一个简单的贝塞尔路径，难点可能是控制点的计算，如何让路径更优雅，这个艰巨的任务就交给你们了。</p>
+<p>如果继承Transition，我们实现的是createAnimator，拿到我们创建的path，通过ObjectAnimator传入PropPosition实现的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">static class PropPosition extends Property&lt;View, PointF&gt; &#123;</span><br><span class="line">    PointF endPoint;</span><br><span class="line">    PropPosition(Class&lt;PointF&gt; type, String name, PointF endPoint) &#123;</span><br><span class="line">        super(type, name);</span><br><span class="line">        this.endPoint = endPoint;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void set(View view, PointF value) &#123;</span><br><span class="line">        int x = Math.round(value.x);</span><br><span class="line">        int y = Math.round(value.y);</span><br><span class="line">        int startX = Math.round(endPoint.x);</span><br><span class="line">        int startY = Math.round(endPoint.y);</span><br><span class="line">        int transY = y - startY;</span><br><span class="line">        int transX = x - startX;</span><br><span class="line">        view.setTranslationX(transX);</span><br><span class="line">        view.setTranslationY(transY);</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public PointF get(View object) &#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ObjectAnimator ofObject (T target, </span><br><span class="line">                Property&lt;T, V&gt; property, </span><br><span class="line">                TypeConverter&lt;PointF, V&gt; converter, </span><br><span class="line">                Path path)</span><br></pre></td></tr></table></figure>
+<p>可能ObjectAnimator的这个方法我们不常用，其实也很简单，就是根据传入的path，每个进度会回调一个对象，我们这里是PointF，由于默认的就是PointF，所以我们第三个参数传null就行了。假设我们需要回调的是Point对象，那么我们要实现一个TypeConverter&lt;PointF, Point&gt;，很好理解，就是用来类型转换的。</p>
+<p>PropPosition的set方法回调中会返回每个进度根据path计算出来的PointF，这样我们就可以通过结束点计算出view需要平移的距离。</p>
+<p>我知道大家很好奇是怎么传值的，这里我单独写了一篇文章<a href="http://crazysunj.com/2018/05/19/%E7%8E%A9%E4%B8%80%E7%8E%A9Android%E5%B1%9E%E6%80%A7%E5%8A%A8%E7%94%BB%E6%BA%90%E7%A0%81/" target="_blank" rel="noopener">玩一玩Android属性动画源码</a>来辅助大家理解。</p>
+<p><img src="/img/honglingjing.jpg" alt=""></p>
+<p>回到我们的主题，既然类已经写完了，如何调用的呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">//详情页</span><br><span class="line">private void initTransition() &#123;</span><br><span class="line">    Window window = getWindow();</span><br><span class="line">    TransitionSet set = new TransitionSet();</span><br><span class="line">    AutoTransition autoTransition = new AutoTransition();</span><br><span class="line">    autoTransition.excludeTarget(R.id.ic_head, true);</span><br><span class="line">    autoTransition.addTarget(R.id.tx_name);</span><br><span class="line">    autoTransition.addTarget(R.id.ic_location);</span><br><span class="line">    autoTransition.addTarget(R.id.tx_location);</span><br><span class="line">    autoTransition.setDuration(600);</span><br><span class="line">    autoTransition.setInterpolator(new DecelerateInterpolator());</span><br><span class="line">    set.addTransition(autoTransition);</span><br><span class="line">    </span><br><span class="line">    BezierTransition bezierTransition = new BezierTransition();</span><br><span class="line">    bezierTransition.addTarget(R.id.ic_head);</span><br><span class="line">    bezierTransition.excludeTarget(R.id.tx_name, true);</span><br><span class="line">    bezierTransition.excludeTarget(R.id.ic_location, true);</span><br><span class="line">    bezierTransition.excludeTarget(R.id.tx_location, true);</span><br><span class="line">    bezierTransition.setDuration(600);</span><br><span class="line">    bezierTransition.setInterpolator(new DecelerateInterpolator());</span><br><span class="line">    set.addTransition(bezierTransition);</span><br><span class="line">    </span><br><span class="line">    CircularRevealTransition transition = new CircularRevealTransition();</span><br><span class="line">    transition.excludeTarget(android.R.id.statusBarBackground, true);</span><br><span class="line">    </span><br><span class="line">    window.setEnterTransition(transition);</span><br><span class="line">    window.setReenterTransition(transition);</span><br><span class="line">    window.setReturnTransition(transition);</span><br><span class="line">    window.setExitTransition(transition);</span><br><span class="line">    </span><br><span class="line">    window.setSharedElementEnterTransition(set);</span><br><span class="line">    window.setSharedElementReturnTransition(set);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据前面知识普及，我相信不需要解释太多，可能需要解释的地方就是addTarget和excludeTarget。addTarget就是指定参与过渡的view，excludeTarget就是排除过渡的view。</p>
+<p>有些小伙伴可能对那个背景很好奇，它并不是一张背景图，中间以贝塞尔曲线分割，下面是白色，上面是前一个场景高斯模糊。贝塞尔曲线虽然不是什么很新鲜的东西，但是运用广泛，比如lottie章节开发用的AE中钢笔的运用就是贝塞尔曲线。</p>
+<h4 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h4><p>整个过程下来，是不是发现转场动画也并不难，有些同学看到这可能已经自己写了几个过渡动画了。这我就很开心了，能帮到大家真正运用这些知识。当然了不要忘了添加windowContentTransitions属性哦，还有windowAllowEnterTransitionOverlap和windowAllowReturnTransitionOverlap来控制两个场景的动画要不要同步。NM的，咋不早说？</p>
+<p><img src="/img/dawoa.jpg" alt=""></p>
+<h3 id="卫星菜单"><a href="#卫星菜单" class="headerlink" title="卫星菜单"></a>卫星菜单</h3><p>我记得在我毕业的时候，这玩意挺火的，看起来也很牛皮，实则实现起来很简单。可以说是动画的入门，那为啥要放这里呢？我就放这里，没说我要分析啊，告诉一下大家项目有这个动画。</p>
+<h2 id="骚聊"><a href="#骚聊" class="headerlink" title="骚聊"></a>骚聊</h2><p>又到了紧张刺激的骚聊环节。到这里，肯定有小伙伴质疑我了，你确定这是Android动画全家桶吗？我可以很负责任的告诉你，是。只不过是普通规格的全家桶。无论是动画的种类还是动画的用法肯定是不全的，但是常用的已经八九不离十，重点是给大家总结个大概，感兴趣的可以深入了解。</p>
+<p>趁这次机会，我回答一下，很多同学问我的问题，Android到什么地步才算厉害？首先我觉得这种问题很无聊，其次我自己的水平也并不高，不知道有没有资格回答。</p>
+<p>鄙人在这发表一得之见，很多同学可能认为懂底层源码的人才是牛皮。懂底层确实很牛皮，但不是最牛皮的，只要你有耐心去阅读分析，不断深入，我相信你也可以和大佬一样写出深刻的源码分析，可能用的时间比大佬长那么一点，那么结果就出来了，学习能力。在这技术不断迭代更新的时代，最重要的是学习能力，因为可能你今天用的技术明天就被弃用了，当然这可能夸张一点，正如今天的Android动画分享，学习能力强的人看一遍自己过一遍已经可以举一反三了，再则，源码也是人写的，也是有迭代的，那你是不是需要重新分析一遍？看源码更多的是看大牛如何写代码，然后学以致用，今天主题动画的难点不是源码也不是如何使用，而是动画的创意！</p>
+<p>哦，对了，我答应别人每天只能吹#个牛，祝大家生活愉快，溜了，溜了。有问题可以加我好友，我博客有联系方式，文章的代码都是开源项目<a href="https://github.com/crazysunj/CrazyDaily" target="_blank" rel="noopener">CrazyDaily</a>里面的。</p>
+<p>最后，感谢一直支持我的人！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Animator</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Lottie</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">3D</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Transition</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/05/19/来一份Android动画全家桶/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/06/24/玩一玩OkHttp缓存源码/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          玩一玩OkHttp缓存源码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/19/玩一玩Android属性动画源码/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">玩一玩Android属性动画源码</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果图"><span class="toc-number">2.</span> <span class="toc-text">效果图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-number">3.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lottie"><span class="toc-number">3.1.</span> <span class="toc-text">lottie</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#简介"><span class="toc-number">3.1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android"><span class="toc-number">3.1.2.</span> <span class="toc-text">Android</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#扩展"><span class="toc-number">3.1.3.</span> <span class="toc-text">扩展</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3D动画"><span class="toc-number">3.2.</span> <span class="toc-text">3D动画</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3D翻转"><span class="toc-number">3.2.1.</span> <span class="toc-text">3D翻转</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#平移"><span class="toc-number">3.2.2.</span> <span class="toc-text">平移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#阴影渐变"><span class="toc-number">3.2.3.</span> <span class="toc-text">阴影渐变</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vignette"><span class="toc-number">3.2.4.</span> <span class="toc-text">vignette</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表侧滑删除"><span class="toc-number">3.3.</span> <span class="toc-text">列表侧滑删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列表展开闭合"><span class="toc-number">3.4.</span> <span class="toc-text">列表展开闭合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转场动画进阶"><span class="toc-number">3.5.</span> <span class="toc-text">转场动画进阶</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#常见转场动画"><span class="toc-number">3.5.1.</span> <span class="toc-text">常见转场动画</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#场景动画核心框架"><span class="toc-number">3.5.2.</span> <span class="toc-text">场景动画核心框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实战"><span class="toc-number">3.5.3.</span> <span class="toc-text">实战</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#场景分析"><span class="toc-number">3.5.3.1.</span> <span class="toc-text">场景分析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代码分析"><span class="toc-number">3.5.3.2.</span> <span class="toc-text">代码分析</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小总结"><span class="toc-number">3.5.4.</span> <span class="toc-text">小总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#卫星菜单"><span class="toc-number">3.6.</span> <span class="toc-text">卫星菜单</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#骚聊"><span class="toc-number">4.</span> <span class="toc-text">骚聊</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+  
+
+  
+
+  
+
+  
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 crazysunj
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+   <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+</footer>
+
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		toc_hide_index: true,
+		root: "/",
+		innerArchive: true,
+		showTags: true
+	}
+</script>
+
+<script>!function(r){function e(t){if(i[t])return i[t].exports;var n=i[t]={exports:{},id:t,loaded:!1};return r[t].call(n.exports,n,n.exports,e),n.loaded=!0,n.exports}var i={};e.m=r,e.c=i,e.p="./",e(0)}([function(t,n,r){r(204),t.exports=r(200)},function(t,n,r){var d=r(3),y=r(46),g=r(26),b=r(27),m=r(47),x="prototype",S=function(t,n,r){var e,i,o,u,c=t&S.F,f=t&S.G,a=t&S.S,s=t&S.P,l=t&S.B,h=f?d:a?d[n]||(d[n]={}):(d[n]||{})[x],v=f?y:y[n]||(y[n]={}),p=v[x]||(v[x]={});for(e in f&&(r=n),r)o=((i=!c&&h&&void 0!==h[e])?h:r)[e],u=l&&i?m(o,d):s&&"function"==typeof o?m(Function.call,o):o,h&&b(h,e,o,t&S.U),v[e]!=o&&g(v,e,u),s&&p[e]!=o&&(p[e]=o)};d.core=y,S.F=1,S.G=2,S.S=4,S.P=8,S.B=16,S.W=32,S.U=64,S.R=128,t.exports=S},function(t,n,r){var e=r(5);t.exports=function(t){if(!e(t))throw TypeError(t+" is not an object!");return t}},function(t,n){var r=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=r)},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){var r=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=r)},function(t,n,r){var e=r(128)("wks"),i=r(78),o=r(3).Symbol,u="function"==typeof o;(t.exports=function(t){return e[t]||(e[t]=u&&o[t]||(u?o:i)("Symbol."+t))}).store=e},function(t,n){var r={}.hasOwnProperty;t.exports=function(t,n){return r.call(t,n)}},function(t,n,r){t.exports=!r(4)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,r){var e=r(2),i=r(171),o=r(53),u=Object.defineProperty;n.f=r(9)?Object.defineProperty:function(t,n,r){if(e(t),n=o(n,!0),e(r),i)try{return u(t,n,r)}catch(t){}if("get"in r||"set"in r)throw TypeError("Accessors not supported!");return"value"in r&&(t[n]=r.value),t}},function(t,n,r){var e=r(52),i=Math.min;t.exports=function(t){return 0<t?i(e(t),9007199254740991):0}},function(t,n,r){t.exports=!r(20)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,r){var e=r(14),i=r(24);t.exports=r(12)?function(t,n,r){return e.f(t,n,i(1,r))}:function(t,n,r){return t[n]=r,t}},function(t,n,r){var e=r(22),i=r(59),o=r(42),u=Object.defineProperty;n.f=r(12)?Object.defineProperty:function(t,n,r){if(e(t),n=o(n,!0),e(r),i)try{return u(t,n,r)}catch(t){}if("get"in r||"set"in r)throw TypeError("Accessors not supported!");return"value"in r&&(t[n]=r.value),t}},function(t,n,r){var e=r(95),i=r(34);t.exports=function(t){return e(i(t))}},function(t,n,r){var e=r(40)("wks"),i=r(25),o=r(6).Symbol,u="function"==typeof o;(t.exports=function(t){return e[t]||(e[t]=u&&o[t]||(u?o:i)("Symbol."+t))}).store=e},function(t,n,r){var e=r(50);t.exports=function(t){return Object(e(t))}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){var r=t.exports={version:"2.5.7"};"number"==typeof __e&&(__e=r)},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n,r){var e=r(18);t.exports=function(t){if(!e(t))throw TypeError(t+" is not an object!");return t}},function(t,n){t.exports=!0},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n){var r=0,e=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++r+e).toString(36))}},function(t,n,r){var e=r(10),i=r(74);t.exports=r(9)?function(t,n,r){return e.f(t,n,i(1,r))}:function(t,n,r){return t[n]=r,t}},function(t,n,r){var o=r(3),u=r(26),c=r(30),f=r(78)("src"),e="toString",i=Function[e],a=(""+i).split(e);r(46).inspectSource=function(t){return i.call(t)},(t.exports=function(t,n,r,e){var i="function"==typeof r;i&&(c(r,"name")||u(r,"name",n)),t[n]!==r&&(i&&(c(r,f)||u(r,f,t[n]?""+t[n]:a.join(String(n)))),t===o?t[n]=r:e?t[n]?t[n]=r:u(t,n,r):(delete t[n],u(t,n,r)))})(Function.prototype,e,function(){return"function"==typeof this&&this[f]||i.call(this)})},function(t,n,r){var e=r(1),i=r(4),u=r(50),c=/"/g,o=function(t,n,r,e){var i=String(u(t)),o="<"+n;return""!==r&&(o+=" "+r+'="'+String(e).replace(c,"&quot;")+'"'),o+">"+i+"</"+n+">"};t.exports=function(n,t){var r={};r[n]=t(o),e(e.P+e.F*i(function(){var t=""[n]('"');return t!==t.toLowerCase()||3<t.split('"').length}),"String",r)}},function(t,n,r){var e=r(64),i=r(35);t.exports=Object.keys||function(t){return e(t,i)}},function(t,n){var r={}.hasOwnProperty;t.exports=function(t,n){return r.call(t,n)}},function(t,n,r){var e=r(116),i=r(74),o=r(33),u=r(53),c=r(30),f=r(171),a=Object.getOwnPropertyDescriptor;n.f=r(9)?a:function(t,n){if(t=o(t),n=u(n,!0),f)try{return a(t,n)}catch(t){}if(c(t,n))return i(!e.f.call(t,n),t[n])}},function(t,n,r){var e=r(30),i=r(17),o=r(150)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=i(t),e(t,o)?t[o]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,r){var e=r(115),i=r(50);t.exports=function(t){return e(i(t))}},function(t,n){t.exports=function(t){if(null==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n){t.exports={}},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,r){var e=r(14).f,i=r(8),o=r(16)("toStringTag");t.exports=function(t,n,r){t&&!i(t=r?t:t.prototype,o)&&e(t,o,{configurable:!0,value:n})}},function(t,n,r){var e=r(40)("keys"),i=r(25);t.exports=function(t){return e[t]||(e[t]=i(t))}},function(t,n,r){var e=r(19),i=r(6),o="__core-js_shared__",u=i[o]||(i[o]={});(t.exports=function(t,n){return u[t]||(u[t]=void 0!==n?n:{})})("versions",[]).push({version:e.version,mode:r(23)?"pure":"global",copyright:"© 2018 Denis Pushkarev (zloirock.ru)"})},function(t,n){var r=Math.ceil,e=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(0<t?e:r)(t)}},function(t,n,r){var i=r(18);t.exports=function(t,n){if(!i(t))return t;var r,e;if(n&&"function"==typeof(r=t.toString)&&!i(e=r.call(t)))return e;if("function"==typeof(r=t.valueOf)&&!i(e=r.call(t)))return e;if(!n&&"function"==typeof(r=t.toString)&&!i(e=r.call(t)))return e;throw TypeError("Can't convert object to primitive value")}},function(t,n,r){var e=r(6),i=r(19),o=r(23),u=r(44),c=r(14).f;t.exports=function(t){var n=i.Symbol||(i.Symbol=o?{}:e.Symbol||{});"_"==t.charAt(0)||t in n||c(n,t,{value:u.f(t)})}},function(t,n,r){n.f=r(16)},function(t,n){var r={}.toString;t.exports=function(t){return r.call(t).slice(8,-1)}},function(t,n){var r=t.exports={version:"2.5.7"};"number"==typeof __e&&(__e=r)},function(t,n,r){var o=r(21);t.exports=function(e,i,t){if(o(e),void 0===i)return e;switch(t){case 1:return function(t){return e.call(i,t)};case 2:return function(t,n){return e.call(i,t,n)};case 3:return function(t,n,r){return e.call(i,t,n,r)}}return function(){return e.apply(i,arguments)}}},function(t,n,r){"use strict";var e=r(4);t.exports=function(t,n){return!!t&&e(function(){n?t.call(null,function(){},1):t.call(null)})}},function(t,n,r){var m=r(47),x=r(115),S=r(17),w=r(11),e=r(135);t.exports=function(l,t){var h=1==l,v=2==l,p=3==l,d=4==l,y=6==l,g=5==l||y,b=t||e;return function(t,n,r){for(var e,i,o=S(t),u=x(o),c=m(n,r,3),f=w(u.length),a=0,s=h?b(t,f):v?b(t,0):void 0;a<f;a++)if((g||a in u)&&(i=c(e=u[a],a,o),l))if(h)s[a]=i;else if(i)switch(l){case 3:return!0;case 5:return e;case 6:return a;case 2:s.push(e)}else if(d)return!1;return y?-1:p||d?d:s}}},function(t,n){t.exports=function(t){if(null==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n,r){var i=r(1),o=r(46),u=r(4);t.exports=function(t,n){var r=(o.Object||{})[t]||Object[t],e={};e[t]=n(r),i(i.S+i.F*u(function(){r(1)}),"Object",e)}},function(t,n){var r=Math.ceil,e=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(0<t?e:r)(t)}},function(t,n,r){var i=r(5);t.exports=function(t,n){if(!i(t))return t;var r,e;if(n&&"function"==typeof(r=t.toString)&&!i(e=r.call(t)))return e;if("function"==typeof(r=t.valueOf)&&!i(e=r.call(t)))return e;if(!n&&"function"==typeof(r=t.toString)&&!i(e=r.call(t)))return e;throw TypeError("Can't convert object to primitive value")}},function(t,n,r){var d=r(6),y=r(19),g=r(92),b=r(13),m=r(8),x="prototype",S=function(t,n,r){var e,i,o,u=t&S.F,c=t&S.G,f=t&S.S,a=t&S.P,s=t&S.B,l=t&S.W,h=c?y:y[n]||(y[n]={}),v=h[x],p=c?d:f?d[n]:(d[n]||{})[x];for(e in c&&(r=n),r)(i=!u&&p&&void 0!==p[e])&&m(h,e)||(o=i?p[e]:r[e],h[e]=c&&"function"!=typeof p[e]?r[e]:s&&i?g(o,d):l&&p[e]==o?function(e){var t=function(t,n,r){if(this instanceof e){switch(arguments.length){case 0:return new e;case 1:return new e(t);case 2:return new e(t,n)}return new e(t,n,r)}return e.apply(this,arguments)};return t[x]=e[x],t}(o):a&&"function"==typeof o?g(Function.call,o):o,a&&((h.virtual||(h.virtual={}))[e]=o,t&S.R&&v&&!v[e]&&b(v,e,o)))};S.F=1,S.G=2,S.S=4,S.P=8,S.B=16,S.W=32,S.U=64,S.R=128,t.exports=S},function(t,n,r){var o=r(192),e=r(1),i=r(128)("metadata"),u=i.store||(i.store=new(r(195))),c=function(t,n,r){var e=u.get(t);if(!e){if(!r)return;u.set(t,e=new o)}var i=e.get(n);if(!i){if(!r)return;e.set(n,i=new o)}return i};t.exports={store:u,map:c,has:function(t,n,r){var e=c(n,r,!1);return void 0!==e&&e.has(t)},get:function(t,n,r){var e=c(n,r,!1);return void 0===e?void 0:e.get(t)},set:function(t,n,r,e){c(r,e,!0).set(t,n)},keys:function(t,n){var r=c(t,n,!1),e=[];return r&&r.forEach(function(t,n){e.push(n)}),e},key:function(t){return void 0===t||"symbol"==typeof t?t:String(t)},exp:function(t){e(e.S,"Reflect",t)}}},function(t,n,r){"use strict";if(r(9)){var g=r(67),b=r(3),m=r(4),x=r(1),S=r(130),e=r(156),h=r(47),w=r(69),i=r(74),_=r(26),o=r(75),u=r(52),O=r(11),E=r(190),c=r(77),f=r(53),a=r(30),M=r(114),P=r(5),v=r(17),p=r(142),j=r(71),F=r(32),A=r(72).f,d=r(158),s=r(78),l=r(7),y=r(49),L=r(117),N=r(129),T=r(159),I=r(80),k=r(123),R=r(76),C=r(134),D=r(163),G=r(10),W=r(31),U=G.f,V=W.f,B=b.RangeError,q=b.TypeError,z=b.Uint8Array,H="ArrayBuffer",K="Shared"+H,J="BYTES_PER_ELEMENT",Y="prototype",$=Array[Y],X=e.ArrayBuffer,Q=e.DataView,Z=y(0),tt=y(2),nt=y(3),rt=y(4),et=y(5),it=y(6),ot=L(!0),ut=L(!1),ct=T.values,ft=T.keys,at=T.entries,st=$.lastIndexOf,lt=$.reduce,ht=$.reduceRight,vt=$.join,pt=$.sort,dt=$.slice,yt=$.toString,gt=$.toLocaleString,bt=l("iterator"),mt=l("toStringTag"),xt=s("typed_constructor"),St=s("def_constructor"),wt=S.CONSTR,_t=S.TYPED,Ot=S.VIEW,Et="Wrong length!",Mt=y(1,function(t,n){return Lt(N(t,t[St]),n)}),Pt=m(function(){return 1===new z(new Uint16Array([1]).buffer)[0]}),jt=!!z&&!!z[Y].set&&m(function(){new z(1).set({})}),Ft=function(t,n){var r=u(t);if(r<0||r%n)throw B("Wrong offset!");return r},At=function(t){if(P(t)&&_t in t)return t;throw q(t+" is not a typed array!")},Lt=function(t,n){if(!(P(t)&&xt in t))throw q("It is not a typed array constructor!");return new t(n)},Nt=function(t,n){return Tt(N(t,t[St]),n)},Tt=function(t,n){for(var r=0,e=n.length,i=Lt(t,e);r<e;)i[r]=n[r++];return i},It=function(t,n,r){U(t,n,{get:function(){return this._d[r]}})},kt=function(t){var n,r,e,i,o,u,c=v(t),f=arguments.length,a=1<f?arguments[1]:void 0,s=void 0!==a,l=d(c);if(null!=l&&!p(l)){for(u=l.call(c),e=[],n=0;!(o=u.next()).done;n++)e.push(o.value);c=e}for(s&&2<f&&(a=h(a,arguments[2],2)),n=0,r=O(c.length),i=Lt(this,r);n<r;n++)i[n]=s?a(c[n],n):c[n];return i},Rt=function(){for(var t=0,n=arguments.length,r=Lt(this,n);t<n;)r[t]=arguments[t++];return r},Ct=!!z&&m(function(){gt.call(new z(1))}),Dt=function(){return gt.apply(Ct?dt.call(At(this)):At(this),arguments)},Gt={copyWithin:function(t,n){return D.call(At(this),t,n,2<arguments.length?arguments[2]:void 0)},every:function(t){return rt(At(this),t,1<arguments.length?arguments[1]:void 0)},fill:function(t){return C.apply(At(this),arguments)},filter:function(t){return Nt(this,tt(At(this),t,1<arguments.length?arguments[1]:void 0))},find:function(t){return et(At(this),t,1<arguments.length?arguments[1]:void 0)},findIndex:function(t){return it(At(this),t,1<arguments.length?arguments[1]:void 0)},forEach:function(t){Z(At(this),t,1<arguments.length?arguments[1]:void 0)},indexOf:function(t){return ut(At(this),t,1<arguments.length?arguments[1]:void 0)},includes:function(t){return ot(At(this),t,1<arguments.length?arguments[1]:void 0)},join:function(t){return vt.apply(At(this),arguments)},lastIndexOf:function(t){return st.apply(At(this),arguments)},map:function(t){return Mt(At(this),t,1<arguments.length?arguments[1]:void 0)},reduce:function(t){return lt.apply(At(this),arguments)},reduceRight:function(t){return ht.apply(At(this),arguments)},reverse:function(){for(var t,n=this,r=At(n).length,e=Math.floor(r/2),i=0;i<e;)t=n[i],n[i++]=n[--r],n[r]=t;return n},some:function(t){return nt(At(this),t,1<arguments.length?arguments[1]:void 0)},sort:function(t){return pt.call(At(this),t)},subarray:function(t,n){var r=At(this),e=r.length,i=c(t,e);return new(N(r,r[St]))(r.buffer,r.byteOffset+i*r.BYTES_PER_ELEMENT,O((void 0===n?e:c(n,e))-i))}},Wt=function(t,n){return Nt(this,dt.call(At(this),t,n))},Ut=function(t){At(this);var n=Ft(arguments[1],1),r=this.length,e=v(t),i=O(e.length),o=0;if(r<i+n)throw B(Et);for(;o<i;)this[n+o]=e[o++]},Vt={entries:function(){return at.call(At(this))},keys:function(){return ft.call(At(this))},values:function(){return ct.call(At(this))}},Bt=function(t,n){return P(t)&&t[_t]&&"symbol"!=typeof n&&n in t&&String(+n)==String(n)},qt=function(t,n){return Bt(t,n=f(n,!0))?i(2,t[n]):V(t,n)},zt=function(t,n,r){return!(Bt(t,n=f(n,!0))&&P(r)&&a(r,"value"))||a(r,"get")||a(r,"set")||r.configurable||a(r,"writable")&&!r.writable||a(r,"enumerable")&&!r.enumerable?U(t,n,r):(t[n]=r.value,t)};wt||(W.f=qt,G.f=zt),x(x.S+x.F*!wt,"Object",{getOwnPropertyDescriptor:qt,defineProperty:zt}),m(function(){yt.call({})})&&(yt=gt=function(){return vt.call(this)});var Ht=o({},Gt);o(Ht,Vt),_(Ht,bt,Vt.values),o(Ht,{slice:Wt,set:Ut,constructor:function(){},toString:yt,toLocaleString:Dt}),It(Ht,"buffer","b"),It(Ht,"byteOffset","o"),It(Ht,"byteLength","l"),It(Ht,"length","e"),U(Ht,mt,{get:function(){return this[_t]}}),t.exports=function(t,l,n,o){var h=t+((o=!!o)?"Clamped":"")+"Array",r="get"+t,u="set"+t,v=b[h],c=v||{},e=v&&F(v),i=!v||!S.ABV,f={},a=v&&v[Y],p=function(t,i){U(t,i,{get:function(){return t=i,(n=this._d).v[r](t*l+n.o,Pt);var t,n},set:function(t){return n=i,r=t,e=this._d,o&&(r=(r=Math.round(r))<0?0:255<r?255:255&r),void e.v[u](n*l+e.o,r,Pt);var n,r,e},enumerable:!0})};i?(v=n(function(t,n,r,e){w(t,v,h,"_d");var i,o,u,c,f=0,a=0;if(P(n)){if(!(n instanceof X||(c=M(n))==H||c==K))return _t in n?Tt(v,n):kt.call(v,n);i=n,a=Ft(r,l);var s=n.byteLength;if(void 0===e){if(s%l)throw B(Et);if((o=s-a)<0)throw B(Et)}else if(s<(o=O(e)*l)+a)throw B(Et);u=o/l}else u=E(n),i=new X(o=u*l);for(_(t,"_d",{b:i,o:a,l:o,e:u,v:new Q(i)});f<u;)p(t,f++)}),a=v[Y]=j(Ht),_(a,"constructor",v)):m(function(){v(1)})&&m(function(){new v(-1)})&&k(function(t){new v,new v(null),new v(1.5),new v(t)},!0)||(v=n(function(t,n,r,e){var i;return w(t,v,h),P(n)?n instanceof X||(i=M(n))==H||i==K?void 0!==e?new c(n,Ft(r,l),e):void 0!==r?new c(n,Ft(r,l)):new c(n):_t in n?Tt(v,n):kt.call(v,n):new c(E(n))}),Z(e!==Function.prototype?A(c).concat(A(e)):A(c),function(t){t in v||_(v,t,c[t])}),v[Y]=a,g||(a.constructor=v));var s=a[bt],d=!!s&&("values"==s.name||null==s.name),y=Vt.values;_(v,xt,!0),_(a,_t,h),_(a,Ot,!0),_(a,St,v),(o?new v(1)[mt]==h:mt in a)||U(a,mt,{get:function(){return h}}),f[h]=v,x(x.G+x.W+x.F*(v!=c),f),x(x.S,h,{BYTES_PER_ELEMENT:l}),x(x.S+x.F*m(function(){c.of.call(v,1)}),h,{from:kt,of:Rt}),J in a||_(a,J,l),x(x.P,h,Gt),R(h),x(x.P+x.F*jt,h,{set:Ut}),x(x.P+x.F*!d,h,Vt),g||a.toString==yt||(a.toString=yt),x(x.P+x.F*m(function(){new v(1).slice()}),h,{slice:Wt}),x(x.P+x.F*(m(function(){return[1,2].toLocaleString()!=new v([1,2]).toLocaleString()})||!m(function(){a.toLocaleString.call([1,2])})),h,{toLocaleString:Dt}),I[h]=d?s:y,g||d||_(a,bt,y)}}else t.exports=function(){}},function(t,n){var r={}.toString;t.exports=function(t){return r.call(t).slice(8,-1)}},function(t,n,r){var e=r(18),i=r(6).document,o=e(i)&&e(i.createElement);t.exports=function(t){return o?i.createElement(t):{}}},function(t,n,r){t.exports=!r(12)&&!r(20)(function(){return 7!=Object.defineProperty(r(58)("div"),"a",{get:function(){return 7}}).a})},function(t,n,r){"use strict";var m=r(23),x=r(54),S=r(65),w=r(13),_=r(36),O=r(97),E=r(38),M=r(103),P=r(16)("iterator"),j=!([].keys&&"next"in[].keys()),F="values",A=function(){return this};t.exports=function(t,n,r,e,i,o,u){O(r,n,e);var c,f,a,s=function(t){if(!j&&t in p)return p[t];switch(t){case"keys":case F:return function(){return new r(this,t)}}return function(){return new r(this,t)}},l=n+" Iterator",h=i==F,v=!1,p=t.prototype,d=p[P]||p["@@iterator"]||i&&p[i],y=d||s(i),g=i?h?s("entries"):y:void 0,b="Array"==n&&p.entries||d;if(b&&((a=M(b.call(new t)))!==Object.prototype&&a.next&&(E(a,l,!0),m||"function"==typeof a[P]||w(a,P,A))),h&&d&&d.name!==F&&(v=!0,y=function(){return d.call(this)}),m&&!u||!j&&!v&&p[P]||w(p,P,y),_[n]=y,_[l]=A,i)if(c={values:h?y:s(F),keys:o?y:s("keys"),entries:g},u)for(f in c)f in p||S(p,f,c[f]);else x(x.P+x.F*(j||v),n,c);return c}},function(t,n,e){var i=e(22),o=e(100),u=e(35),c=e(39)("IE_PROTO"),f=function(){},a="prototype",s=function(){var t,n=e(58)("iframe"),r=u.length;for(n.style.display="none",e(94).appendChild(n),n.src="javascript:",(t=n.contentWindow.document).open(),t.write("<script>document.F=Object<\/script>"),t.close(),s=t.F;r--;)delete s[a][u[r]];return s()};t.exports=Object.create||function(t,n){var r;return null!==t?(f[a]=i(t),r=new f,f[a]=null,r[c]=t):r=s(),void 0===n?r:o(r,n)}},function(t,n,r){var e=r(64),i=r(35).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return e(t,i)}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,r){var u=r(8),c=r(15),f=r(91)(!1),a=r(39)("IE_PROTO");t.exports=function(t,n){var r,e=c(t),i=0,o=[];for(r in e)r!=a&&u(e,r)&&o.push(r);for(;n.length>i;)u(e,r=n[i++])&&(~f(o,r)||o.push(r));return o}},function(t,n,r){t.exports=r(13)},function(t,n,r){var e=r(7)("unscopables"),i=Array.prototype;null==i[e]&&r(26)(i,e,{}),t.exports=function(t){i[e][t]=!0}},function(t,n){t.exports=!1},function(t,n,r){var e=r(78)("meta"),i=r(5),o=r(30),u=r(10).f,c=0,f=Object.isExtensible||function(){return!0},a=!r(4)(function(){return f(Object.preventExtensions({}))}),s=function(t){u(t,e,{value:{i:"O"+ ++c,w:{}}})},l=t.exports={KEY:e,NEED:!1,fastKey:function(t,n){if(!i(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!o(t,e)){if(!f(t))return"F";if(!n)return"E";s(t)}return t[e].i},getWeak:function(t,n){if(!o(t,e)){if(!f(t))return!0;if(!n)return!1;s(t)}return t[e].w},onFreeze:function(t){return a&&l.NEED&&f(t)&&!o(t,e)&&s(t),t}}},function(t,n){t.exports=function(t,n,r,e){if(!(t instanceof n)||void 0!==e&&e in t)throw TypeError(r+": incorrect invocation!");return t}},function(t,n,r){var h=r(47),v=r(174),p=r(142),d=r(2),y=r(11),g=r(158),b={},m={};(n=t.exports=function(t,n,r,e,i){var o,u,c,f,a=i?function(){return t}:g(t),s=h(r,e,n?2:1),l=0;if("function"!=typeof a)throw TypeError(t+" is not iterable!");if(p(a)){for(o=y(t.length);l<o;l++)if((f=n?s(d(u=t[l])[0],u[1]):s(t[l]))===b||f===m)return f}else for(c=a.call(t);!(u=c.next()).done;)if((f=v(c,s,u.value,n))===b||f===m)return f}).BREAK=b,n.RETURN=m},function(t,n,e){var i=e(2),o=e(180),u=e(138),c=e(150)("IE_PROTO"),f=function(){},a="prototype",s=function(){var t,n=e(137)("iframe"),r=u.length;for(n.style.display="none",e(140).appendChild(n),n.src="javascript:",(t=n.contentWindow.document).open(),t.write("<script>document.F=Object<\/script>"),t.close(),s=t.F;r--;)delete s[a][u[r]];return s()};t.exports=Object.create||function(t,n){var r;return null!==t?(f[a]=i(t),r=new f,f[a]=null,r[c]=t):r=s(),void 0===n?r:o(r,n)}},function(t,n,r){var e=r(182),i=r(138).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return e(t,i)}},function(t,n,r){var e=r(182),i=r(138);t.exports=Object.keys||function(t){return e(t,i)}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n,r){var i=r(27);t.exports=function(t,n,r){for(var e in n)i(t,e,n[e],r);return t}},function(t,n,r){"use strict";var e=r(3),i=r(10),o=r(9),u=r(7)("species");t.exports=function(t){var n=e[t];o&&n&&!n[u]&&i.f(n,u,{configurable:!0,get:function(){return this}})}},function(t,n,r){var e=r(52),i=Math.max,o=Math.min;t.exports=function(t,n){return(t=e(t))<0?i(t+n,0):o(t,n)}},function(t,n){var r=0,e=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++r+e).toString(36))}},function(t,n,r){var e=r(34);t.exports=function(t){return Object(e(t))}},function(t,n){t.exports={}},function(t,n,r){var e=r(10).f,i=r(30),o=r(7)("toStringTag");t.exports=function(t,n,r){t&&!i(t=r?t:t.prototype,o)&&e(t,o,{configurable:!0,value:n})}},function(t,n,r){var u=r(1),e=r(50),c=r(4),f=r(154),i="["+f+"]",o=RegExp("^"+i+i+"*"),a=RegExp(i+i+"*$"),s=function(t,n,r){var e={},i=c(function(){return!!f[t]()||"​"!="​"[t]()}),o=e[t]=i?n(l):f[t];r&&(e[r]=o),u(u.P+u.F*i,"String",e)},l=s.trim=function(t,n){return t=String(e(t)),1&n&&(t=t.replace(o,"")),2&n&&(t=t.replace(a,"")),t};t.exports=s},function(t,n,r){var e=r(5);t.exports=function(t,n){if(!e(t)||t._t!==n)throw TypeError("Incompatible receiver, "+n+" required!");return t}},function(t,n,r){t.exports={default:r(87),__esModule:!0}},function(t,n,r){t.exports={default:r(88),__esModule:!0}},function(t,n,r){"use strict";function e(t){return t&&t.__esModule?t:{default:t}}n.__esModule=!0;var i=e(r(85)),o=e(r(84)),u="function"==typeof o.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof o.default&&t.constructor===o.default&&t!==o.default.prototype?"symbol":typeof t};n.default="function"==typeof o.default&&"symbol"===u(i.default)?function(t){return void 0===t?"undefined":u(t)}:function(t){return t&&"function"==typeof o.default&&t.constructor===o.default&&t!==o.default.prototype?"symbol":void 0===t?"undefined":u(t)}},function(t,n,r){r(110),r(108),r(111),r(112),t.exports=r(19).Symbol},function(t,n,r){r(109),r(113),t.exports=r(44).f("iterator")},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){t.exports=function(){}},function(t,n,r){var f=r(15),a=r(106),s=r(105);t.exports=function(c){return function(t,n,r){var e,i=f(t),o=a(i.length),u=s(r,o);if(c&&n!=n){for(;u<o;)if((e=i[u++])!=e)return!0}else for(;u<o;u++)if((c||u in i)&&i[u]===n)return c||u||0;return!c&&-1}}},function(t,n,r){var o=r(89);t.exports=function(e,i,t){if(o(e),void 0===i)return e;switch(t){case 1:return function(t){return e.call(i,t)};case 2:return function(t,n){return e.call(i,t,n)};case 3:return function(t,n,r){return e.call(i,t,n,r)}}return function(){return e.apply(i,arguments)}}},function(t,n,r){var c=r(29),f=r(63),a=r(37);t.exports=function(t){var n=c(t),r=f.f;if(r)for(var e,i=r(t),o=a.f,u=0;i.length>u;)o.call(t,e=i[u++])&&n.push(e);return n}},function(t,n,r){var e=r(6).document;t.exports=e&&e.documentElement},function(t,n,r){var e=r(57);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==e(t)?t.split(""):Object(t)}},function(t,n,r){var e=r(57);t.exports=Array.isArray||function(t){return"Array"==e(t)}},function(t,n,r){"use strict";var e=r(61),i=r(24),o=r(38),u={};r(13)(u,r(16)("iterator"),function(){return this}),t.exports=function(t,n,r){t.prototype=e(u,{next:i(1,r)}),o(t,n+" Iterator")}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,r){var e=r(25)("meta"),i=r(18),o=r(8),u=r(14).f,c=0,f=Object.isExtensible||function(){return!0},a=!r(20)(function(){return f(Object.preventExtensions({}))}),s=function(t){u(t,e,{value:{i:"O"+ ++c,w:{}}})},l=t.exports={KEY:e,NEED:!1,fastKey:function(t,n){if(!i(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!o(t,e)){if(!f(t))return"F";if(!n)return"E";s(t)}return t[e].i},getWeak:function(t,n){if(!o(t,e)){if(!f(t))return!0;if(!n)return!1;s(t)}return t[e].w},onFreeze:function(t){return a&&l.NEED&&f(t)&&!o(t,e)&&s(t),t}}},function(t,n,r){var u=r(14),c=r(22),f=r(29);t.exports=r(12)?Object.defineProperties:function(t,n){c(t);for(var r,e=f(n),i=e.length,o=0;o<i;)u.f(t,r=e[o++],n[r]);return t}},function(t,n,r){var e=r(37),i=r(24),o=r(15),u=r(42),c=r(8),f=r(59),a=Object.getOwnPropertyDescriptor;n.f=r(12)?a:function(t,n){if(t=o(t),n=u(n,!0),f)try{return a(t,n)}catch(t){}if(c(t,n))return i(!e.f.call(t,n),t[n])}},function(t,n,r){var e=r(15),i=r(62).f,o={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[];t.exports.f=function(t){return u&&"[object Window]"==o.call(t)?function(t){try{return i(t)}catch(t){return u.slice()}}(t):i(e(t))}},function(t,n,r){var e=r(8),i=r(79),o=r(39)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=i(t),e(t,o)?t[o]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,r){var f=r(41),a=r(34);t.exports=function(c){return function(t,n){var r,e,i=String(a(t)),o=f(n),u=i.length;return o<0||u<=o?c?"":void 0:(r=i.charCodeAt(o))<55296||56319<r||o+1===u||(e=i.charCodeAt(o+1))<56320||57343<e?c?i.charAt(o):r:c?i.slice(o,o+2):e-56320+(r-55296<<10)+65536}}},function(t,n,r){var e=r(41),i=Math.max,o=Math.min;t.exports=function(t,n){return(t=e(t))<0?i(t+n,0):o(t,n)}},function(t,n,r){var e=r(41),i=Math.min;t.exports=function(t){return 0<t?i(e(t),9007199254740991):0}},function(t,n,r){"use strict";var e=r(90),i=r(98),o=r(36),u=r(15);t.exports=r(60)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,r=this._i++;return!t||r>=t.length?(this._t=void 0,i(1)):i(0,"keys"==n?r:"values"==n?t[r]:[r,t[r]])},"values"),o.Arguments=o.Array,e("keys"),e("values"),e("entries")},function(t,n){},function(t,n,r){"use strict";var e=r(104)(!0);r(60)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,r=this._i;return r>=n.length?{value:void 0,done:!0}:(t=e(n,r),this._i+=t.length,{value:t,done:!1})})},function(t,n,r){"use strict";var e=r(6),u=r(8),i=r(12),o=r(54),c=r(65),f=r(99).KEY,a=r(20),s=r(40),l=r(38),h=r(25),v=r(16),p=r(44),d=r(43),y=r(93),g=r(96),b=r(22),m=r(18),x=r(15),S=r(42),w=r(24),_=r(61),O=r(102),E=r(101),M=r(14),P=r(29),j=E.f,F=M.f,A=O.f,L=e.Symbol,N=e.JSON,T=N&&N.stringify,I="prototype",k=v("_hidden"),R=v("toPrimitive"),C={}.propertyIsEnumerable,D=s("symbol-registry"),G=s("symbols"),W=s("op-symbols"),U=Object[I],V="function"==typeof L,B=e.QObject,q=!B||!B[I]||!B[I].findChild,z=i&&a(function(){return 7!=_(F({},"a",{get:function(){return F(this,"a",{value:7}).a}})).a})?function(t,n,r){var e=j(U,n);e&&delete U[n],F(t,n,r),e&&t!==U&&F(U,n,e)}:F,H=function(t){var n=G[t]=_(L[I]);return n._k=t,n},K=V&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},J=function(t,n,r){return t===U&&J(W,n,r),b(t),n=S(n,!0),b(r),u(G,n)?(r.enumerable?(u(t,k)&&t[k][n]&&(t[k][n]=!1),r=_(r,{enumerable:w(0,!1)})):(u(t,k)||F(t,k,w(1,{})),t[k][n]=!0),z(t,n,r)):F(t,n,r)},Y=function(t,n){b(t);for(var r,e=y(n=x(n)),i=0,o=e.length;i<o;)J(t,r=e[i++],n[r]);return t},$=function(t){var n=C.call(this,t=S(t,!0));return!(this===U&&u(G,t)&&!u(W,t))&&(!(n||!u(this,t)||!u(G,t)||u(this,k)&&this[k][t])||n)},X=function(t,n){if(t=x(t),n=S(n,!0),t!==U||!u(G,n)||u(W,n)){var r=j(t,n);return!r||!u(G,n)||u(t,k)&&t[k][n]||(r.enumerable=!0),r}},Q=function(t){for(var n,r=A(x(t)),e=[],i=0;r.length>i;)u(G,n=r[i++])||n==k||n==f||e.push(n);return e},Z=function(t){for(var n,r=t===U,e=A(r?W:x(t)),i=[],o=0;e.length>o;)!u(G,n=e[o++])||r&&!u(U,n)||i.push(G[n]);return i};V||(c((L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var n=h(0<arguments.length?arguments[0]:void 0),r=function(t){this===U&&r.call(W,t),u(this,k)&&u(this[k],n)&&(this[k][n]=!1),z(this,n,w(1,t))};return i&&q&&z(U,n,{configurable:!0,set:r}),H(n)})[I],"toString",function(){return this._k}),E.f=X,M.f=J,r(62).f=O.f=Q,r(37).f=$,r(63).f=Z,i&&!r(23)&&c(U,"propertyIsEnumerable",$,!0),p.f=function(t){return H(v(t))}),o(o.G+o.W+o.F*!V,{Symbol:L});for(var tt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),nt=0;tt.length>nt;)v(tt[nt++]);for(var rt=P(v.store),et=0;rt.length>et;)d(rt[et++]);o(o.S+o.F*!V,"Symbol",{for:function(t){return u(D,t+="")?D[t]:D[t]=L(t)},keyFor:function(t){if(!K(t))throw TypeError(t+" is not a symbol!");for(var n in D)if(D[n]===t)return n},useSetter:function(){q=!0},useSimple:function(){q=!1}}),o(o.S+o.F*!V,"Object",{create:function(t,n){return void 0===n?_(t):Y(_(t),n)},defineProperty:J,defineProperties:Y,getOwnPropertyDescriptor:X,getOwnPropertyNames:Q,getOwnPropertySymbols:Z}),N&&o(o.S+o.F*(!V||a(function(){var t=L();return"[null]"!=T([t])||"{}"!=T({a:t})||"{}"!=T(Object(t))})),"JSON",{stringify:function(t){for(var n,r,e=[t],i=1;arguments.length>i;)e.push(arguments[i++]);if(r=n=e[1],(m(n)||void 0!==t)&&!K(t))return g(n)||(n=function(t,n){if("function"==typeof r&&(n=r.call(this,t,n)),!K(n))return n}),e[1]=n,T.apply(N,e)}}),L[I][R]||r(13)(L[I],R,L[I].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(e.JSON,"JSON",!0)},function(t,n,r){r(43)("asyncIterator")},function(t,n,r){r(43)("observable")},function(t,n,r){r(107);for(var e=r(6),i=r(13),o=r(36),u=r(16)("toStringTag"),c="CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,MediaList,MimeTypeArray,NamedNodeMap,NodeList,PaintRequestList,Plugin,PluginArray,SVGLengthList,SVGNumberList,SVGPathSegList,SVGPointList,SVGStringList,SVGTransformList,SourceBufferList,StyleSheetList,TextTrackCueList,TextTrackList,TouchList".split(","),f=0;f<c.length;f++){var a=c[f],s=e[a],l=s&&s.prototype;l&&!l[u]&&i(l,u,a),o[a]=o.Array}},function(t,n,r){var i=r(45),o=r(7)("toStringTag"),u="Arguments"==i(function(){return arguments}());t.exports=function(t){var n,r,e;return void 0===t?"Undefined":null===t?"Null":"string"==typeof(r=function(t,n){try{return t[n]}catch(t){}}(n=Object(t),o))?r:u?i(n):"Object"==(e=i(n))&&"function"==typeof n.callee?"Arguments":e}},function(t,n,r){var e=r(45);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==e(t)?t.split(""):Object(t)}},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,r){var f=r(33),a=r(11),s=r(77);t.exports=function(c){return function(t,n,r){var e,i=f(t),o=a(i.length),u=s(r,o);if(c&&n!=n){for(;u<o;)if((e=i[u++])!=e)return!0}else for(;u<o;u++)if((c||u in i)&&i[u]===n)return c||u||0;return!c&&-1}}},function(t,n,r){"use strict";var g=r(3),b=r(1),m=r(27),x=r(75),S=r(68),w=r(70),_=r(69),O=r(5),E=r(4),M=r(123),P=r(81),j=r(141);t.exports=function(e,t,n,r,i,o){var u=g[e],c=u,f=i?"set":"add",a=c&&c.prototype,s={},l=function(t){var r=a[t];m(a,t,"delete"==t?function(t){return!(o&&!O(t))&&r.call(this,0===t?0:t)}:"has"==t?function(t){return!(o&&!O(t))&&r.call(this,0===t?0:t)}:"get"==t?function(t){return o&&!O(t)?void 0:r.call(this,0===t?0:t)}:"add"==t?function(t){return r.call(this,0===t?0:t),this}:function(t,n){return r.call(this,0===t?0:t,n),this})};if("function"==typeof c&&(o||a.forEach&&!E(function(){(new c).entries().next()}))){var h=new c,v=h[f](o?{}:-0,1)!=h,p=E(function(){h.has(1)}),d=M(function(t){new c(t)}),y=!o&&E(function(){for(var t=new c,n=5;n--;)t[f](n,n);return!t.has(-0)});d||(((c=t(function(t,n){_(t,c,e);var r=j(new u,t,c);return null!=n&&w(n,i,r[f],r),r})).prototype=a).constructor=c),(p||y)&&(l("delete"),l("has"),i&&l("get")),(y||v)&&l(f),o&&a.clear&&delete a.clear}else c=r.getConstructor(t,e,i,f),x(c.prototype,n),S.NEED=!0;return P(c,e),s[e]=c,b(b.G+b.W+b.F*(c!=u),s),o||r.setStrong(c,e,i),c}},function(t,n,r){"use strict";var c=r(26),f=r(27),a=r(4),s=r(50),l=r(7);t.exports=function(n,t,r){var e=l(n),i=r(s,e,""[n]),o=i[0],u=i[1];a(function(){var t={};return t[e]=function(){return 7},7!=""[n](t)})&&(f(String.prototype,n,o),c(RegExp.prototype,e,2==t?function(t,n){return u.call(t,this,n)}:function(t){return u.call(t,this)}))}},function(t,n,r){"use strict";var e=r(2);t.exports=function(){var t=e(this),n="";return t.global&&(n+="g"),t.ignoreCase&&(n+="i"),t.multiline&&(n+="m"),t.unicode&&(n+="u"),t.sticky&&(n+="y"),n}},function(t,n,r){var e=r(45);t.exports=Array.isArray||function(t){return"Array"==e(t)}},function(t,n,r){var e=r(5),i=r(45),o=r(7)("match");t.exports=function(t){var n;return e(t)&&(void 0!==(n=t[o])?!!n:"RegExp"==i(t))}},function(t,n,r){var o=r(7)("iterator"),u=!1;try{var e=[7][o]();e.return=function(){u=!0},Array.from(e,function(){throw 2})}catch(t){}t.exports=function(t,n){if(!n&&!u)return!1;var r=!1;try{var e=[7],i=e[o]();i.next=function(){return{done:r=!0}},e[o]=function(){return i},t(e)}catch(t){}return r}},function(t,n,r){"use strict";t.exports=r(67)||!r(4)(function(){var t=Math.random();__defineSetter__.call(null,t,function(){}),delete r(3)[t]})},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,r){"use strict";var e=r(1),u=r(21),c=r(47),f=r(70);t.exports=function(t){e(e.S,t,{from:function(t){var n,r,e,i,o=arguments[1];return u(this),(n=void 0!==o)&&u(o),null==t?new this:(r=[],n?(e=0,i=c(o,arguments[2],2),f(t,!1,function(t){r.push(i(t,e++))})):f(t,!1,r.push,r),new this(r))}})}},function(t,n,r){"use strict";var e=r(1);t.exports=function(t){e(e.S,t,{of:function(){for(var t=arguments.length,n=new Array(t);t--;)n[t]=arguments[t];return new this(n)}})}},function(t,n,r){var e=r(46),i=r(3),o="__core-js_shared__",u=i[o]||(i[o]={});(t.exports=function(t,n){return u[t]||(u[t]=void 0!==n?n:{})})("versions",[]).push({version:e.version,mode:r(67)?"pure":"global",copyright:"© 2018 Denis Pushkarev (zloirock.ru)"})},function(t,n,r){var i=r(2),o=r(21),u=r(7)("species");t.exports=function(t,n){var r,e=i(t).constructor;return void 0===e||null==(r=i(e)[u])?n:o(r)}},function(t,n,r){for(var e,i=r(3),o=r(26),u=r(78),c=u("typed_array"),f=u("view"),a=!(!i.ArrayBuffer||!i.DataView),s=a,l=0,h="Int8Array,Uint8Array,Uint8ClampedArray,Int16Array,Uint16Array,Int32Array,Uint32Array,Float32Array,Float64Array".split(",");l<9;)(e=i[h[l++]])?(o(e.prototype,c,!0),o(e.prototype,f,!0)):s=!1;t.exports={ABV:a,CONSTR:s,TYPED:c,VIEW:f}},function(t,n,r){var e=r(3).navigator;t.exports=e&&e.userAgent||""},function(t,n){"use strict";var r,e={versions:(r=window.navigator.userAgent,{trident:-1<r.indexOf("Trident"),presto:-1<r.indexOf("Presto"),webKit:-1<r.indexOf("AppleWebKit"),gecko:-1<r.indexOf("Gecko")&&-1==r.indexOf("KHTML"),mobile:!!r.match(/AppleWebKit.*Mobile.*/),ios:!!r.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:-1<r.indexOf("Android")||-1<r.indexOf("Linux"),iPhone:-1<r.indexOf("iPhone")||-1<r.indexOf("Mac"),iPad:-1<r.indexOf("iPad"),webApp:-1==r.indexOf("Safari"),weixin:-1==r.indexOf("MicroMessenger")})};t.exports=e},function(t,n,r){"use strict";var e,i=r(86),l=(e=i)&&e.__esModule?e:{default:e},h=function(){function n(t,n,r){return n||r?String.fromCharCode(n||r):o[t]||t}function r(t){return s[t]}var e=/&quot;|&lt;|&gt;|&amp;|&nbsp;|&apos;|&#(\d+);|&#(\d+)/g,i=/['<> "&]/g,o={"&quot;":'"',"&lt;":"<","&gt;":">","&amp;":"&","&nbsp;":" "},u=/\u00a0/g,c=/<br\s*\/?>/gi,f=/\r?\n/g,a=/\s/g,s={};for(var t in o)s[o[t]]=t;return o["&apos;"]="'",s["'"]="&#39;",{encode:function(t){return t?(""+t).replace(i,r).replace(f,"<br/>").replace(a,"&nbsp;"):""},decode:function(t){return t?(""+t).replace(c,"\n").replace(e,n).replace(u," "):""},encodeBase16:function(t){if(!t)return t;for(var n=[],r=0,e=(t+="").length;r<e;r++)n.push(t.charCodeAt(r).toString(16).toUpperCase());return n.join("")},encodeBase16forJSON:function(t){if(!t)return t;for(var n=[],r=0,e=(t=t.replace(/[\u4E00-\u9FBF]/gi,function(t){return escape(t).replace("%u","\\u")})).length;r<e;r++)n.push(t.charCodeAt(r).toString(16).toUpperCase());return n.join("")},decodeBase16:function(t){if(!t)return t;for(var n=[],r=0,e=(t+="").length;r<e;r+=2)n.push(String.fromCharCode("0x"+t.slice(r,r+2)));return n.join("")},encodeObject:function(t){if(t instanceof Array)for(var n=0,r=t.length;n<r;n++)t[n]=h.encodeObject(t[n]);else if("object"==(void 0===t?"undefined":(0,l.default)(t)))for(var e in t)t[e]=h.encodeObject(t[e]);else if("string"==typeof t)return h.encode(t);return t},loadScript:function(t){var n=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(n),n.setAttribute("src",t)},addLoadEvent:function(t){var n=window.onload;"function"!=typeof window.onload?window.onload=t:window.onload=function(){n(),t()}}}}();t.exports=h},function(t,n,r){"use strict";var c=r(17),f=r(77),a=r(11);t.exports=function(t){for(var n=c(this),r=a(n.length),e=arguments.length,i=f(1<e?arguments[1]:void 0,r),o=2<e?arguments[2]:void 0,u=void 0===o?r:f(o,r);i<u;)n[i++]=t;return n}},function(t,n,r){var e=r(212);t.exports=function(t,n){return new(e(t))(n)}},function(t,n,r){"use strict";var e=r(10),i=r(74);t.exports=function(t,n,r){n in t?e.f(t,n,i(0,r)):t[n]=r}},function(t,n,r){var e=r(5),i=r(3).document,o=e(i)&&e(i.createElement);t.exports=function(t){return o?i.createElement(t):{}}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n,r){var e=r(7)("match");t.exports=function(n){var r=/./;try{"/./"[n](r)}catch(t){try{return r[e]=!1,!"/./"[n](r)}catch(n){}}return!0}},function(t,n,r){var e=r(3).document;t.exports=e&&e.documentElement},function(t,n,r){var o=r(5),u=r(149).set;t.exports=function(t,n,r){var e,i=n.constructor;return i!==r&&"function"==typeof i&&(e=i.prototype)!==r.prototype&&o(e)&&u&&u(t,e),t}},function(t,n,r){var e=r(80),i=r(7)("iterator"),o=Array.prototype;t.exports=function(t){return void 0!==t&&(e.Array===t||o[i]===t)}},function(t,n,r){"use strict";var e=r(71),i=r(74),o=r(81),u={};r(26)(u,r(7)("iterator"),function(){return this}),t.exports=function(t,n,r){t.prototype=e(u,{next:i(1,r)}),o(t,n+" Iterator")}},function(t,n,r){"use strict";var m=r(67),x=r(1),S=r(27),w=r(26),_=r(80),O=r(143),E=r(81),M=r(32),P=r(7)("iterator"),j=!([].keys&&"next"in[].keys()),F="values",A=function(){return this};t.exports=function(t,n,r,e,i,o,u){O(r,n,e);var c,f,a,s=function(t){if(!j&&t in p)return p[t];switch(t){case"keys":case F:return function(){return new r(this,t)}}return function(){return new r(this,t)}},l=n+" Iterator",h=i==F,v=!1,p=t.prototype,d=p[P]||p["@@iterator"]||i&&p[i],y=d||s(i),g=i?h?s("entries"):y:void 0,b="Array"==n&&p.entries||d;if(b&&((a=M(b.call(new t)))!==Object.prototype&&a.next&&(E(a,l,!0),m||"function"==typeof a[P]||w(a,P,A))),h&&d&&d.name!==F&&(v=!0,y=function(){return d.call(this)}),m&&!u||!j&&!v&&p[P]||w(p,P,y),_[n]=y,_[l]=A,i)if(c={values:h?y:s(F),keys:o?y:s("keys"),entries:g},u)for(f in c)f in p||S(p,f,c[f]);else x(x.P+x.F*(j||v),n,c);return c}},function(t,n){var r=Math.expm1;t.exports=!r||22025.465794806718<r(10)||r(10)<22025.465794806718||-2e-17!=r(-2e-17)?function(t){return 0==(t=+t)?t:-1e-6<t&&t<1e-6?t+t*t/2:Math.exp(t)-1}:r},function(t,n){t.exports=Math.sign||function(t){return 0==(t=+t)||t!=t?t:t<0?-1:1}},function(t,n,r){var c=r(3),f=r(155).set,a=c.MutationObserver||c.WebKitMutationObserver,s=c.process,l=c.Promise,h="process"==r(45)(s);t.exports=function(){var r,e,i,t=function(){var t,n;for(h&&(t=s.domain)&&t.exit();r;){n=r.fn,r=r.next;try{n()}catch(t){throw r?i():e=void 0,t}}e=void 0,t&&t.enter()};if(h)i=function(){s.nextTick(t)};else if(!a||c.navigator&&c.navigator.standalone)if(l&&l.resolve){var n=l.resolve(void 0);i=function(){n.then(t)}}else i=function(){f.call(c,t)};else{var o=!0,u=document.createTextNode("");new a(t).observe(u,{characterData:!0}),i=function(){u.data=o=!o}}return function(t){var n={fn:t,next:void 0};e&&(e.next=n),r||(r=n,i()),e=n}}},function(t,n,r){"use strict";function e(t){var r,e;this.promise=new t(function(t,n){if(void 0!==r||void 0!==e)throw TypeError("Bad Promise constructor");r=t,e=n}),this.resolve=i(r),this.reject=i(e)}var i=r(21);t.exports.f=function(t){return new e(t)}},function(t,n,i){var r=i(5),e=i(2),o=function(t,n){if(e(t),!r(n)&&null!==n)throw TypeError(n+": can't set as prototype!")};t.exports={set:Object.setPrototypeOf||("__proto__"in{}?function(t,r,e){try{(e=i(47)(Function.call,i(31).f(Object.prototype,"__proto__").set,2))(t,[]),r=!(t instanceof Array)}catch(t){r=!0}return function(t,n){return o(t,n),r?t.__proto__=n:e(t,n),t}}({},!1):void 0),check:o}},function(t,n,r){var e=r(128)("keys"),i=r(78);t.exports=function(t){return e[t]||(e[t]=i(t))}},function(t,n,r){var f=r(52),a=r(50);t.exports=function(c){return function(t,n){var r,e,i=String(a(t)),o=f(n),u=i.length;return o<0||u<=o?c?"":void 0:(r=i.charCodeAt(o))<55296||56319<r||o+1===u||(e=i.charCodeAt(o+1))<56320||57343<e?c?i.charAt(o):r:c?i.slice(o,o+2):e-56320+(r-55296<<10)+65536}}},function(t,n,r){var e=r(122),i=r(50);t.exports=function(t,n,r){if(e(n))throw TypeError("String#"+r+" doesn't accept regex!");return String(i(t))}},function(t,n,r){"use strict";var i=r(52),o=r(50);t.exports=function(t){var n=String(o(this)),r="",e=i(t);if(e<0||e==1/0)throw RangeError("Count can't be negative");for(;0<e;(e>>>=1)&&(n+=n))1&e&&(r+=n);return r}},function(t,n){t.exports="\t\n\v\f\r   ᠎             　\u2028\u2029\ufeff"},function(t,n,r){var e,i,o,u=r(47),c=r(172),f=r(140),a=r(137),s=r(3),l=s.process,h=s.setImmediate,v=s.clearImmediate,p=s.MessageChannel,d=s.Dispatch,y=0,g={},b="onreadystatechange",m=function(){var t=+this;if(g.hasOwnProperty(t)){var n=g[t];delete g[t],n()}},x=function(t){m.call(t.data)};h&&v||(h=function(t){for(var n=[],r=1;arguments.length>r;)n.push(arguments[r++]);return g[++y]=function(){c("function"==typeof t?t:Function(t),n)},e(y),y},v=function(t){delete g[t]},"process"==r(45)(l)?e=function(t){l.nextTick(u(m,t,1))}:d&&d.now?e=function(t){d.now(u(m,t,1))}:p?(o=(i=new p).port2,i.port1.onmessage=x,e=u(o.postMessage,o,1)):s.addEventListener&&"function"==typeof postMessage&&!s.importScripts?(e=function(t){s.postMessage(t+"","*")},s.addEventListener("message",x,!1)):e=b in a("script")?function(t){f.appendChild(a("script"))[b]=function(){f.removeChild(this),m.call(t)}}:function(t){setTimeout(u(m,t,1),0)}),t.exports={set:h,clear:v}},function(t,n,r){"use strict";function e(t,n,r){var e,i,o,u=new Array(r),c=8*r-n-1,f=(1<<c)-1,a=f>>1,s=23===n?W(2,-24)-W(2,-77):0,l=0,h=t<0||0===t&&1/t<0?1:0;for((t=G(t))!=t||t===C?(i=t!=t?1:0,e=f):(e=U(V(t)/B),t*(o=W(2,-e))<1&&(e--,o*=2),2<=(t+=1<=e+a?s/o:s*W(2,1-a))*o&&(e++,o/=2),f<=e+a?(i=0,e=f):1<=e+a?(i=(t*o-1)*W(2,n),e+=a):(i=t*W(2,a-1)*W(2,n),e=0));8<=n;u[l++]=255&i,i/=256,n-=8);for(e=e<<n|i,c+=n;0<c;u[l++]=255&e,e/=256,c-=8);return u[--l]|=128*h,u}function i(t,n,r){var e,i=8*r-n-1,o=(1<<i)-1,u=o>>1,c=i-7,f=r-1,a=t[f--],s=127&a;for(a>>=7;0<c;s=256*s+t[f],f--,c-=8);for(e=s&(1<<-c)-1,s>>=-c,c+=n;0<c;e=256*e+t[f],f--,c-=8);if(0===s)s=1-u;else{if(s===o)return e?NaN:a?-C:C;e+=W(2,n),s-=u}return(a?-1:1)*e*W(2,s-n)}function o(t){return t[3]<<24|t[2]<<16|t[1]<<8|t[0]}function u(t){return[255&t]}function c(t){return[255&t,t>>8&255]}function f(t){return[255&t,t>>8&255,t>>16&255,t>>24&255]}function a(t){return e(t,52,8)}function s(t){return e(t,23,4)}function l(t,n,r){M(t[L],n,{get:function(){return this[r]}})}function h(t,n,r,e){var i=O(+r);if(i+n>t[K])throw R(N);var o=t[H]._b,u=i+t[J],c=o.slice(u,u+n);return e?c:c.reverse()}function v(t,n,r,e,i,o){var u=O(+r);if(u+n>t[K])throw R(N);for(var c=t[H]._b,f=u+t[J],a=e(+i),s=0;s<n;s++)c[f+s]=a[o?s:n-s-1]}var p=r(3),d=r(9),y=r(67),g=r(130),b=r(26),m=r(75),x=r(4),S=r(69),w=r(52),_=r(11),O=r(190),E=r(72).f,M=r(10).f,P=r(134),j=r(81),F="ArrayBuffer",A="DataView",L="prototype",N="Wrong index!",T=p[F],I=p[A],k=p.Math,R=p.RangeError,C=p.Infinity,D=T,G=k.abs,W=k.pow,U=k.floor,V=k.log,B=k.LN2,q="byteLength",z="byteOffset",H=d?"_b":"buffer",K=d?"_l":q,J=d?"_o":z;if(g.ABV){if(!x(function(){T(1)})||!x(function(){new T(-1)})||x(function(){return new T,new T(1.5),new T(NaN),T.name!=F})){for(var Y,$=(T=function(t){return S(this,T),new D(O(t))})[L]=D[L],X=E(D),Q=0;X.length>Q;)(Y=X[Q++])in T||b(T,Y,D[Y]);y||($.constructor=T)}var Z=new I(new T(2)),tt=I[L].setInt8;Z.setInt8(0,2147483648),Z.setInt8(1,2147483649),!Z.getInt8(0)&&Z.getInt8(1)||m(I[L],{setInt8:function(t,n){tt.call(this,t,n<<24>>24)},setUint8:function(t,n){tt.call(this,t,n<<24>>24)}},!0)}else T=function(t){S(this,T,F);var n=O(t);this._b=P.call(new Array(n),0),this[K]=n},I=function(t,n,r){S(this,I,A),S(t,T,A);var e=t[K],i=w(n);if(i<0||e<i)throw R("Wrong offset!");if(e<i+(r=void 0===r?e-i:_(r)))throw R("Wrong length!");this[H]=t,this[J]=i,this[K]=r},d&&(l(T,q,"_l"),l(I,"buffer","_b"),l(I,q,"_l"),l(I,z,"_o")),m(I[L],{getInt8:function(t){return h(this,1,t)[0]<<24>>24},getUint8:function(t){return h(this,1,t)[0]},getInt16:function(t){var n=h(this,2,t,arguments[1]);return(n[1]<<8|n[0])<<16>>16},getUint16:function(t){var n=h(this,2,t,arguments[1]);return n[1]<<8|n[0]},getInt32:function(t){return o(h(this,4,t,arguments[1]))},getUint32:function(t){return o(h(this,4,t,arguments[1]))>>>0},getFloat32:function(t){return i(h(this,4,t,arguments[1]),23,4)},getFloat64:function(t){return i(h(this,8,t,arguments[1]),52,8)},setInt8:function(t,n){v(this,1,t,u,n)},setUint8:function(t,n){v(this,1,t,u,n)},setInt16:function(t,n){v(this,2,t,c,n,arguments[2])},setUint16:function(t,n){v(this,2,t,c,n,arguments[2])},setInt32:function(t,n){v(this,4,t,f,n,arguments[2])},setUint32:function(t,n){v(this,4,t,f,n,arguments[2])},setFloat32:function(t,n){v(this,4,t,s,n,arguments[2])},setFloat64:function(t,n){v(this,8,t,a,n,arguments[2])}});j(T,F),j(I,A),b(I[L],g.VIEW,!0),n[F]=T,n[A]=I},function(t,n,r){var e=r(3),i=r(46),o=r(67),u=r(191),c=r(10).f;t.exports=function(t){var n=i.Symbol||(i.Symbol=o?{}:e.Symbol||{});"_"==t.charAt(0)||t in n||c(n,t,{value:u.f(t)})}},function(t,n,r){var e=r(114),i=r(7)("iterator"),o=r(80);t.exports=r(46).getIteratorMethod=function(t){if(null!=t)return t[i]||t["@@iterator"]||o[e(t)]}},function(t,n,r){"use strict";var e=r(66),i=r(175),o=r(80),u=r(33);t.exports=r(144)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,r=this._i++;return!t||r>=t.length?(this._t=void 0,i(1)):i(0,"keys"==n?r:"values"==n?t[r]:[r,t[r]])},"values"),o.Arguments=o.Array,e("keys"),e("values"),e("entries")},function(t,n){t.exports=function(t,n){t.classList?t.classList.add(n):t.className+=" "+n}},function(t,n){t.exports=function(t,n){if(t.classList)t.classList.remove(n);else{var r=new RegExp("(^|\\b)"+n.split(" ").join("|")+"(\\b|$)","gi");t.className=t.className.replace(r," ")}}},function(t,n,r){var e=r(45);t.exports=function(t,n){if("number"!=typeof t&&"Number"!=e(t))throw TypeError(n);return+t}},function(t,n,r){"use strict";var a=r(17),s=r(77),l=r(11);t.exports=[].copyWithin||function(t,n){var r=a(this),e=l(r.length),i=s(t,e),o=s(n,e),u=2<arguments.length?arguments[2]:void 0,c=Math.min((void 0===u?e:s(u,e))-o,e-i),f=1;for(o<i&&i<o+c&&(f=-1,o+=c-1,i+=c-1);0<c--;)o in r?r[i]=r[o]:delete r[i],i+=f,o+=f;return r}},function(t,n,r){var e=r(70);t.exports=function(t,n){var r=[];return e(t,!1,r.push,r,n),r}},function(t,n,r){var s=r(21),l=r(17),h=r(115),v=r(11);t.exports=function(t,n,r,e,i){s(n);var o=l(t),u=h(o),c=v(o.length),f=i?c-1:0,a=i?-1:1;if(r<2)for(;;){if(f in u){e=u[f],f+=a;break}if(f+=a,i?f<0:c<=f)throw TypeError("Reduce of empty array with no initial value")}for(;i?0<=f:f<c;f+=a)f in u&&(e=n(e,u[f],f,o));return e}},function(t,n,r){"use strict";var o=r(21),u=r(5),c=r(172),f=[].slice,a={};t.exports=Function.bind||function(n){var r=o(this),e=f.call(arguments,1),i=function(){var t=e.concat(f.call(arguments));return this instanceof i?function(t,n,r){if(!(n in a)){for(var e=[],i=0;i<n;i++)e[i]="a["+i+"]";a[n]=Function("F,a","return new F("+e.join(",")+")")}return a[n](t,r)}(r,t.length,t):c(r,t,n)};return u(r.prototype)&&(i.prototype=r.prototype),i}},function(t,n,r){"use strict";var u=r(10).f,c=r(71),f=r(75),a=r(47),s=r(69),l=r(70),e=r(144),i=r(175),o=r(76),h=r(9),v=r(68).fastKey,p=r(83),d=h?"_s":"size",y=function(t,n){var r,e=v(n);if("F"!==e)return t._i[e];for(r=t._f;r;r=r.n)if(r.k==n)return r};t.exports={getConstructor:function(t,o,r,e){var i=t(function(t,n){s(t,i,o,"_i"),t._t=o,t._i=c(null),t._f=void 0,t._l=void 0,t[d]=0,null!=n&&l(n,r,t[e],t)});return f(i.prototype,{clear:function(){for(var t=p(this,o),n=t._i,r=t._f;r;r=r.n)r.r=!0,r.p&&(r.p=r.p.n=void 0),delete n[r.i];t._f=t._l=void 0,t[d]=0},delete:function(t){var n=p(this,o),r=y(n,t);if(r){var e=r.n,i=r.p;delete n._i[r.i],r.r=!0,i&&(i.n=e),e&&(e.p=i),n._f==r&&(n._f=e),n._l==r&&(n._l=i),n[d]--}return!!r},forEach:function(t){p(this,o);for(var n,r=a(t,1<arguments.length?arguments[1]:void 0,3);n=n?n.n:this._f;)for(r(n.v,n.k,this);n&&n.r;)n=n.p},has:function(t){return!!y(p(this,o),t)}}),h&&u(i.prototype,"size",{get:function(){return p(this,o)[d]}}),i},def:function(t,n,r){var e,i,o=y(t,n);return o?o.v=r:(t._l=o={i:i=v(n,!0),k:n,v:r,p:e=t._l,n:void 0,r:!1},t._f||(t._f=o),e&&(e.n=o),t[d]++,"F"!==i&&(t._i[i]=o)),t},getEntry:y,setStrong:function(t,r,n){e(t,r,function(t,n){this._t=p(t,r),this._k=n,this._l=void 0},function(){for(var t=this,n=t._k,r=t._l;r&&r.r;)r=r.p;return t._t&&(t._l=r=r?r.n:t._t._f)?i(0,"keys"==n?r.k:"values"==n?r.v:[r.k,r.v]):(t._t=void 0,i(1))},n?"entries":"values",!n,!0),o(r)}}},function(t,n,r){var e=r(114),i=r(164);t.exports=function(t){return function(){if(e(this)!=t)throw TypeError(t+"#toJSON isn't generic");return i(this)}}},function(t,n,r){"use strict";var u=r(75),c=r(68).getWeak,i=r(2),f=r(5),a=r(69),s=r(70),e=r(49),l=r(30),h=r(83),o=e(5),v=e(6),p=0,d=function(t){return t._l||(t._l=new y)},y=function(){this.a=[]},g=function(t,n){return o(t.a,function(t){return t[0]===n})};y.prototype={get:function(t){var n=g(this,t);if(n)return n[1]},has:function(t){return!!g(this,t)},set:function(t,n){var r=g(this,t);r?r[1]=n:this.a.push([t,n])},delete:function(n){var t=v(this.a,function(t){return t[0]===n});return~t&&this.a.splice(t,1),!!~t}},t.exports={getConstructor:function(t,r,e,i){var o=t(function(t,n){a(t,o,r,"_i"),t._t=r,t._i=p++,t._l=void 0,null!=n&&s(n,e,t[i],t)});return u(o.prototype,{delete:function(t){if(!f(t))return!1;var n=c(t);return!0===n?d(h(this,r)).delete(t):n&&l(n,this._i)&&delete n[this._i]},has:function(t){if(!f(t))return!1;var n=c(t);return!0===n?d(h(this,r)).has(t):n&&l(n,this._i)}}),o},def:function(t,n,r){var e=c(i(n),!0);return!0===e?d(t).set(n,r):e[t._i]=r,t},ufstore:d}},function(t,n,r){"use strict";var p=r(121),d=r(5),y=r(11),g=r(47),b=r(7)("isConcatSpreadable");t.exports=function t(n,r,e,i,o,u,c,f){for(var a,s,l=o,h=0,v=!!c&&g(c,f,3);h<i;){if(h in e){if(a=v?v(e[h],h,r):e[h],s=!1,d(a)&&(s=void 0!==(s=a[b])?!!s:p(a)),s&&0<u)l=t(n,r,a,y(a.length),l,u-1)-1;else{if(9007199254740991<=l)throw TypeError();n[l]=a}l++}h++}return l}},function(t,n,r){t.exports=!r(9)&&!r(4)(function(){return 7!=Object.defineProperty(r(137)("div"),"a",{get:function(){return 7}}).a})},function(t,n){t.exports=function(t,n,r){var e=void 0===r;switch(n.length){case 0:return e?t():t.call(r);case 1:return e?t(n[0]):t.call(r,n[0]);case 2:return e?t(n[0],n[1]):t.call(r,n[0],n[1]);case 3:return e?t(n[0],n[1],n[2]):t.call(r,n[0],n[1],n[2]);case 4:return e?t(n[0],n[1],n[2],n[3]):t.call(r,n[0],n[1],n[2],n[3])}return t.apply(r,n)}},function(t,n,r){var e=r(5),i=Math.floor;t.exports=function(t){return!e(t)&&isFinite(t)&&i(t)===t}},function(t,n,r){var o=r(2);t.exports=function(t,n,r,e){try{return e?n(o(r)[0],r[1]):n(r)}catch(n){var i=t.return;throw void 0!==i&&o(i.call(t)),n}}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,r){var o=r(146),e=Math.pow,u=e(2,-52),c=e(2,-23),f=e(2,127)*(2-c),a=e(2,-126);t.exports=Math.fround||function(t){var n,r,e=Math.abs(t),i=o(t);return e<a?i*(e/a/c+1/u-1/u)*a*c:f<(r=(n=(1+c/u)*e)-(n-e))||r!=r?i*(1/0):i*r}},function(t,n){t.exports=Math.log1p||function(t){return-1e-8<(t=+t)&&t<1e-8?t-t*t/2:Math.log(1+t)}},function(t,n){t.exports=Math.scale||function(t,n,r,e,i){return 0===arguments.length||t!=t||n!=n||r!=r||e!=e||i!=i?NaN:t===1/0||t===-1/0?t:(t-n)*(i-e)/(r-n)+e}},function(t,n,r){"use strict";var h=r(73),v=r(125),p=r(116),d=r(17),y=r(115),i=Object.assign;t.exports=!i||r(4)(function(){var t={},n={},r=Symbol(),e="abcdefghijklmnopqrst";return t[r]=7,e.split("").forEach(function(t){n[t]=t}),7!=i({},t)[r]||Object.keys(i({},n)).join("")!=e})?function(t,n){for(var r=d(t),e=arguments.length,i=1,o=v.f,u=p.f;i<e;)for(var c,f=y(arguments[i++]),a=o?h(f).concat(o(f)):h(f),s=a.length,l=0;l<s;)u.call(f,c=a[l++])&&(r[c]=f[c]);return r}:i},function(t,n,r){var u=r(10),c=r(2),f=r(73);t.exports=r(9)?Object.defineProperties:function(t,n){c(t);for(var r,e=f(n),i=e.length,o=0;o<i;)u.f(t,r=e[o++],n[r]);return t}},function(t,n,r){var e=r(33),i=r(72).f,o={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[];t.exports.f=function(t){return u&&"[object Window]"==o.call(t)?function(t){try{return i(t)}catch(t){return u.slice()}}(t):i(e(t))}},function(t,n,r){var u=r(30),c=r(33),f=r(117)(!1),a=r(150)("IE_PROTO");t.exports=function(t,n){var r,e=c(t),i=0,o=[];for(r in e)r!=a&&u(e,r)&&o.push(r);for(;n.length>i;)u(e,r=n[i++])&&(~f(o,r)||o.push(r));return o}},function(t,n,r){var f=r(73),a=r(33),s=r(116).f;t.exports=function(c){return function(t){for(var n,r=a(t),e=f(r),i=e.length,o=0,u=[];o<i;)s.call(r,n=e[o++])&&u.push(c?[n,r[n]]:r[n]);return u}}},function(t,n,r){var e=r(72),i=r(125),o=r(2),u=r(3).Reflect;t.exports=u&&u.ownKeys||function(t){var n=e.f(o(t)),r=i.f;return r?n.concat(r(t)):n}},function(t,n,r){var e=r(3).parseFloat,i=r(82).trim;t.exports=1/e(r(154)+"-0")!=-1/0?function(t){var n=i(String(t),3),r=e(n);return 0===r&&"-"==n.charAt(0)?-0:r}:e},function(t,n,r){var e=r(3).parseInt,i=r(82).trim,o=r(154),u=/^[-+]?0[xX]/;t.exports=8!==e(o+"08")||22!==e(o+"0x16")?function(t,n){var r=i(String(t),3);return e(r,n>>>0||(u.test(r)?16:10))}:e},function(t,n){t.exports=function(t){try{return{e:!1,v:t()}}catch(t){return{e:!0,v:t}}}},function(t,n,r){var e=r(2),i=r(5),o=r(148);t.exports=function(t,n){if(e(t),i(n)&&n.constructor===t)return n;var r=o.f(t);return(0,r.resolve)(n),r.promise}},function(t,n,r){var s=r(11),l=r(153),h=r(50);t.exports=function(t,n,r,e){var i=String(h(t)),o=i.length,u=void 0===r?" ":String(r),c=s(n);if(c<=o||""==u)return i;var f=c-o,a=l.call(u,Math.ceil(f/u.length));return a.length>f&&(a=a.slice(0,f)),e?a+i:i+a}},function(t,n,r){var e=r(52),i=r(11);t.exports=function(t){if(void 0===t)return 0;var n=e(t),r=i(n);if(n!==r)throw RangeError("Wrong length!");return r}},function(t,n,r){n.f=r(7)},function(t,n,r){"use strict";var e=r(167),i=r(83);t.exports=r(118)("Map",function(t){return function(){return t(this,0<arguments.length?arguments[0]:void 0)}},{get:function(t){var n=e.getEntry(i(this,"Map"),t);return n&&n.v},set:function(t,n){return e.def(i(this,"Map"),0===t?0:t,n)}},e,!0)},function(t,n,r){r(9)&&"g"!=/./g.flags&&r(10).f(RegExp.prototype,"flags",{configurable:!0,get:r(120)})},function(t,n,r){"use strict";var e=r(167),i=r(83);t.exports=r(118)("Set",function(t){return function(){return t(this,0<arguments.length?arguments[0]:void 0)}},{add:function(t){return e.def(i(this,"Set"),t=0===t?0:t,t)}},e)},function(t,n,r){"use strict";var o,e=r(49)(0),u=r(27),i=r(68),c=r(179),f=r(169),a=r(5),s=r(4),l=r(83),h="WeakMap",v=i.getWeak,p=Object.isExtensible,d=f.ufstore,y={},g=function(t){return function(){return t(this,0<arguments.length?arguments[0]:void 0)}},b={get:function(t){if(a(t)){var n=v(t);return!0===n?d(l(this,h)).get(t):n?n[this._i]:void 0}},set:function(t,n){return f.def(l(this,h),t,n)}},m=t.exports=r(118)(h,g,b,f,!0,!0);s(function(){return 7!=(new m).set((Object.freeze||Object)(y),7).get(y)})&&(c((o=f.getConstructor(g,h)).prototype,b),i.NEED=!0,e(["delete","has","get","set"],function(e){var t=m.prototype,i=t[e];u(t,e,function(t,n){if(a(t)&&!p(t)){this._f||(this._f=new o);var r=this._f[e](t,n);return"set"==e?this:r}return i.call(this,t,n)})}))},,,,function(t,n){"use strict";t.exports={init:function(){var t=document.querySelector("#page-nav");t&&!document.querySelector("#page-nav .extend.prev")&&(t.innerHTML='<a class="extend prev disabled" rel="prev">&laquo; Prev</a>'+t.innerHTML),t&&!document.querySelector("#page-nav .extend.next")&&(t.innerHTML=t.innerHTML+'<a class="extend next disabled" rel="next">Next &raquo;</a>'),yiliaConfig&&yiliaConfig.open_in_new&&document.querySelectorAll(".article-entry a:not(.article-more-a)").forEach(function(t){var n=t.getAttribute("target");n&&""!==n||t.setAttribute("target","_blank")}),yiliaConfig&&yiliaConfig.toc_hide_index&&document.querySelectorAll(".toc-number").forEach(function(t){t.style.display="none"});var n=document.querySelector("#js-aboutme");n&&0!==n.length&&(n.innerHTML=n.innerText)}}},function(t,n,r){"use strict";function e(t){return t&&t.__esModule?t:{default:t}}function i(t,n,r,e,i){var o=function(t){for(var n=t.offsetLeft,r=t.offsetParent;null!==r;)n+=r.offsetLeft,r=r.offsetParent;return n}(t),u=function(t){for(var n=t.offsetTop,r=t.offsetParent;null!==r;)n+=r.offsetTop,r=r.offsetParent;return n}(t)-n;if(u-r<=i){var c=t.$newDom;c||(c=t.cloneNode(!0),(0,a.default)(t,c),(t.$newDom=c).style.position="fixed",c.style.top=(r||u)+"px",c.style.left=o+"px",c.style.zIndex=e||2,c.style.width="100%",c.style.color="#fff"),c.style.visibility="visible",t.style.visibility="hidden"}else{t.style.visibility="visible";var f=t.$newDom;f&&(f.style.visibility="hidden")}}function o(){var t=document.querySelector(".js-overlay"),n=document.querySelector(".js-header-menu");i(t,document.body.scrollTop,-63,2,0),i(n,document.body.scrollTop,1,3,0)}var f=e(r(160)),a=e((e(r(161)),r(411))),u=e(r(132)),c=e(r(199)),s=r(133);u.default.versions.mobile&&window.screen.width<800&&(function(){for(var t=document.querySelectorAll(".js-header-menu li a"),n=window.location.pathname,r=0,e=t.length;r<e;r++){var i=t[r];o=n,u=i.getAttribute("href"),c=/\/|index.html/g,o.replace(c,"")===u.replace(c,"")&&(0,f.default)(i,"active")}var o,u,c}(),document.querySelector("#container").addEventListener("scroll",function(t){o()}),window.addEventListener("scroll",function(t){o()}),o()),(0,s.addLoadEvent)(function(){c.default.init()}),t.exports={}},,,,function(t,n,r){(function(t){"use strict";function n(t,n,r){t[n]||Object.defineProperty(t,n,{writable:!0,configurable:!0,value:r})}if(r(410),r(205),r(208),t._babelPolyfill)throw new Error("only one instance of babel-polyfill is allowed");t._babelPolyfill=!0;n(String.prototype,"padLeft","".padStart),n(String.prototype,"padRight","".padEnd),"pop,reverse,shift,keys,values,entries,indexOf,every,some,forEach,map,filter,find,findIndex,includes,join,slice,concat,push,splice,unshift,sort,lastIndexOf,reduce,reduceRight,copyWithin,fill".split(",").forEach(function(t){[][t]&&n(Array,t,Function.call.bind([][t]))})}).call(n,function(){return this}())},function(N,t){(function(t){!function(t){"use strict";function o(t,n,r,e){var o,u,c,f,i=n&&n.prototype instanceof h?n:h,a=Object.create(i.prototype),s=new p(e||[]);return a._invoke=(o=t,u=r,c=s,f=_,function(t,n){if(f===E)throw new Error("Generator is already running");if(f===M){if("throw"===t)throw n;return d()}for(c.method=t,c.arg=n;;){var r=c.delegate;if(r){var e=v(r,c);if(e){if(e===P)continue;return e}}if("next"===c.method)c.sent=c._sent=c.arg;else if("throw"===c.method){if(f===_)throw f=M,c.arg;c.dispatchException(c.arg)}else"return"===c.method&&c.abrupt("return",c.arg);f=E;var i=l(o,u,c);if("normal"===i.type){if(f=c.done?M:O,i.arg===P)continue;return{value:i.arg,done:c.done}}"throw"===i.type&&(f=M,c.method="throw",c.arg=i.arg)}}),a}function l(t,n,r){try{return{type:"normal",arg:t.call(n,r)}}catch(t){return{type:"throw",arg:t}}}function h(){}function r(){}function n(){}function e(t){["next","throw","return"].forEach(function(n){t[n]=function(t){return this._invoke(n,t)}})}function u(c){function f(t,n,r,e){var i=l(c[t],c,n);if("throw"!==i.type){var o=i.arg,u=o.value;return u&&"object"==typeof u&&y.call(u,"__await")?Promise.resolve(u.__await).then(function(t){f("next",t,r,e)},function(t){f("throw",t,r,e)}):Promise.resolve(u).then(function(t){o.value=t,r(o)},e)}e(i.arg)}var n;"object"==typeof t.process&&t.process.domain&&(f=t.process.domain.bind(f)),this._invoke=function(r,e){function t(){return new Promise(function(t,n){f(r,e,t,n)})}return n=n?n.then(t,t):t()}}function v(t,n){var r=t.iterator[n.method];if(r===a){if(n.delegate=null,"throw"===n.method){if(t.iterator.return&&(n.method="return",n.arg=a,v(t,n),"throw"===n.method))return P;n.method="throw",n.arg=new TypeError("The iterator does not provide a 'throw' method")}return P}var e=l(r,t.iterator,n.arg);if("throw"===e.type)return n.method="throw",n.arg=e.arg,n.delegate=null,P;var i=e.arg;return i?i.done?(n[t.resultName]=i.value,n.next=t.nextLoc,"return"!==n.method&&(n.method="next",n.arg=a),n.delegate=null,P):i:(n.method="throw",n.arg=new TypeError("iterator result is not an object"),n.delegate=null,P)}function i(t){var n={tryLoc:t[0]};1 in t&&(n.catchLoc=t[1]),2 in t&&(n.finallyLoc=t[2],n.afterLoc=t[3]),this.tryEntries.push(n)}function c(t){var n=t.completion||{};n.type="normal",delete n.arg,t.completion=n}function p(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(i,this),this.reset(!0)}function f(n){if(n){var t=n[b];if(t)return t.call(n);if("function"==typeof n.next)return n;if(!isNaN(n.length)){var r=-1,e=function t(){for(;++r<n.length;)if(y.call(n,r))return t.value=n[r],t.done=!1,t;return t.value=a,t.done=!0,t};return e.next=e}}return{next:d}}function d(){return{value:a,done:!0}}var a,s=Object.prototype,y=s.hasOwnProperty,g="function"==typeof Symbol?Symbol:{},b=g.iterator||"@@iterator",m=g.asyncIterator||"@@asyncIterator",x=g.toStringTag||"@@toStringTag",S="object"==typeof N,w=t.regeneratorRuntime;if(w)S&&(N.exports=w);else{(w=t.regeneratorRuntime=S?N.exports:{}).wrap=o;var _="suspendedStart",O="suspendedYield",E="executing",M="completed",P={},j={};j[b]=function(){return this};var F=Object.getPrototypeOf,A=F&&F(F(f([])));A&&A!==s&&y.call(A,b)&&(j=A);var L=n.prototype=h.prototype=Object.create(j);r.prototype=L.constructor=n,n.constructor=r,n[x]=r.displayName="GeneratorFunction",w.isGeneratorFunction=function(t){var n="function"==typeof t&&t.constructor;return!!n&&(n===r||"GeneratorFunction"===(n.displayName||n.name))},w.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,n):(t.__proto__=n,x in t||(t[x]="GeneratorFunction")),t.prototype=Object.create(L),t},w.awrap=function(t){return{__await:t}},e(u.prototype),u.prototype[m]=function(){return this},w.AsyncIterator=u,w.async=function(t,n,r,e){var i=new u(o(t,n,r,e));return w.isGeneratorFunction(n)?i:i.next().then(function(t){return t.done?t.value:i.next()})},e(L),L[x]="Generator",L[b]=function(){return this},L.toString=function(){return"[object Generator]"},w.keys=function(r){var e=[];for(var t in r)e.push(t);return e.reverse(),function t(){for(;e.length;){var n=e.pop();if(n in r)return t.value=n,t.done=!1,t}return t.done=!0,t}},w.values=f,p.prototype={constructor:p,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=a,this.done=!1,this.delegate=null,this.method="next",this.arg=a,this.tryEntries.forEach(c),!t)for(var n in this)"t"===n.charAt(0)&&y.call(this,n)&&!isNaN(+n.slice(1))&&(this[n]=a)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(r){function t(t,n){return o.type="throw",o.arg=r,e.next=t,n&&(e.method="next",e.arg=a),!!n}if(this.done)throw r;for(var e=this,n=this.tryEntries.length-1;0<=n;--n){var i=this.tryEntries[n],o=i.completion;if("root"===i.tryLoc)return t("end");if(i.tryLoc<=this.prev){var u=y.call(i,"catchLoc"),c=y.call(i,"finallyLoc");if(u&&c){if(this.prev<i.catchLoc)return t(i.catchLoc,!0);if(this.prev<i.finallyLoc)return t(i.finallyLoc)}else if(u){if(this.prev<i.catchLoc)return t(i.catchLoc,!0)}else{if(!c)throw new Error("try statement without catch or finally");if(this.prev<i.finallyLoc)return t(i.finallyLoc)}}}},abrupt:function(t,n){for(var r=this.tryEntries.length-1;0<=r;--r){var e=this.tryEntries[r];if(e.tryLoc<=this.prev&&y.call(e,"finallyLoc")&&this.prev<e.finallyLoc){var i=e;break}}i&&("break"===t||"continue"===t)&&i.tryLoc<=n&&n<=i.finallyLoc&&(i=null);var o=i?i.completion:{};return o.type=t,o.arg=n,i?(this.method="next",this.next=i.finallyLoc,P):this.complete(o)},complete:function(t,n){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&n&&(this.next=n),P},finish:function(t){for(var n=this.tryEntries.length-1;0<=n;--n){var r=this.tryEntries[n];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),c(r),P}},catch:function(t){for(var n=this.tryEntries.length-1;0<=n;--n){var r=this.tryEntries[n];if(r.tryLoc===t){var e=r.completion;if("throw"===e.type){var i=e.arg;c(r)}return i}}throw new Error("illegal catch attempt")},delegateYield:function(t,n,r){return this.delegate={iterator:f(t),resultName:n,nextLoc:r},"next"===this.method&&(this.arg=a),P}}}}("object"==typeof t?t:"object"==typeof window?window:"object"==typeof self?self:this)}).call(t,function(){return this}())},,,function(t,n,r){r(218),t.exports=r(46).RegExp.escape},,,,function(t,n,r){var e=r(5),i=r(121),o=r(7)("species");t.exports=function(t){var n;return i(t)&&("function"!=typeof(n=t.constructor)||n!==Array&&!i(n.prototype)||(n=void 0),e(n)&&(null===(n=n[o])&&(n=void 0))),void 0===n?Array:n}},function(t,n,r){"use strict";var e=r(4),i=Date.prototype.getTime,o=Date.prototype.toISOString,u=function(t){return 9<t?t:"0"+t};t.exports=e(function(){return"0385-07-25T07:06:39.999Z"!=o.call(new Date(-5e13-1))})||!e(function(){o.call(new Date(NaN))})?function(){if(!isFinite(i.call(this)))throw RangeError("Invalid time value");var t=this,n=t.getUTCFullYear(),r=t.getUTCMilliseconds(),e=n<0?"-":9999<n?"+":"";return e+("00000"+Math.abs(n)).slice(e?-6:-4)+"-"+u(t.getUTCMonth()+1)+"-"+u(t.getUTCDate())+"T"+u(t.getUTCHours())+":"+u(t.getUTCMinutes())+":"+u(t.getUTCSeconds())+"."+(99<r?r:"0"+u(r))+"Z"}:o},function(t,n,r){"use strict";var e=r(2),i=r(53);t.exports=function(t){if("string"!==t&&"number"!==t&&"default"!==t)throw TypeError("Incorrect hint");return i(e(this),"number"!=t)}},function(t,n,r){var c=r(73),f=r(125),a=r(116);t.exports=function(t){var n=c(t),r=f.f;if(r)for(var e,i=r(t),o=a.f,u=0;i.length>u;)o.call(t,e=i[u++])&&n.push(e);return n}},function(t,n){t.exports=function(n,r){var e=r===Object(r)?function(t){return r[t]}:r;return function(t){return String(t).replace(n,e)}}},function(t,n){t.exports=Object.is||function(t,n){return t===n?0!==t||1/t==1/n:t!=t&&n!=n}},function(t,n,r){var e=r(1),i=r(216)(/[\\^$*+?.()|[\]{}]/g,"\\$&");e(e.S,"RegExp",{escape:function(t){return i(t)}})},function(t,n,r){var e=r(1);e(e.P,"Array",{copyWithin:r(163)}),r(66)("copyWithin")},function(t,n,r){"use strict";var e=r(1),i=r(49)(4);e(e.P+e.F*!r(48)([].every,!0),"Array",{every:function(t){return i(this,t,arguments[1])}})},function(t,n,r){var e=r(1);e(e.P,"Array",{fill:r(134)}),r(66)("fill")},function(t,n,r){"use strict";var e=r(1),i=r(49)(2);e(e.P+e.F*!r(48)([].filter,!0),"Array",{filter:function(t){return i(this,t,arguments[1])}})},function(t,n,r){"use strict";var e=r(1),i=r(49)(6),o="findIndex",u=!0;o in[]&&Array(1)[o](function(){u=!1}),e(e.P+e.F*u,"Array",{findIndex:function(t){return i(this,t,1<arguments.length?arguments[1]:void 0)}}),r(66)(o)},function(t,n,r){"use strict";var e=r(1),i=r(49)(5),o="find",u=!0;o in[]&&Array(1)[o](function(){u=!1}),e(e.P+e.F*u,"Array",{find:function(t){return i(this,t,1<arguments.length?arguments[1]:void 0)}}),r(66)(o)},function(t,n,r){"use strict";var e=r(1),i=r(49)(0),o=r(48)([].forEach,!0);e(e.P+e.F*!o,"Array",{forEach:function(t){return i(this,t,arguments[1])}})},function(t,n,r){"use strict";var h=r(47),e=r(1),v=r(17),p=r(174),d=r(142),y=r(11),g=r(136),b=r(158);e(e.S+e.F*!r(123)(function(t){Array.from(t)}),"Array",{from:function(t){var n,r,e,i,o=v(t),u="function"==typeof this?this:Array,c=arguments.length,f=1<c?arguments[1]:void 0,a=void 0!==f,s=0,l=b(o);if(a&&(f=h(f,2<c?arguments[2]:void 0,2)),null==l||u==Array&&d(l))for(r=new u(n=y(o.length));s<n;s++)g(r,s,a?f(o[s],s):o[s]);else for(i=l.call(o),r=new u;!(e=i.next()).done;s++)g(r,s,a?p(i,f,[e.value,s],!0):e.value);return r.length=s,r}})},function(t,n,r){"use strict";var e=r(1),i=r(117)(!1),o=[].indexOf,u=!!o&&1/[1].indexOf(1,-0)<0;e(e.P+e.F*(u||!r(48)(o)),"Array",{indexOf:function(t){return u?o.apply(this,arguments)||0:i(this,t,arguments[1])}})},function(t,n,r){var e=r(1);e(e.S,"Array",{isArray:r(121)})},function(t,n,r){"use strict";var e=r(1),i=r(33),o=[].join;e(e.P+e.F*(r(115)!=Object||!r(48)(o)),"Array",{join:function(t){return o.call(i(this),void 0===t?",":t)}})},function(t,n,r){"use strict";var e=r(1),i=r(33),o=r(52),u=r(11),c=[].lastIndexOf,f=!!c&&1/[1].lastIndexOf(1,-0)<0;e(e.P+e.F*(f||!r(48)(c)),"Array",{lastIndexOf:function(t){if(f)return c.apply(this,arguments)||0;var n=i(this),r=u(n.length),e=r-1;for(1<arguments.length&&(e=Math.min(e,o(arguments[1]))),e<0&&(e=r+e);0<=e;e--)if(e in n&&n[e]===t)return e||0;return-1}})},function(t,n,r){"use strict";var e=r(1),i=r(49)(1);e(e.P+e.F*!r(48)([].map,!0),"Array",{map:function(t){return i(this,t,arguments[1])}})},function(t,n,r){"use strict";var e=r(1),i=r(136);e(e.S+e.F*r(4)(function(){function t(){}return!(Array.of.call(t)instanceof t)}),"Array",{of:function(){for(var t=0,n=arguments.length,r=new("function"==typeof this?this:Array)(n);t<n;)i(r,t,arguments[t++]);return r.length=n,r}})},function(t,n,r){"use strict";var e=r(1),i=r(165);e(e.P+e.F*!r(48)([].reduceRight,!0),"Array",{reduceRight:function(t){return i(this,t,arguments.length,arguments[1],!0)}})},function(t,n,r){"use strict";var e=r(1),i=r(165);e(e.P+e.F*!r(48)([].reduce,!0),"Array",{reduce:function(t){return i(this,t,arguments.length,arguments[1],!1)}})},function(t,n,r){"use strict";var e=r(1),i=r(140),a=r(45),s=r(77),l=r(11),h=[].slice;e(e.P+e.F*r(4)(function(){i&&h.call(i)}),"Array",{slice:function(t,n){var r=l(this.length),e=a(this);if(n=void 0===n?r:n,"Array"==e)return h.call(this,t,n);for(var i=s(t,r),o=s(n,r),u=l(o-i),c=new Array(u),f=0;f<u;f++)c[f]="String"==e?this.charAt(i+f):this[i+f];return c}})},function(t,n,r){"use strict";var e=r(1),i=r(49)(3);e(e.P+e.F*!r(48)([].some,!0),"Array",{some:function(t){return i(this,t,arguments[1])}})},function(t,n,r){"use strict";var e=r(1),i=r(21),o=r(17),u=r(4),c=[].sort,f=[1,2,3];e(e.P+e.F*(u(function(){f.sort(void 0)})||!u(function(){f.sort(null)})||!r(48)(c)),"Array",{sort:function(t){return void 0===t?c.call(o(this)):c.call(o(this),i(t))}})},function(t,n,r){r(76)("Array")},function(t,n,r){var e=r(1);e(e.S,"Date",{now:function(){return(new Date).getTime()}})},function(t,n,r){var e=r(1),i=r(213);e(e.P+e.F*(Date.prototype.toISOString!==i),"Date",{toISOString:i})},function(t,n,r){"use strict";var e=r(1),i=r(17),o=r(53);e(e.P+e.F*r(4)(function(){return null!==new Date(NaN).toJSON()||1!==Date.prototype.toJSON.call({toISOString:function(){return 1}})}),"Date",{toJSON:function(t){var n=i(this),r=o(n);return"number"!=typeof r||isFinite(r)?n.toISOString():null}})},function(t,n,r){var e=r(7)("toPrimitive"),i=Date.prototype;e in i||r(26)(i,e,r(214))},function(t,n,r){var e=Date.prototype,i="Invalid Date",o="toString",u=e[o],c=e.getTime;new Date(NaN)+""!=i&&r(27)(e,o,function(){var t=c.call(this);return t==t?u.call(this):i})},function(t,n,r){var e=r(1);e(e.P,"Function",{bind:r(166)})},function(t,n,r){"use strict";var e=r(5),i=r(32),o=r(7)("hasInstance"),u=Function.prototype;o in u||r(10).f(u,o,{value:function(t){if("function"!=typeof this||!e(t))return!1;if(!e(this.prototype))return t instanceof this;for(;t=i(t);)if(this.prototype===t)return!0;return!1}})},function(t,n,r){var e=r(10).f,i=Function.prototype,o=/^\s*function ([^ (]*)/;"name"in i||r(9)&&e(i,"name",{configurable:!0,get:function(){try{return(""+this).match(o)[1]}catch(t){return""}}})},function(t,n,r){var e=r(1),i=r(177),o=Math.sqrt,u=Math.acosh;e(e.S+e.F*!(u&&710==Math.floor(u(Number.MAX_VALUE))&&u(1/0)==1/0),"Math",{acosh:function(t){return(t=+t)<1?NaN:94906265.62425156<t?Math.log(t)+Math.LN2:i(t-1+o(t-1)*o(t+1))}})},function(t,n,r){var e=r(1),i=Math.asinh;e(e.S+e.F*!(i&&0<1/i(0)),"Math",{asinh:function t(n){return isFinite(n=+n)&&0!=n?n<0?-t(-n):Math.log(n+Math.sqrt(n*n+1)):n}})},function(t,n,r){var e=r(1),i=Math.atanh;e(e.S+e.F*!(i&&1/i(-0)<0),"Math",{atanh:function(t){return 0==(t=+t)?t:Math.log((1+t)/(1-t))/2}})},function(t,n,r){var e=r(1),i=r(146);e(e.S,"Math",{cbrt:function(t){return i(t=+t)*Math.pow(Math.abs(t),1/3)}})},function(t,n,r){var e=r(1);e(e.S,"Math",{clz32:function(t){return(t>>>=0)?31-Math.floor(Math.log(t+.5)*Math.LOG2E):32}})},function(t,n,r){var e=r(1),i=Math.exp;e(e.S,"Math",{cosh:function(t){return(i(t=+t)+i(-t))/2}})},function(t,n,r){var e=r(1),i=r(145);e(e.S+e.F*(i!=Math.expm1),"Math",{expm1:i})},function(t,n,r){var e=r(1);e(e.S,"Math",{fround:r(176)})},function(t,n,r){var e=r(1),f=Math.abs;e(e.S,"Math",{hypot:function(t,n){for(var r,e,i=0,o=0,u=arguments.length,c=0;o<u;)c<(r=f(arguments[o++]))?(i=i*(e=c/r)*e+1,c=r):0<r?i+=(e=r/c)*e:i+=r;return c===1/0?1/0:c*Math.sqrt(i)}})},function(t,n,r){var e=r(1),i=Math.imul;e(e.S+e.F*r(4)(function(){return-5!=i(4294967295,5)||2!=i.length}),"Math",{imul:function(t,n){var r=65535,e=+t,i=+n,o=r&e,u=r&i;return 0|o*u+((r&e>>>16)*u+o*(r&i>>>16)<<16>>>0)}})},function(t,n,r){var e=r(1);e(e.S,"Math",{log10:function(t){return Math.log(t)*Math.LOG10E}})},function(t,n,r){var e=r(1);e(e.S,"Math",{log1p:r(177)})},function(t,n,r){var e=r(1);e(e.S,"Math",{log2:function(t){return Math.log(t)/Math.LN2}})},function(t,n,r){var e=r(1);e(e.S,"Math",{sign:r(146)})},function(t,n,r){var e=r(1),i=r(145),o=Math.exp;e(e.S+e.F*r(4)(function(){return-2e-17!=!Math.sinh(-2e-17)}),"Math",{sinh:function(t){return Math.abs(t=+t)<1?(i(t)-i(-t))/2:(o(t-1)-o(-t-1))*(Math.E/2)}})},function(t,n,r){var e=r(1),i=r(145),o=Math.exp;e(e.S,"Math",{tanh:function(t){var n=i(t=+t),r=i(-t);return n==1/0?1:r==1/0?-1:(n-r)/(o(t)+o(-t))}})},function(t,n,r){var e=r(1);e(e.S,"Math",{trunc:function(t){return(0<t?Math.floor:Math.ceil)(t)}})},function(t,n,r){"use strict";var e=r(3),i=r(30),o=r(45),u=r(141),s=r(53),c=r(4),f=r(72).f,a=r(31).f,l=r(10).f,h=r(82).trim,v="Number",p=e[v],d=p,y=p.prototype,g=o(r(71)(y))==v,b="trim"in String.prototype,m=function(t){var n=s(t,!1);if("string"==typeof n&&2<n.length){var r,e,i,o=(n=b?n.trim():h(n,3)).charCodeAt(0);if(43===o||45===o){if(88===(r=n.charCodeAt(2))||120===r)return NaN}else if(48===o){switch(n.charCodeAt(1)){case 66:case 98:e=2,i=49;break;case 79:case 111:e=8,i=55;break;default:return+n}for(var u,c=n.slice(2),f=0,a=c.length;f<a;f++)if((u=c.charCodeAt(f))<48||i<u)return NaN;return parseInt(c,e)}}return+n};if(!p(" 0o1")||!p("0b1")||p("+0x1")){p=function(t){var n=arguments.length<1?0:t,r=this;return r instanceof p&&(g?c(function(){y.valueOf.call(r)}):o(r)!=v)?u(new d(m(n)),r,p):m(n)};for(var x,S=r(9)?f(d):"MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,EPSILON,isFinite,isInteger,isNaN,isSafeInteger,MAX_SAFE_INTEGER,MIN_SAFE_INTEGER,parseFloat,parseInt,isInteger".split(","),w=0;S.length>w;w++)i(d,x=S[w])&&!i(p,x)&&l(p,x,a(d,x));(p.prototype=y).constructor=p,r(27)(e,v,p)}},function(t,n,r){var e=r(1);e(e.S,"Number",{EPSILON:Math.pow(2,-52)})},function(t,n,r){var e=r(1),i=r(3).isFinite;e(e.S,"Number",{isFinite:function(t){return"number"==typeof t&&i(t)}})},function(t,n,r){var e=r(1);e(e.S,"Number",{isInteger:r(173)})},function(t,n,r){var e=r(1);e(e.S,"Number",{isNaN:function(t){return t!=t}})},function(t,n,r){var e=r(1),i=r(173),o=Math.abs;e(e.S,"Number",{isSafeInteger:function(t){return i(t)&&o(t)<=9007199254740991}})},function(t,n,r){var e=r(1);e(e.S,"Number",{MAX_SAFE_INTEGER:9007199254740991})},function(t,n,r){var e=r(1);e(e.S,"Number",{MIN_SAFE_INTEGER:-9007199254740991})},function(t,n,r){var e=r(1),i=r(185);e(e.S+e.F*(Number.parseFloat!=i),"Number",{parseFloat:i})},function(t,n,r){var e=r(1),i=r(186);e(e.S+e.F*(Number.parseInt!=i),"Number",{parseInt:i})},function(t,n,r){"use strict";var e=r(1),a=r(52),s=r(162),l=r(153),i=1..toFixed,o=Math.floor,u=[0,0,0,0,0,0],h="Number.toFixed: incorrect invocation!",v=function(t,n){for(var r=-1,e=n;++r<6;)e+=t*u[r],u[r]=e%1e7,e=o(e/1e7)},p=function(t){for(var n=6,r=0;0<=--n;)r+=u[n],u[n]=o(r/t),r=r%t*1e7},d=function(){for(var t=6,n="";0<=--t;)if(""!==n||0===t||0!==u[t]){var r=String(u[t]);n=""===n?r:n+l.call("0",7-r.length)+r}return n},y=function(t,n,r){return 0===n?r:n%2==1?y(t,n-1,r*t):y(t*t,n/2,r)};e(e.P+e.F*(!!i&&("0.000"!==8e-5.toFixed(3)||"1"!==.9.toFixed(0)||"1.25"!==1.255.toFixed(2)||"1000000000000000128"!==(0xde0b6b3a7640080).toFixed(0))||!r(4)(function(){i.call({})})),"Number",{toFixed:function(t){var n,r,e,i,o=s(this,h),u=a(t),c="",f="0";if(u<0||20<u)throw RangeError(h);if(o!=o)return"NaN";if(o<=-1e21||1e21<=o)return String(o);if(o<0&&(c="-",o=-o),1e-21<o)if(r=(n=function(t){for(var n=0,r=t;4096<=r;)n+=12,r/=4096;for(;2<=r;)n+=1,r/=2;return n}(o*y(2,69,1))-69)<0?o*y(2,-n,1):o/y(2,n,1),r*=4503599627370496,0<(n=52-n)){for(v(0,r),e=u;7<=e;)v(1e7,0),e-=7;for(v(y(10,e,1),0),e=n-1;23<=e;)p(1<<23),e-=23;p(1<<e),v(1,1),p(2),f=d()}else v(0,r),v(1<<-n,0),f=d()+l.call("0",u);return 0<u?f=c+((i=f.length)<=u?"0."+l.call("0",u-i)+f:f.slice(0,i-u)+"."+f.slice(i-u)):f=c+f,f}})},function(t,n,r){"use strict";var e=r(1),i=r(4),o=r(162),u=1..toPrecision;e(e.P+e.F*(i(function(){return"1"!==u.call(1,void 0)})||!i(function(){u.call({})})),"Number",{toPrecision:function(t){var n=o(this,"Number#toPrecision: incorrect invocation!");return void 0===t?u.call(n):u.call(n,t)}})},function(t,n,r){var e=r(1);e(e.S+e.F,"Object",{assign:r(179)})},function(t,n,r){var e=r(1);e(e.S,"Object",{create:r(71)})},function(t,n,r){var e=r(1);e(e.S+e.F*!r(9),"Object",{defineProperties:r(180)})},function(t,n,r){var e=r(1);e(e.S+e.F*!r(9),"Object",{defineProperty:r(10).f})},function(t,n,r){var e=r(5),i=r(68).onFreeze;r(51)("freeze",function(n){return function(t){return n&&e(t)?n(i(t)):t}})},function(t,n,r){var e=r(33),i=r(31).f;r(51)("getOwnPropertyDescriptor",function(){return function(t,n){return i(e(t),n)}})},function(t,n,r){r(51)("getOwnPropertyNames",function(){return r(181).f})},function(t,n,r){var e=r(17),i=r(32);r(51)("getPrototypeOf",function(){return function(t){return i(e(t))}})},function(t,n,r){var e=r(5);r(51)("isExtensible",function(n){return function(t){return!!e(t)&&(!n||n(t))}})},function(t,n,r){var e=r(5);r(51)("isFrozen",function(n){return function(t){return!e(t)||!!n&&n(t)}})},function(t,n,r){var e=r(5);r(51)("isSealed",function(n){return function(t){return!e(t)||!!n&&n(t)}})},function(t,n,r){var e=r(1);e(e.S,"Object",{is:r(217)})},function(t,n,r){var e=r(17),i=r(73);r(51)("keys",function(){return function(t){return i(e(t))}})},function(t,n,r){var e=r(5),i=r(68).onFreeze;r(51)("preventExtensions",function(n){return function(t){return n&&e(t)?n(i(t)):t}})},function(t,n,r){var e=r(5),i=r(68).onFreeze;r(51)("seal",function(n){return function(t){return n&&e(t)?n(i(t)):t}})},function(t,n,r){var e=r(1);e(e.S,"Object",{setPrototypeOf:r(149).set})},function(t,n,r){"use strict";var e=r(114),i={};i[r(7)("toStringTag")]="z",i+""!="[object z]"&&r(27)(Object.prototype,"toString",function(){return"[object "+e(this)+"]"},!0)},function(t,n,r){var e=r(1),i=r(185);e(e.G+e.F*(parseFloat!=i),{parseFloat:i})},function(t,n,r){var e=r(1),i=r(186);e(e.G+e.F*(parseInt!=i),{parseInt:i})},function(t,n,r){"use strict";var e,i,o,u,c=r(67),f=r(3),a=r(47),s=r(114),l=r(1),h=r(5),v=r(21),p=r(69),d=r(70),y=r(129),g=r(155).set,b=r(147)(),m=r(148),x=r(187),S=r(131),w=r(188),_="Promise",O=f.TypeError,E=f.process,M=E&&E.versions,P=M&&M.v8||"",j=f[_],F="process"==s(E),A=function(){},L=i=m.f,N=!!function(){try{var t=j.resolve(1),n=(t.constructor={})[r(7)("species")]=function(t){t(A,A)};return(F||"function"==typeof PromiseRejectionEvent)&&t.then(A)instanceof n&&0!==P.indexOf("6.6")&&-1===S.indexOf("Chrome/66")}catch(t){}}(),T=function(t){var n;return!(!h(t)||"function"!=typeof(n=t.then))&&n},I=function(s,r){if(!s._n){s._n=!0;var e=s._c;b(function(){for(var f=s._v,a=1==s._s,t=0,n=function(t){var n,r,e,i=a?t.ok:t.fail,o=t.resolve,u=t.reject,c=t.domain;try{i?(a||(2==s._h&&C(s),s._h=1),!0===i?n=f:(c&&c.enter(),n=i(f),c&&(c.exit(),e=!0)),n===t.promise?u(O("Promise-chain cycle")):(r=T(n))?r.call(n,o,u):o(n)):u(f)}catch(t){c&&!e&&c.exit(),u(t)}};e.length>t;)n(e[t++]);s._c=[],s._n=!1,r&&!s._h&&k(s)})}},k=function(o){g.call(f,function(){var t,n,r,e=o._v,i=R(o);if(i&&(t=x(function(){F?E.emit("unhandledRejection",e,o):(n=f.onunhandledrejection)?n({promise:o,reason:e}):(r=f.console)&&r.error&&r.error("Unhandled promise rejection",e)}),o._h=F||R(o)?2:1),o._a=void 0,i&&t.e)throw t.v})},R=function(t){return 1!==t._h&&0===(t._a||t._c).length},C=function(n){g.call(f,function(){var t;F?E.emit("rejectionHandled",n):(t=f.onrejectionhandled)&&t({promise:n,reason:n._v})})},D=function(t){var n=this;n._d||(n._d=!0,(n=n._w||n)._v=t,n._s=2,n._a||(n._a=n._c.slice()),I(n,!0))},G=function(t){var r,e=this;if(!e._d){e._d=!0,e=e._w||e;try{if(e===t)throw O("Promise can't be resolved itself");(r=T(t))?b(function(){var n={_w:e,_d:!1};try{r.call(t,a(G,n,1),a(D,n,1))}catch(t){D.call(n,t)}}):(e._v=t,e._s=1,I(e,!1))}catch(t){D.call({_w:e,_d:!1},t)}}};N||(j=function(t){p(this,j,_,"_h"),v(t),e.call(this);try{t(a(G,this,1),a(D,this,1))}catch(t){D.call(this,t)}},(e=function(t){this._c=[],this._a=void 0,this._s=0,this._d=!1,this._v=void 0,this._h=0,this._n=!1}).prototype=r(75)(j.prototype,{then:function(t,n){var r=L(y(this,j));return r.ok="function"!=typeof t||t,r.fail="function"==typeof n&&n,r.domain=F?E.domain:void 0,this._c.push(r),this._a&&this._a.push(r),this._s&&I(this,!1),r.promise},catch:function(t){return this.then(void 0,t)}}),o=function(){var t=new e;this.promise=t,this.resolve=a(G,t,1),this.reject=a(D,t,1)},m.f=L=function(t){return t===j||t===u?new o(t):i(t)}),l(l.G+l.W+l.F*!N,{Promise:j}),r(81)(j,_),r(76)(_),u=r(46)[_],l(l.S+l.F*!N,_,{reject:function(t){var n=L(this);return(0,n.reject)(t),n.promise}}),l(l.S+l.F*(c||!N),_,{resolve:function(t){return w(c&&this===u?j:this,t)}}),l(l.S+l.F*!(N&&r(123)(function(t){j.all(t).catch(A)})),_,{all:function(t){var u=this,n=L(u),c=n.resolve,f=n.reject,r=x(function(){var e=[],i=0,o=1;d(t,!1,function(t){var n=i++,r=!1;e.push(void 0),o++,u.resolve(t).then(function(t){r||(r=!0,e[n]=t,--o||c(e))},f)}),--o||c(e)});return r.e&&f(r.v),n.promise},race:function(t){var n=this,r=L(n),e=r.reject,i=x(function(){d(t,!1,function(t){n.resolve(t).then(r.resolve,e)})});return i.e&&e(i.v),r.promise}})},function(t,n,r){var e=r(1),o=r(21),u=r(2),c=(r(3).Reflect||{}).apply,f=Function.apply;e(e.S+e.F*!r(4)(function(){c(function(){})}),"Reflect",{apply:function(t,n,r){var e=o(t),i=u(r);return c?c(e,n,i):f.call(e,n,i)}})},function(t,n,r){var e=r(1),c=r(71),f=r(21),a=r(2),s=r(5),i=r(4),l=r(166),h=(r(3).Reflect||{}).construct,v=i(function(){function t(){}return!(h(function(){},[],t)instanceof t)}),p=!i(function(){h(function(){})});e(e.S+e.F*(v||p),"Reflect",{construct:function(t,n){f(t),a(n);var r=arguments.length<3?t:f(arguments[2]);if(p&&!v)return h(t,n,r);if(t==r){switch(n.length){case 0:return new t;case 1:return new t(n[0]);case 2:return new t(n[0],n[1]);case 3:return new t(n[0],n[1],n[2]);case 4:return new t(n[0],n[1],n[2],n[3])}var e=[null];return e.push.apply(e,n),new(l.apply(t,e))}var i=r.prototype,o=c(s(i)?i:Object.prototype),u=Function.apply.call(t,o,n);return s(u)?u:o}})},function(t,n,r){var e=r(10),i=r(1),o=r(2),u=r(53);i(i.S+i.F*r(4)(function(){Reflect.defineProperty(e.f({},1,{value:1}),1,{value:2})}),"Reflect",{defineProperty:function(t,n,r){o(t),n=u(n,!0),o(r);try{return e.f(t,n,r),!0}catch(t){return!1}}})},function(t,n,r){var e=r(1),i=r(31).f,o=r(2);e(e.S,"Reflect",{deleteProperty:function(t,n){var r=i(o(t),n);return!(r&&!r.configurable)&&delete t[n]}})},function(t,n,r){"use strict";var e=r(1),i=r(2),o=function(t){this._t=i(t),this._i=0;var n,r=this._k=[];for(n in t)r.push(n)};r(143)(o,"Object",function(){var t,n=this._k;do{if(this._i>=n.length)return{value:void 0,done:!0}}while(!((t=n[this._i++])in this._t));return{value:t,done:!1}}),e(e.S,"Reflect",{enumerate:function(t){return new o(t)}})},function(t,n,r){var e=r(31),i=r(1),o=r(2);i(i.S,"Reflect",{getOwnPropertyDescriptor:function(t,n){return e.f(o(t),n)}})},function(t,n,r){var e=r(1),i=r(32),o=r(2);e(e.S,"Reflect",{getPrototypeOf:function(t){return i(o(t))}})},function(t,n,r){var u=r(31),c=r(32),f=r(30),e=r(1),a=r(5),s=r(2);e(e.S,"Reflect",{get:function t(n,r){var e,i,o=arguments.length<3?n:arguments[2];return s(n)===o?n[r]:(e=u.f(n,r))?f(e,"value")?e.value:void 0!==e.get?e.get.call(o):void 0:a(i=c(n))?t(i,r,o):void 0}})},function(t,n,r){var e=r(1);e(e.S,"Reflect",{has:function(t,n){return n in t}})},function(t,n,r){var e=r(1),i=r(2),o=Object.isExtensible;e(e.S,"Reflect",{isExtensible:function(t){return i(t),!o||o(t)}})},function(t,n,r){var e=r(1);e(e.S,"Reflect",{ownKeys:r(184)})},function(t,n,r){var e=r(1),i=r(2),o=Object.preventExtensions;e(e.S,"Reflect",{preventExtensions:function(t){i(t);try{return o&&o(t),!0}catch(t){return!1}}})},function(t,n,r){var e=r(1),i=r(149);i&&e(e.S,"Reflect",{setPrototypeOf:function(t,n){i.check(t,n);try{return i.set(t,n),!0}catch(t){return!1}}})},function(t,n,r){var f=r(10),a=r(31),s=r(32),l=r(30),e=r(1),h=r(74),v=r(2),p=r(5);e(e.S,"Reflect",{set:function t(n,r,e){var i,o,u=arguments.length<4?n:arguments[3],c=a.f(v(n),r);if(!c){if(p(o=s(n)))return t(o,r,e,u);c=h(0)}if(l(c,"value")){if(!1===c.writable||!p(u))return!1;if(i=a.f(u,r)){if(i.get||i.set||!1===i.writable)return!1;i.value=e,f.f(u,r,i)}else f.f(u,r,h(0,e));return!0}return void 0!==c.set&&(c.set.call(u,e),!0)}})},function(t,n,r){var e=r(3),o=r(141),i=r(10).f,u=r(72).f,c=r(122),f=r(120),a=e.RegExp,s=a,l=a.prototype,h=/a/g,v=/a/g,p=new a(h)!==h;if(r(9)&&(!p||r(4)(function(){return v[r(7)("match")]=!1,a(h)!=h||a(v)==v||"/a/i"!=a(h,"i")}))){a=function(t,n){var r=this instanceof a,e=c(t),i=void 0===n;return!r&&e&&t.constructor===a&&i?t:o(p?new s(e&&!i?t.source:t,n):s((e=t instanceof a)?t.source:t,e&&i?f.call(t):n),r?this:l,a)};for(var d=function(n){n in a||i(a,n,{configurable:!0,get:function(){return s[n]},set:function(t){s[n]=t}})},y=u(s),g=0;y.length>g;)d(y[g++]);(l.constructor=a).prototype=l,r(27)(e,"RegExp",a)}r(76)("RegExp")},function(t,n,r){r(119)("match",1,function(e,i,t){return[function(t){"use strict";var n=e(this),r=null==t?void 0:t[i];return void 0!==r?r.call(t,n):new RegExp(t)[i](String(n))},t]})},function(t,n,r){r(119)("replace",2,function(i,o,u){return[function(t,n){"use strict";var r=i(this),e=null==t?void 0:t[o];return void 0!==e?e.call(t,r,n):u.call(String(r),t,n)},u]})},function(t,n,r){r(119)("search",1,function(e,i,t){return[function(t){"use strict";var n=e(this),r=null==t?void 0:t[i];return void 0!==r?r.call(t,n):new RegExp(t)[i](String(n))},t]})},function(t,n,r){r(119)("split",2,function(i,o,u){"use strict";var v=r(122),p=u,d=[].push,t="split",y="length";if("c"=="abbc"[t](/(b)*/)[1]||4!="test"[t](/(?:)/,-1)[y]||2!="ab"[t](/(?:ab)*/)[y]||4!="."[t](/(.?)(.?)/)[y]||1<"."[t](/()()/)[y]||""[t](/.?/)[y]){var g=void 0===/()??/.exec("")[1];u=function(t,n){var r=String(this);if(void 0===t&&0===n)return[];if(!v(t))return p.call(r,t,n);var e,i,o,u,c,f=[],a=(t.ignoreCase?"i":"")+(t.multiline?"m":"")+(t.unicode?"u":"")+(t.sticky?"y":""),s=0,l=void 0===n?4294967295:n>>>0,h=new RegExp(t.source,a+"g");for(g||(e=new RegExp("^"+h.source+"$(?!\\s)",a));(i=h.exec(r))&&!(s<(o=i.index+i[0][y])&&(f.push(r.slice(s,i.index)),!g&&1<i[y]&&i[0].replace(e,function(){for(c=1;c<arguments[y]-2;c++)void 0===arguments[c]&&(i[c]=void 0)}),1<i[y]&&i.index<r[y]&&d.apply(f,i.slice(1)),u=i[0][y],s=o,f[y]>=l));)h.lastIndex===i.index&&h.lastIndex++;return s===r[y]?!u&&h.test("")||f.push(""):f.push(r.slice(s)),f[y]>l?f.slice(0,l):f}}else"0"[t](void 0,0)[y]&&(u=function(t,n){return void 0===t&&0===n?[]:p.call(this,t,n)});return[function(t,n){var r=i(this),e=null==t?void 0:t[o];return void 0!==e?e.call(t,r,n):u.call(String(r),t,n)},u]})},function(t,n,r){"use strict";r(193);var e=r(2),i=r(120),o=r(9),u="toString",c=/./[u],f=function(t){r(27)(RegExp.prototype,u,t,!0)};r(4)(function(){return"/a/b"!=c.call({source:"a",flags:"b"})})?f(function(){var t=e(this);return"/".concat(t.source,"/","flags"in t?t.flags:!o&&t instanceof RegExp?i.call(t):void 0)}):c.name!=u&&f(function(){return c.call(this)})},function(t,n,r){"use strict";r(28)("anchor",function(n){return function(t){return n(this,"a","name",t)}})},function(t,n,r){"use strict";r(28)("big",function(t){return function(){return t(this,"big","","")}})},function(t,n,r){"use strict";r(28)("blink",function(t){return function(){return t(this,"blink","","")}})},function(t,n,r){"use strict";r(28)("bold",function(t){return function(){return t(this,"b","","")}})},function(t,n,r){"use strict";var e=r(1),i=r(151)(!1);e(e.P,"String",{codePointAt:function(t){return i(this,t)}})},function(t,n,r){"use strict";var e=r(1),u=r(11),c=r(152),f="endsWith",a=""[f];e(e.P+e.F*r(139)(f),"String",{endsWith:function(t){var n=c(this,t,f),r=1<arguments.length?arguments[1]:void 0,e=u(n.length),i=void 0===r?e:Math.min(u(r),e),o=String(t);return a?a.call(n,o,i):n.slice(i-o.length,i)===o}})},function(t,n,r){"use strict";r(28)("fixed",function(t){return function(){return t(this,"tt","","")}})},function(t,n,r){"use strict";r(28)("fontcolor",function(n){return function(t){return n(this,"font","color",t)}})},function(t,n,r){"use strict";r(28)("fontsize",function(n){return function(t){return n(this,"font","size",t)}})},function(t,n,r){var e=r(1),o=r(77),u=String.fromCharCode,i=String.fromCodePoint;e(e.S+e.F*(!!i&&1!=i.length),"String",{fromCodePoint:function(t){for(var n,r=[],e=arguments.length,i=0;i<e;){if(n=+arguments[i++],o(n,1114111)!==n)throw RangeError(n+" is not a valid code point");r.push(n<65536?u(n):u(55296+((n-=65536)>>10),n%1024+56320))}return r.join("")}})},function(t,n,r){"use strict";var e=r(1),i=r(152);e(e.P+e.F*r(139)("includes"),"String",{includes:function(t){return!!~i(this,t,"includes").indexOf(t,1<arguments.length?arguments[1]:void 0)}})},function(t,n,r){"use strict";r(28)("italics",function(t){return function(){return t(this,"i","","")}})},function(t,n,r){"use strict";var e=r(151)(!0);r(144)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,r=this._i;return r>=n.length?{value:void 0,done:!0}:(t=e(n,r),this._i+=t.length,{value:t,done:!1})})},function(t,n,r){"use strict";r(28)("link",function(n){return function(t){return n(this,"a","href",t)}})},function(t,n,r){var e=r(1),u=r(33),c=r(11);e(e.S,"String",{raw:function(t){for(var n=u(t.raw),r=c(n.length),e=arguments.length,i=[],o=0;o<r;)i.push(String(n[o++])),o<e&&i.push(String(arguments[o]));return i.join("")}})},function(t,n,r){var e=r(1);e(e.P,"String",{repeat:r(153)})},function(t,n,r){"use strict";r(28)("small",function(t){return function(){return t(this,"small","","")}})},function(t,n,r){"use strict";var e=r(1),i=r(11),o=r(152),u="startsWith",c=""[u];e(e.P+e.F*r(139)(u),"String",{startsWith:function(t){var n=o(this,t,u),r=i(Math.min(1<arguments.length?arguments[1]:void 0,n.length)),e=String(t);return c?c.call(n,e,r):n.slice(r,r+e.length)===e}})},function(t,n,r){"use strict";r(28)("strike",function(t){return function(){return t(this,"strike","","")}})},function(t,n,r){"use strict";r(28)("sub",function(t){return function(){return t(this,"sub","","")}})},function(t,n,r){"use strict";r(28)("sup",function(t){return function(){return t(this,"sup","","")}})},function(t,n,r){"use strict";r(82)("trim",function(t){return function(){return t(this,3)}})},function(t,n,r){"use strict";var e=r(3),u=r(30),i=r(9),o=r(1),c=r(27),f=r(68).KEY,a=r(4),s=r(128),l=r(81),h=r(78),v=r(7),p=r(191),d=r(157),y=r(215),g=r(121),b=r(2),m=r(5),x=r(33),S=r(53),w=r(74),_=r(71),O=r(181),E=r(31),M=r(10),P=r(73),j=E.f,F=M.f,A=O.f,L=e.Symbol,N=e.JSON,T=N&&N.stringify,I="prototype",k=v("_hidden"),R=v("toPrimitive"),C={}.propertyIsEnumerable,D=s("symbol-registry"),G=s("symbols"),W=s("op-symbols"),U=Object[I],V="function"==typeof L,B=e.QObject,q=!B||!B[I]||!B[I].findChild,z=i&&a(function(){return 7!=_(F({},"a",{get:function(){return F(this,"a",{value:7}).a}})).a})?function(t,n,r){var e=j(U,n);e&&delete U[n],F(t,n,r),e&&t!==U&&F(U,n,e)}:F,H=function(t){var n=G[t]=_(L[I]);return n._k=t,n},K=V&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},J=function(t,n,r){return t===U&&J(W,n,r),b(t),n=S(n,!0),b(r),u(G,n)?(r.enumerable?(u(t,k)&&t[k][n]&&(t[k][n]=!1),r=_(r,{enumerable:w(0,!1)})):(u(t,k)||F(t,k,w(1,{})),t[k][n]=!0),z(t,n,r)):F(t,n,r)},Y=function(t,n){b(t);for(var r,e=y(n=x(n)),i=0,o=e.length;i<o;)J(t,r=e[i++],n[r]);return t},$=function(t){var n=C.call(this,t=S(t,!0));return!(this===U&&u(G,t)&&!u(W,t))&&(!(n||!u(this,t)||!u(G,t)||u(this,k)&&this[k][t])||n)},X=function(t,n){if(t=x(t),n=S(n,!0),t!==U||!u(G,n)||u(W,n)){var r=j(t,n);return!r||!u(G,n)||u(t,k)&&t[k][n]||(r.enumerable=!0),r}},Q=function(t){for(var n,r=A(x(t)),e=[],i=0;r.length>i;)u(G,n=r[i++])||n==k||n==f||e.push(n);return e},Z=function(t){for(var n,r=t===U,e=A(r?W:x(t)),i=[],o=0;e.length>o;)!u(G,n=e[o++])||r&&!u(U,n)||i.push(G[n]);return i};V||(c((L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var n=h(0<arguments.length?arguments[0]:void 0),r=function(t){this===U&&r.call(W,t),u(this,k)&&u(this[k],n)&&(this[k][n]=!1),z(this,n,w(1,t))};return i&&q&&z(U,n,{configurable:!0,set:r}),H(n)})[I],"toString",function(){return this._k}),E.f=X,M.f=J,r(72).f=O.f=Q,r(116).f=$,r(125).f=Z,i&&!r(67)&&c(U,"propertyIsEnumerable",$,!0),p.f=function(t){return H(v(t))}),o(o.G+o.W+o.F*!V,{Symbol:L});for(var tt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),nt=0;tt.length>nt;)v(tt[nt++]);for(var rt=P(v.store),et=0;rt.length>et;)d(rt[et++]);o(o.S+o.F*!V,"Symbol",{for:function(t){return u(D,t+="")?D[t]:D[t]=L(t)},keyFor:function(t){if(!K(t))throw TypeError(t+" is not a symbol!");for(var n in D)if(D[n]===t)return n},useSetter:function(){q=!0},useSimple:function(){q=!1}}),o(o.S+o.F*!V,"Object",{create:function(t,n){return void 0===n?_(t):Y(_(t),n)},defineProperty:J,defineProperties:Y,getOwnPropertyDescriptor:X,getOwnPropertyNames:Q,getOwnPropertySymbols:Z}),N&&o(o.S+o.F*(!V||a(function(){var t=L();return"[null]"!=T([t])||"{}"!=T({a:t})||"{}"!=T(Object(t))})),"JSON",{stringify:function(t){for(var n,r,e=[t],i=1;arguments.length>i;)e.push(arguments[i++]);if(r=n=e[1],(m(n)||void 0!==t)&&!K(t))return g(n)||(n=function(t,n){if("function"==typeof r&&(n=r.call(this,t,n)),!K(n))return n}),e[1]=n,T.apply(N,e)}}),L[I][R]||r(26)(L[I],R,L[I].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(e.JSON,"JSON",!0)},function(t,n,r){"use strict";var e=r(1),i=r(130),o=r(156),a=r(2),s=r(77),l=r(11),u=r(5),c=r(3).ArrayBuffer,h=r(129),v=o.ArrayBuffer,p=o.DataView,f=i.ABV&&c.isView,d=v.prototype.slice,y=i.VIEW,g="ArrayBuffer";e(e.G+e.W+e.F*(c!==v),{ArrayBuffer:v}),e(e.S+e.F*!i.CONSTR,g,{isView:function(t){return f&&f(t)||u(t)&&y in t}}),e(e.P+e.U+e.F*r(4)(function(){return!new v(2).slice(1,void 0).byteLength}),g,{slice:function(t,n){if(void 0!==d&&void 0===n)return d.call(a(this),t);for(var r=a(this).byteLength,e=s(t,r),i=s(void 0===n?r:n,r),o=new(h(this,v))(l(i-e)),u=new p(this),c=new p(o),f=0;e<i;)c.setUint8(f++,u.getUint8(e++));return o}}),r(76)(g)},function(t,n,r){var e=r(1);e(e.G+e.W+e.F*!r(130).ABV,{DataView:r(156).DataView})},function(t,n,r){r(56)("Float32",4,function(e){return function(t,n,r){return e(this,t,n,r)}})},function(t,n,r){r(56)("Float64",8,function(e){return function(t,n,r){return e(this,t,n,r)}})},function(t,n,r){r(56)("Int16",2,function(e){return function(t,n,r){return e(this,t,n,r)}})},function(t,n,r){r(56)("Int32",4,function(e){return function(t,n,r){return e(this,t,n,r)}})},function(t,n,r){r(56)("Int8",1,function(e){return function(t,n,r){return e(this,t,n,r)}})},function(t,n,r){r(56)("Uint16",2,function(e){return function(t,n,r){return e(this,t,n,r)}})},function(t,n,r){r(56)("Uint32",4,function(e){return function(t,n,r){return e(this,t,n,r)}})},function(t,n,r){r(56)("Uint8",1,function(e){return function(t,n,r){return e(this,t,n,r)}})},function(t,n,r){r(56)("Uint8",1,function(e){return function(t,n,r){return e(this,t,n,r)}},!0)},function(t,n,r){"use strict";var e=r(169),i=r(83);r(118)("WeakSet",function(t){return function(){return t(this,0<arguments.length?arguments[0]:void 0)}},{add:function(t){return e.def(i(this,"WeakSet"),t,!0)}},e,!1,!0)},function(t,n,r){"use strict";var e=r(1),i=r(170),o=r(17),u=r(11),c=r(21),f=r(135);e(e.P,"Array",{flatMap:function(t){var n,r,e=o(this);return c(t),n=u(e.length),r=f(e,0),i(r,e,e,n,0,1,t,arguments[1]),r}}),r(66)("flatMap")},function(t,n,r){"use strict";var e=r(1),i=r(170),o=r(17),u=r(11),c=r(52),f=r(135);e(e.P,"Array",{flatten:function(){var t=arguments[0],n=o(this),r=u(n.length),e=f(n,0);return i(e,n,n,r,0,void 0===t?1:c(t)),e}}),r(66)("flatten")},function(t,n,r){"use strict";var e=r(1),i=r(117)(!0);e(e.P,"Array",{includes:function(t){return i(this,t,1<arguments.length?arguments[1]:void 0)}}),r(66)("includes")},function(t,n,r){var e=r(1),i=r(147)(),o=r(3).process,u="process"==r(45)(o);e(e.G,{asap:function(t){var n=u&&o.domain;i(n?n.bind(t):t)}})},function(t,n,r){var e=r(1),i=r(45);e(e.S,"Error",{isError:function(t){return"Error"===i(t)}})},function(t,n,r){var e=r(1);e(e.G,{global:r(3)})},function(t,n,r){r(126)("Map")},function(t,n,r){r(127)("Map")},function(t,n,r){var e=r(1);e(e.P+e.R,"Map",{toJSON:r(168)("Map")})},function(t,n,r){var e=r(1);e(e.S,"Math",{clamp:function(t,n,r){return Math.min(r,Math.max(n,t))}})},function(t,n,r){var e=r(1);e(e.S,"Math",{DEG_PER_RAD:Math.PI/180})},function(t,n,r){var e=r(1),i=180/Math.PI;e(e.S,"Math",{degrees:function(t){return t*i}})},function(t,n,r){var e=r(1),o=r(178),u=r(176);e(e.S,"Math",{fscale:function(t,n,r,e,i){return u(o(t,n,r,e,i))}})},function(t,n,r){var e=r(1);e(e.S,"Math",{iaddh:function(t,n,r,e){var i=t>>>0,o=r>>>0;return(n>>>0)+(e>>>0)+((i&o|(i|o)&~(i+o>>>0))>>>31)|0}})},function(t,n,r){var e=r(1);e(e.S,"Math",{imulh:function(t,n){var r=+t,e=+n,i=65535&r,o=65535&e,u=r>>16,c=e>>16,f=(u*o>>>0)+(i*o>>>16);return u*c+(f>>16)+((i*c>>>0)+(65535&f)>>16)}})},function(t,n,r){var e=r(1);e(e.S,"Math",{isubh:function(t,n,r,e){var i=t>>>0,o=r>>>0;return(n>>>0)-(e>>>0)-((~i&o|~(i^o)&i-o>>>0)>>>31)|0}})},function(t,n,r){var e=r(1);e(e.S,"Math",{RAD_PER_DEG:180/Math.PI})},function(t,n,r){var e=r(1),i=Math.PI/180;e(e.S,"Math",{radians:function(t){return t*i}})},function(t,n,r){var e=r(1);e(e.S,"Math",{scale:r(178)})},function(t,n,r){var e=r(1);e(e.S,"Math",{signbit:function(t){return(t=+t)!=t?t:0==t?1/t==1/0:0<t}})},function(t,n,r){var e=r(1);e(e.S,"Math",{umulh:function(t,n){var r=+t,e=+n,i=65535&r,o=65535&e,u=r>>>16,c=e>>>16,f=(u*o>>>0)+(i*o>>>16);return u*c+(f>>>16)+((i*c>>>0)+(65535&f)>>>16)}})},function(t,n,r){"use strict";var e=r(1),i=r(17),o=r(21),u=r(10);r(9)&&e(e.P+r(124),"Object",{__defineGetter__:function(t,n){u.f(i(this),t,{get:o(n),enumerable:!0,configurable:!0})}})},function(t,n,r){"use strict";var e=r(1),i=r(17),o=r(21),u=r(10);r(9)&&e(e.P+r(124),"Object",{__defineSetter__:function(t,n){u.f(i(this),t,{set:o(n),enumerable:!0,configurable:!0})}})},function(t,n,r){var e=r(1),i=r(183)(!0);e(e.S,"Object",{entries:function(t){return i(t)}})},function(t,n,r){var e=r(1),f=r(184),a=r(33),s=r(31),l=r(136);e(e.S,"Object",{getOwnPropertyDescriptors:function(t){for(var n,r,e=a(t),i=s.f,o=f(e),u={},c=0;o.length>c;)void 0!==(r=i(e,n=o[c++]))&&l(u,n,r);return u}})},function(t,n,r){"use strict";var e=r(1),i=r(17),o=r(53),u=r(32),c=r(31).f;r(9)&&e(e.P+r(124),"Object",{__lookupGetter__:function(t){var n,r=i(this),e=o(t,!0);do{if(n=c(r,e))return n.get}while(r=u(r))}})},function(t,n,r){"use strict";var e=r(1),i=r(17),o=r(53),u=r(32),c=r(31).f;r(9)&&e(e.P+r(124),"Object",{__lookupSetter__:function(t){var n,r=i(this),e=o(t,!0);do{if(n=c(r,e))return n.set}while(r=u(r))}})},function(t,n,r){var e=r(1),i=r(183)(!1);e(e.S,"Object",{values:function(t){return i(t)}})},function(t,n,r){"use strict";var e=r(1),o=r(3),u=r(46),i=r(147)(),c=r(7)("observable"),f=r(21),a=r(2),s=r(69),l=r(75),h=r(26),v=r(70),p=v.RETURN,d=function(t){return null==t?void 0:f(t)},y=function(t){var n=t._c;n&&(t._c=void 0,n())},g=function(t){return void 0===t._o},b=function(t){g(t)||(t._o=void 0,y(t))},m=function(t,n){a(t),this._c=void 0,this._o=t,t=new x(this);try{var r=n(t),e=r;null!=r&&("function"==typeof r.unsubscribe?r=function(){e.unsubscribe()}:f(r),this._c=r)}catch(n){return void t.error(n)}g(this)&&y(this)};m.prototype=l({},{unsubscribe:function(){b(this)}});var x=function(t){this._s=t};x.prototype=l({},{next:function(t){var n=this._s;if(!g(n)){var r=n._o;try{var e=d(r.next);if(e)return e.call(r,t)}catch(t){try{b(n)}finally{throw t}}}},error:function(t){var n=this._s;if(g(n))throw t;var r=n._o;n._o=void 0;try{var e=d(r.error);if(!e)throw t;t=e.call(r,t)}catch(t){try{y(n)}finally{throw t}}return y(n),t},complete:function(t){var n=this._s;if(!g(n)){var r=n._o;n._o=void 0;try{var e=d(r.complete);t=e?e.call(r,t):void 0}catch(t){try{y(n)}finally{throw t}}return y(n),t}}});var S=function(t){s(this,S,"Observable","_f")._f=f(t)};l(S.prototype,{subscribe:function(t){return new m(t,this._f)},forEach:function(e){var i=this;return new(u.Promise||o.Promise)(function(t,n){f(e);var r=i.subscribe({next:function(t){try{return e(t)}catch(t){n(t),r.unsubscribe()}},error:n,complete:t})})}}),l(S,{from:function(t){var n="function"==typeof this?this:S,r=d(a(t)[c]);if(r){var e=a(r.call(t));return e.constructor===n?e:new n(function(t){return e.subscribe(t)})}return new n(function(n){var r=!1;return i(function(){if(!r){try{if(v(t,!1,function(t){if(n.next(t),r)return p})===p)return}catch(t){if(r)throw t;return void n.error(t)}n.complete()}}),function(){r=!0}})},of:function(){for(var t=0,n=arguments.length,e=new Array(n);t<n;)e[t]=arguments[t++];return new("function"==typeof this?this:S)(function(n){var r=!1;return i(function(){if(!r){for(var t=0;t<e.length;++t)if(n.next(e[t]),r)return;n.complete()}}),function(){r=!0}})}}),h(S.prototype,c,function(){return this}),e(e.G,{Observable:S}),r(76)("Observable")},function(t,n,r){"use strict";var e=r(1),i=r(46),o=r(3),u=r(129),c=r(188);e(e.P+e.R,"Promise",{finally:function(n){var r=u(this,i.Promise||o.Promise),t="function"==typeof n;return this.then(t?function(t){return c(r,n()).then(function(){return t})}:n,t?function(t){return c(r,n()).then(function(){throw t})}:n)}})},function(t,n,r){"use strict";var e=r(1),i=r(148),o=r(187);e(e.S,"Promise",{try:function(t){var n=i.f(this),r=o(t);return(r.e?n.reject:n.resolve)(r.v),n.promise}})},function(t,n,r){var e=r(55),i=r(2),o=e.key,u=e.set;e.exp({defineMetadata:function(t,n,r,e){u(t,n,i(r),o(e))}})},function(t,n,r){var e=r(55),o=r(2),u=e.key,c=e.map,f=e.store;e.exp({deleteMetadata:function(t,n){var r=arguments.length<3?void 0:u(arguments[2]),e=c(o(n),r,!1);if(void 0===e||!e.delete(t))return!1;if(e.size)return!0;var i=f.get(n);return i.delete(r),!!i.size||f.delete(n)}})},function(t,n,r){var o=r(194),u=r(164),e=r(55),i=r(2),c=r(32),f=e.keys,a=e.key,s=function(t,n){var r=f(t,n),e=c(t);if(null===e)return r;var i=s(e,n);return i.length?r.length?u(new o(r.concat(i))):i:r};e.exp({getMetadataKeys:function(t){return s(i(t),arguments.length<2?void 0:a(arguments[1]))}})},function(t,n,r){var e=r(55),i=r(2),o=r(32),u=e.has,c=e.get,f=e.key,a=function(t,n,r){if(u(t,n,r))return c(t,n,r);var e=o(n);return null!==e?a(t,e,r):void 0};e.exp({getMetadata:function(t,n){return a(t,i(n),arguments.length<3?void 0:f(arguments[2]))}})},function(t,n,r){var e=r(55),i=r(2),o=e.keys,u=e.key;e.exp({getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var e=r(55),i=r(2),o=e.get,u=e.key;e.exp({getOwnMetadata:function(t,n){return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){var e=r(55),i=r(2),o=r(32),u=e.has,c=e.key,f=function(t,n,r){if(u(t,n,r))return!0;var e=o(n);return null!==e&&f(t,e,r)};e.exp({hasMetadata:function(t,n){return f(t,i(n),arguments.length<3?void 0:c(arguments[2]))}})},function(t,n,r){var e=r(55),i=r(2),o=e.has,u=e.key;e.exp({hasOwnMetadata:function(t,n){return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){var e=r(55),i=r(2),o=r(21),u=e.key,c=e.set;e.exp({metadata:function(r,e){return function(t,n){c(r,e,(void 0!==n?i:o)(t),u(n))}}})},function(t,n,r){r(126)("Set")},function(t,n,r){r(127)("Set")},function(t,n,r){var e=r(1);e(e.P+e.R,"Set",{toJSON:r(168)("Set")})},function(t,n,r){"use strict";var e=r(1),i=r(151)(!0);e(e.P,"String",{at:function(t){return i(this,t)}})},function(t,n,r){"use strict";var e=r(1),i=r(50),o=r(11),u=r(122),c=r(120),f=RegExp.prototype,a=function(t,n){this._r=t,this._s=n};r(143)(a,"RegExp String",function(){var t=this._r.exec(this._s);return{value:t,done:null===t}}),e(e.P,"String",{matchAll:function(t){if(i(this),!u(t))throw TypeError(t+" is not a regexp!");var n=String(this),r="flags"in f?String(t.flags):c.call(t),e=new RegExp(t.source,~r.indexOf("g")?r:"g"+r);return e.lastIndex=o(t.lastIndex),new a(e,n)}})},function(t,n,r){"use strict";var e=r(1),i=r(189),o=r(131);e(e.P+e.F*/Version\/10\.\d+(\.\d+)? Safari\//.test(o),"String",{padEnd:function(t){return i(this,t,1<arguments.length?arguments[1]:void 0,!1)}})},function(t,n,r){"use strict";var e=r(1),i=r(189),o=r(131);e(e.P+e.F*/Version\/10\.\d+(\.\d+)? Safari\//.test(o),"String",{padStart:function(t){return i(this,t,1<arguments.length?arguments[1]:void 0,!0)}})},function(t,n,r){"use strict";r(82)("trimLeft",function(t){return function(){return t(this,1)}},"trimStart")},function(t,n,r){"use strict";r(82)("trimRight",function(t){return function(){return t(this,2)}},"trimEnd")},function(t,n,r){r(157)("asyncIterator")},function(t,n,r){r(157)("observable")},function(t,n,r){var e=r(1);e(e.S,"System",{global:r(3)})},function(t,n,r){r(126)("WeakMap")},function(t,n,r){r(127)("WeakMap")},function(t,n,r){r(126)("WeakSet")},function(t,n,r){r(127)("WeakSet")},function(t,n,r){for(var e=r(159),i=r(73),o=r(27),u=r(3),c=r(26),f=r(80),a=r(7),s=a("iterator"),l=a("toStringTag"),h=f.Array,v={CSSRuleList:!0,CSSStyleDeclaration:!1,CSSValueList:!1,ClientRectList:!1,DOMRectList:!1,DOMStringList:!1,DOMTokenList:!0,DataTransferItemList:!1,FileList:!1,HTMLAllCollection:!1,HTMLCollection:!1,HTMLFormElement:!1,HTMLSelectElement:!1,MediaList:!0,MimeTypeArray:!1,NamedNodeMap:!1,NodeList:!0,PaintRequestList:!1,Plugin:!1,PluginArray:!1,SVGLengthList:!1,SVGNumberList:!1,SVGPathSegList:!1,SVGPointList:!1,SVGStringList:!1,SVGTransformList:!1,SourceBufferList:!1,StyleSheetList:!0,TextTrackCueList:!1,TextTrackList:!1,TouchList:!1},p=i(v),d=0;d<p.length;d++){var y,g=p[d],b=v[g],m=u[g],x=m&&m.prototype;if(x&&(x[s]||c(x,s,h),x[l]||c(x,l,g),f[g]=h,b))for(y in e)x[y]||o(x,y,e[y],!0)}},function(t,n,r){var e=r(1),i=r(155);e(e.G+e.B,{setImmediate:i.set,clearImmediate:i.clear})},function(t,n,r){var e=r(3),i=r(1),o=r(131),u=[].slice,c=/MSIE .\./.test(o),f=function(i){return function(t,n){var r=2<arguments.length,e=!!r&&u.call(arguments,2);return i(r?function(){("function"==typeof t?t:Function(t)).apply(this,e)}:t,n)}};i(i.G+i.B+i.F*c,{setTimeout:f(e.setTimeout),setInterval:f(e.setInterval)})},function(t,n,r){r(338),r(277),r(279),r(278),r(281),r(283),r(288),r(282),r(280),r(290),r(289),r(285),r(286),r(284),r(276),r(287),r(291),r(292),r(244),r(246),r(245),r(294),r(293),r(264),r(274),r(275),r(265),r(266),r(267),r(268),r(269),r(270),r(271),r(272),r(273),r(247),r(248),r(249),r(250),r(251),r(252),r(253),r(254),r(255),r(256),r(257),r(258),r(259),r(260),r(261),r(262),r(263),r(325),r(330),r(337),r(328),r(320),r(321),r(326),r(331),r(333),r(316),r(317),r(318),r(319),r(322),r(323),r(324),r(327),r(329),r(332),r(334),r(335),r(336),r(239),r(241),r(240),r(243),r(242),r(228),r(226),r(232),r(229),r(235),r(237),r(225),r(231),r(222),r(236),r(220),r(234),r(233),r(227),r(230),r(219),r(221),r(224),r(223),r(238),r(159),r(310),r(315),r(193),r(311),r(312),r(313),r(314),r(295),r(192),r(194),r(195),r(350),r(339),r(340),r(345),r(348),r(349),r(343),r(346),r(344),r(347),r(341),r(342),r(296),r(297),r(298),r(299),r(300),r(303),r(301),r(302),r(304),r(305),r(306),r(307),r(309),r(308),r(353),r(351),r(352),r(394),r(397),r(396),r(398),r(399),r(395),r(400),r(401),r(375),r(378),r(374),r(372),r(373),r(376),r(377),r(359),r(393),r(358),r(392),r(404),r(406),r(357),r(391),r(403),r(405),r(356),r(402),r(355),r(360),r(361),r(362),r(363),r(364),r(366),r(365),r(367),r(368),r(369),r(371),r(370),r(380),r(381),r(382),r(383),r(385),r(384),r(387),r(386),r(388),r(389),r(390),r(354),r(379),r(409),r(408),r(407),t.exports=r(46)},function(t,n){t.exports=function(t,n){if("string"==typeof n)return t.insertAdjacentHTML("afterend",n);var r=t.nextSibling;return r?t.parentNode.insertBefore(n,r):t.parentNode.appendChild(n)}}])</script><script src="/./main.50cb86.js"></script><script>!function(){var e,t;e="/slider.a08000.js",t=document.createElement("script"),document.getElementsByTagName("body")[0].appendChild(t),t.setAttribute("src",e)}()</script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
+    
+    
+      
+      
+      
+    
+      
+      
+      
+    
+    
+
+    <ul style="width: 70%">
+    
+    
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
+      
+        
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
+      
+        
+    </ul>
+  </div>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码规范</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">用户态</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">内核态</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Butterknife</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Dagger2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IOC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">xUtils</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ijkplayer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ViewPager</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CardView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Card</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">PageTransformer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Weex</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代理模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Helper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Error</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Expand</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Footer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">helper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">multiType</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RxAndroid</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HighLight</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DiffUtil</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Animator</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Cool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">View</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">对象</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Clean</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MVP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">架构</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Activity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">内存管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">泛型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lottie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">3D</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Transition</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Retrofit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">接口</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">synchronized</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">死锁</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">volatile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">final</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JMM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">适配器模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">装饰者模式</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            3、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: false
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;div align=&#34;center&#34;&gt;&lt;font color=&#34;#1d953f&#34;&gt;普通本科院校毕业&lt;br&gt;&lt;br&lt;/font&gt;&lt;font color=&#34;#ea66a6&#34;&gt;Android搬砖工&lt;br&gt;&lt;br&lt;/font&gt;&lt;font color=&#34;#ed1941&#34;&gt;欢迎各种勾搭&lt;br&gt;&lt;br&lt;/font&gt;&lt;font color=&#34;#694d9f&#34;&gt;本人单身&lt;br&gt;&lt;br&lt;/font&gt;&lt;font color=&#34;#009ad6&#34;&gt;水瓶座&lt;br&gt;&lt;br&lt;/font&gt;&lt;font color=&#34;#f58220&#34;&gt;杭州&lt;/font&gt;&lt;/div&gt;</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
