@@ -15,7 +15,7 @@ MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功�
 ## gradle依赖
 
 ```
-implementation 'com.crazysunj:multitypeadapter:2.2.0'
+implementation 'com.crazysunj:multitypeadapter:2.3.1'
 implementation 'com.android.support:recyclerview-v7:xxx'
 ```
 ## 特点
@@ -76,8 +76,8 @@ public class TestLevelAdapterHelper extends AsynAdapterHelper<MultiTypeTitleEnti
     }
 
     @Override
-    protected void registerMoudle() {
-        registerMoudle(LEVEL_FIRST)
+    protected void registerModule() {
+        registerModule(LEVEL_FIRST)
                 .type(TypeOneItem.TYPE_ONE)
                 .layoutResId(R.layout.item_first)
                 .type(TypeTwoItem.TYPE_TWO)
@@ -94,7 +94,7 @@ public class TestLevelAdapterHelper extends AsynAdapterHelper<MultiTypeTitleEnti
 }
 ```
 
-AsynAdapterHelper是继承于RecyclerViewAdapterHelper，内部是采用Handler实现异步处理。下文会说其它的实现方法。registerMoudle是抽象方法，大家可以通过调用registerMoudle进行链式注册，基本的level是必须的。level是type的序列等级，比如type1的level是0，type2的level是1，那么type1就在type2的前面。其它还有很多注册方法，例如loading,error等。
+AsynAdapterHelper是继承于RecyclerViewAdapterHelper，内部是采用Handler实现异步处理。下文会说其它的实现方法。registerModule是抽象方法，大家可以通过调用registerModule进行链式注册，基本的level是必须的。level是type的序列等级，比如type1的level是0，type2的level是1，那么type1就在type2的前面。其它还有很多注册方法，例如loading,error等。
 
 实战Adapter中运用：
 
@@ -121,7 +121,7 @@ public class TestLevelAdapter extends BaseHelperAdapter<MultiTypeTitleEntity, Ba
     }
 	...
     public void notifyLevelFirst(MultiTypeTitleEntity header, List<MultiTypeTitleEntity> data, MultiTypeTitleEntity footer) {
-        mHelper.notifyMoudleDataAndHeaderAndFooterChanged(data, header, footer, TestLevelAdapterHelper.LEVEL_FIRST);
+        mHelper.notifyModuleDataAndHeaderAndFooterChanged(data, header, footer, TestLevelAdapterHelper.LEVEL_FIRST);
     }
 	...
 }
@@ -130,7 +130,7 @@ public class TestLevelAdapter extends BaseHelperAdapter<MultiTypeTitleEntity, Ba
 只要根据返回data的itemType或者说item的类型进行判断，渲染相应的视图就行了。到此，与Adapter的配合就结束了，相当的简单。
 
 ### 一行代码刷新(附动画)单个level(可对应多个type)
-回顾上面的示例代码，发现notifyLevelFirst方法，而里面调用的是Helper的notifyMoudleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用DiffUtil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是DiffUtil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。由于底层是DiffUtil，所以刷新的时候是局部刷新并带有动画，原理可以看我这篇文章[《BRVAH+MTRVA，复杂？不存在的》](http://crazysunj.com/2017/08/14/BRVAH-MTRVA%EF%BC%8C%E5%A4%8D%E6%9D%82%EF%BC%9F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84/)。
+回顾上面的示例代码，发现notifyLevelFirst方法，而里面调用的是Helper的notifyModuleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用DiffUtil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是DiffUtil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。由于底层是DiffUtil，所以刷新的时候是局部刷新并带有动画，原理可以看我这篇文章[《BRVAH+MTRVA，复杂？不存在的》](http://crazysunj.com/2017/08/14/BRVAH-MTRVA%EF%BC%8C%E5%A4%8D%E6%9D%82%EF%BC%9F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84/)。
 
 库中默认提供DiffCallBack：
 
@@ -157,7 +157,7 @@ public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
 上面一节了解到资源的注册，其实可以多个type一起注册在一个level中，比如像这样：
 
 ```
-registerMoudle(LEVEL_FIRST)
+registerModule(LEVEL_FIRST)
         .type(TypeOneItem.TYPE_ONE)
         .layoutResId(R.layout.item_first)
         .type(TypeTwoItem.TYPE_TWO)
@@ -191,11 +191,11 @@ getData可以帮助我们查到原始数据源，而getDataWithType/getDataWithL
 这里提供了强力的删操作：
 
 ```
-public void clearMoudle(int... level);
+public void clearModule(int... level);
 
-public void remainMoudle(int... level);
+public void remainModule(int... level);
 ```
-从方法命名上我们可以知道clearMoudle可以清楚多个level的数据，而remainMoudle是保留多个level的数据，意味着没有保留的都会被删除。
+从方法命名上我们可以知道clearModule可以清楚多个level的数据，而remainModule是保留多个level的数据，意味着没有保留的都会被删除。
 
 库中的增删改查做了很多兼容性，增强代码的健壮性，本来你以为会报错，结果没报错，可以具体查看代码中的逻辑。
 
@@ -249,13 +249,13 @@ public void notifyLoadingHeaderChanged(int level);
 
 public void notifyLoadingDataAndHeaderChanged(int level, @IntRange(from = 1) int dataCount);
 
-public void notifyMoudleEmptyChanged(T emptyData, int level);
+public void notifyModuleEmptyChanged(T emptyData, int level);
 
-public void notifyMoudleEmptyChanged(int level);
+public void notifyModuleEmptyChanged(int level);
 
-public void notifyMoudleErrorChanged(T errorData, int level);
+public void notifyModuleErrorChanged(T errorData, int level);
 
-public void notifyMoudleErrorChanged(int level);
+public void notifyModuleErrorChanged(int level);
 ```
 
 如果Error和Empty调用带data的刷新方法，那么无需设置相应的Adapter，但是Loading必须要。
@@ -264,7 +264,7 @@ public void notifyMoudleErrorChanged(int level);
 在Helper注册资源的时候可以，添加。如：
 
 ```
-registerMoudle(LEVEL_FIRST)
+registerModule(LEVEL_FIRST)
         .type(FirstOCEntity.OC_FIRST_TYPE)
         .layoutResId(R.layout.item_first)
         .headerResId(R.layout.item_header)
@@ -377,7 +377,7 @@ protected ListUpdateCallback getListUpdateCallback(final BaseAdapter adapter) {
 由于我们是多个level的定义，因此有没有想过，level最高级为headerView，level最低级为footerView，而且完全自定义封装；这还不是重点，作为一个Activity拥有一个RecyclerView就够了，很多情况，我们可能会有数据为空的情况，那么就需要一个展示空数据的页面，同理，错误页面也是这样。其实这，本库也能做到。比如像这样：
 
 ```
-registerMoudle(LEVEL_SWITCH)
+registerModule(LEVEL_SWITCH)
         .type(SwtichType.TYPE_A)
         .layoutResId(R.layout.item_switch_type)
         .type(SwtichType.TYPE_B)
