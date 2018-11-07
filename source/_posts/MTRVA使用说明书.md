@@ -17,7 +17,13 @@ MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功�
 ```
 implementation 'com.crazysunj:multitypeadapter:2.3.1'
 implementation 'com.android.support:recyclerview-v7:xxx'
+
+AndroidX的同学：
+implementation 'com.crazysunj:multitypeadapter:2.3.2-x'
+implementation 'androidx.recyclerview:recyclerview::xxx'
 ```
+
+后续版本更新可能只支持AndroidX，毕竟Google将停止维护support包。
 ## 特点
 
 * 使用简单快捷，支持大多数Adapter(高灵活、低耦合)
