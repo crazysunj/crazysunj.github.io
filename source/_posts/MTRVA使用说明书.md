@@ -454,7 +454,7 @@ protected int getPreDataCount();
 
 关于entity的id为long类型是考虑刷新效率，倘若支持不了你的数据，例如服务器返回的主键是字符串类型的，你又不想把String转化为long，就自定义DiffCallback(可参数demo)。
 
-建议把helper封装在Adapter中，不刷新时考虑一下DiffCallback的比较key，最常见的可能是引用问题，MTRVA还提供很多其它的刷新方法哦，上面有提到！
+建议把helper封装在Adapter中，不刷新时考虑一下DiffCallback的比较key，最常见的可能是同一引用引起的，建议接口返回的时候可以用刷新方法，因为都新对象，如果是针对单个或者部分数据操作，可以采用普通的add，set，remove等方法。
 
 不必在意库名MultiType这个字眼，当时自己也陷入了type的思维定势陷阱中并取了这样的名字（后缀为Adapter是因为早期是继承Adapter，但这样并不灵活），虽然讲道理也并没有错，RecyclerView不就是拿来支持多type的吗？但我们负责的是Adapter中的资源和数据源，利用规范的数据去驱动UI，像什么多类型Adapter，动画Adapter，下拉刷新上拉加载Adapter等等都是支持的。
 
