@@ -72,6 +72,12 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: yilia
 
+math:
+  engine: 'mathjax' # or 'katex'
+  mathjax:
+    # src: custom_mathjax_source
+    config:
+      # MathJax config
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
