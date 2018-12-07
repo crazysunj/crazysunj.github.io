@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://yoursite.com/img/liehunxiao.png">
 <meta property="og:image" content="http://yoursite.com/img/lunmiyaojia.png">
 <meta property="og:image" content="http://yoursite.com/img/miyaokuozhan.png">
-<meta property="og:updated_time" content="2018-12-03T09:26:42.410Z">
+<meta property="og:updated_time" content="2018-12-07T10:08:49.965Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="走进网络加密技术">
 <meta name="twitter:description" content="前言客户端与服务端通信的时候，部分信息需要加密处理，比如我们的密码，你不会明文传输吧？其实这就涉及到网络加密技术。  网络加密技术是为了保证网络、信息安全进行设计的，其是信息安全的核心技术，也是一种主动的信心安全防范措施，其原理利用了一定的加密算法，将可以直接读取的文件转化成不可以直接读取的秘密文件，在一定程度上能阻止非法用户截取或是掌握原始数据信息，进而保证数据的保密性。直接读取的文件变成不能直">
@@ -295,7 +295,7 @@
 <li>服务端选择其中一种加密算法和hash算法，并把自己的证书（一般为CA证书）发给客户端</li>
 <li>客户端收到证书，验证其合法性，如果合法（例如证书是否合法是否过期，客户端公钥是否能解密数字签名，证书的域名与正在访问的域名是否一致等）或者用户选择信任进入下一步</li>
 <li>客户端生成随机数（后称对称密钥），利用服务端选择的hash算法对握手信息进行hash（生成摘要），然后用对称密钥对摘要进行加密（生成数字签名），最后用公钥把对称密钥加密，同时与摘要和数字签名传给服务端</li>
-<li>服务端先用自己的私钥对数字签名解密得到摘到，然后与客户端传来的摘要对比，如果一致，与客户端同样的操作再来一遍并传给客户端</li>
+<li>服务端先用自己的私钥解密得到对称密钥，再用其对数字签名解密得到摘到，然后与客户端传来的摘要对比，如果一致，与客户端同样的操作再来一遍并传给客户端</li>
 <li>客户端与上一步服务端同样操作判断摘要的一致性，如果一致，之后就用该对称密钥和公钥进行通信，TSL/SSL握手阶段结束</li>
 </ul>
 <h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>到这里，网络加密技术告一段落了，讲解的差不多也只是其冰山一角，算是对自己知道的一个小总结，同样希望这个能帮助到你。</p>
@@ -569,6 +569,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Butterknife</a>
               </li>
              
@@ -593,19 +601,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">用户态</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">内核态</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ijkplayer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,11 +649,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+                <a href="javascript:void(0)" class="js-tag color5">Http</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ijkplayer</a>
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -665,11 +673,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Http</a>
+                <a href="javascript:void(0)" class="js-tag color3">对象</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,14 +705,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">对象</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Animator</a>
               </li>
              
@@ -729,6 +729,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">内存管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
               </li>
              
@@ -745,23 +753,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内存管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">泛型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -777,6 +769,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
@@ -786,10 +786,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Retrofit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -834,6 +830,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JMM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
               </li>
              
               <li class="article-tag-list-item">
