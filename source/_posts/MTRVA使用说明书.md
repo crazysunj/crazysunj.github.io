@@ -15,21 +15,22 @@ MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功�
 ## gradle依赖
 
 ```
+// support最后一个版本
 implementation 'com.crazysunj:multitypeadapter:2.3.1'
 implementation 'com.android.support:recyclerview-v7:xxx'
 
 AndroidX的同学：
-implementation 'com.crazysunj:multitypeadapter:2.3.2-x'
+implementation 'com.crazysunj:multitypeadapter:2.4.0'
 implementation 'androidx.recyclerview:recyclerview::xxx'
 ```
 
-后续版本更新可能只支持AndroidX，毕竟Google将停止维护support包。
+后续版本更新只支持AndroidX，毕竟Google将停止维护support包，没有更新的小伙伴得抓紧了，不过项目大的同学慢慢来。
 ## 特点
 
 * 使用简单快捷，支持大多数Adapter(高灵活、低耦合)
 * 一行代码刷新(附动画)单个level(可对应多个type)
 * 支持增删改查操作(健壮性)
-* 支持异步，高频率刷新，可扩展(如配合RxJava，高效性)
+* 支持异步，高频率，链式刷新，可扩展(如配合RxJava，高效性)
 * 单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换
 * 单个level支持header，footer
 * 单个level支持展开和合拢(可设置合拢最小值)
@@ -205,7 +206,7 @@ public void remainModule(int... level);
 
 库中的增删改查做了很多兼容性，增强代码的健壮性，本来你以为会报错，结果没报错，可以具体查看代码中的逻辑。
 
-### 支持异步，高频率刷新，可扩展(如配合RxJava，高效性)
+### 支持异步，高频率，链式刷新，可扩展(如配合RxJava，高效性)
 能快速找到要刷新的数据，这里借用了DiffUtil，具体用法我就不介绍了，但是有个缺陷就是如果数据量过大的时候，计算的时候很费时，因此把它放在线程中不影响用户操作。库中的异步刷新实现是传统的handler方法，但是我把计算和处理结果的接口提供了，大家可以打造自己的异步处理，这里举个DEMO中例子，利用RxAndroid(这里是2.0)实现：
 
 ```
@@ -228,6 +229,46 @@ Flowable.just(new HandleBase<MultiHeaderEntity>(newData, newHeader, type, refres
 ```
 
 之所以能实现高频率刷新而不错乱，是因为采用了串行的结构，内部有队列管理每次的刷新。
+
+如果你是喜欢链式的同学，那么你有福了，MTRVA也支持链式调用。例如这样：
+
+```
+AdapterHelper.with(level)
+        .data(data|list)
+        .header(header)
+        .footer(footer)
+        .into(helper);
+
+AdapterHelper.with(level)
+        .empty(|empty)
+        .into(helper);
+
+AdapterHelper.with(level)
+        .error(|error)
+        .into(helper);
+
+AdapterHelper.with(level)
+        .loading()
+        .header()
+        .data(count)
+        .into(helper);
+
+AdapterHelper.action()
+        .clear()
+        .remainModule(level)
+        .clearModule(level)
+        .set(position,data)
+        .remove(position,count)
+        .remove(position)
+        .add(position,list)
+        .add(position,data)
+        .add(list)
+        .add(data)
+        .all(list)
+        .all(data)
+        .into(helper);
+```
+最后一种虽然调起来很爽，但是得注意，执行顺序是自下而上。
 
 ### 单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换
 如果你想在单个level中进行Loading，Empty，Error之间的切换，请调用如下方法。
@@ -454,7 +495,7 @@ protected int getPreDataCount();
 
 关于entity的id为long类型是考虑刷新效率，倘若支持不了你的数据，例如服务器返回的主键是字符串类型的，你又不想把String转化为long，就自定义DiffCallback(可参数demo)。
 
-建议把helper封装在Adapter中，不刷新时考虑一下DiffCallback的比较key，最常见的可能是同一引用引起的，建议接口返回的时候可以用刷新方法，因为都新对象，如果是针对单个或者部分数据操作，可以采用普通的add，set，remove等方法。
+建议把helper封装在Adapter中，不刷新时考虑一下DiffCallback的比较key，最常见的可能是同一引用引起的，建议接口返回的时候可以用刷新方法，因为都新对象，如果是针对单个或者部分数据操作，可以采用普通的add，set，remove等方法。当然了，如果是2.4.0版本以上的直接使用AdapterHelper类去刷新，会兼容此场景。
 
 不必在意库名MultiType这个字眼，当时自己也陷入了type的思维定势陷阱中并取了这样的名字（后缀为Adapter是因为早期是继承Adapter，但这样并不灵活），虽然讲道理也并没有错，RecyclerView不就是拿来支持多type的吗？但我们负责的是Adapter中的资源和数据源，利用规范的数据去驱动UI，像什么多类型Adapter，动画Adapter，下拉刷新上拉加载Adapter等等都是支持的。
 
