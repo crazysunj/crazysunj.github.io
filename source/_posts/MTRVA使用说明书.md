@@ -268,7 +268,7 @@ AdapterHelper.action()
         .all(data)
         .into(helper);
 ```
-最后一种虽然调起来很爽，但是得注意，执行顺序是自下而上。
+最后一种虽然调起来很爽，但是得注意position哦，别想当然了。
 
 ### 单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换
 如果你想在单个level中进行Loading，Empty，Error之间的切换，请调用如下方法。
