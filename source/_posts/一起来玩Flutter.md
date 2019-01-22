@@ -238,8 +238,8 @@ final MethodChannel channel = new MethodChannel(pluginRegistry.registrarFor(CHAN
 channel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
     @Override
     public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
-    	//  methodCall可以获取我们的方法名和参数，例如这里我们只要判断方法名是不是refreshComplete就能处理对应事件
-    	//  result是通知flutter端，支持异步回调
+        //  methodCall可以获取我们的方法名和参数，例如这里我们只要判断方法名是不是refreshComplete就能处理对应事件
+        //  result是通知flutter端，支持异步回调
     }
 });
 ```
@@ -252,13 +252,13 @@ final EventChannel channel = new EventChannel(pluginRegistry.registrarFor(channe
 channel.setStreamHandler(new EventChannel.StreamHandler() {
     @Override
     public void onListen(Object o, EventChannel.EventSink eventSink) {
-    	// 当flutter注册监听的时候，这里便会回调，一般我们会记录这个EventSink，因为后续需要通过它来通信
-    	mEventSink = eventSink;
+        // 当flutter注册监听的时候，这里便会回调，一般我们会记录这个EventSink，因为后续需要通过它来通信
+        mEventSink = eventSink;
     }
 
     @Override
     public void onCancel(Object o) {
-		// 如果flutter端取消监听，这里便会回调
+        // 如果flutter端取消监听，这里便会回调
     }
 });
 // 通信方式很简单，除了success还有error和endOfStream，见名知意
@@ -278,7 +278,7 @@ mRefreshSubscription ??
 
 /// 通知子组件刷新
 void onRefreshEvent(Object event) {
-	...
+    ...
 }
 
 @override
@@ -306,7 +306,7 @@ mMessageChannel = new BasicMessageChannel<>(
 mMessageChannel.send("...", new BasicMessageChannel.Reply<Object>() {
     @Override
     public void reply(Object o) {
-    	// o为回调信息
+        // o为回调信息
     }
 });
 
