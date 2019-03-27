@@ -493,7 +493,7 @@ protected int getPreDataCount();
 
 调用刷新方法的时候请注意刷新模式，当前支持两种模式。
 
-关于entity的id为long类型是考虑刷新效率，倘若支持不了你的数据，例如服务器返回的主键是字符串类型的，你又不想把String转化为long，就自定义DiffCallback(可参数demo)。
+关于entity的id为long类型是考虑刷新效率，倘若支持不了你的数据，例如服务器返回的主键是字符串类型的，你又不想把String转化为long，就自定义DiffCallback(可参考demo)。
 
 建议把helper封装在Adapter中，不刷新时考虑一下DiffCallback的比较key，最常见的可能是同一引用引起的，建议接口返回的时候可以用刷新方法，因为都新对象，如果是针对单个或者部分数据操作，可以采用普通的add，set，remove等方法。当然了，如果是2.4.0版本以上的直接使用AdapterHelper类去刷新，会兼容此场景。
 
