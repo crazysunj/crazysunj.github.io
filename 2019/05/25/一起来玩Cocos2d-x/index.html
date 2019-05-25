@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://yoursite.com/img/img_wo_dong_ni.jpg">
 <meta property="og:image" content="http://yoursite.com/img/img_zaijian_meizi.jpg">
 <meta property="og:image" content="http://yoursite.com/img/img_xingxing.jpg">
-<meta property="og:updated_time" content="2019-05-25T01:40:23.868Z">
+<meta property="og:updated_time" content="2019-05-25T01:46:09.056Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一起来玩Cocos2d-x">
 <meta name="twitter:description" content="前言首先，我先申明我是一名Android工程师，用到Cocos2d-x是工作需要，技术选型选择Cocos2d-x我想得益于它仅有的开源免费跨平台吧，其中跨平台还借力于OpenGL。如果你是一名游戏工程师不放去看看Unity，自己比较一下，我这里就简单吐槽一下Cocos2d-x，毕竟Unity没用过。最先接触的吐槽点就是官方文档，算了，不说了，看在提供了中文文档的份上；然后就是UI系统，能体系完整点">
@@ -240,9 +240,9 @@
 </ul>
 <p>分发的事件，分发的事件监听，分发事件的监听地方都齐了，就缺一个分发的人了。通过前面物理引擎章节，我们已经知道分发器是什么了：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Director::getInstance()-&gt;getEventDispatcher()</span><br><span class="line">// 添加一个监听，传入监听事件和监听对象</span><br><span class="line">void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node);</span><br><span class="line">// 移除一个监听事件</span><br><span class="line">void removeEventListener(EventListener* listener);</span><br><span class="line">// 分发一个事件，常用于自定义事件</span><br><span class="line">void dispatchEvent(Event* event);</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">OK，这里介绍几个常见的事件监听单点触摸和键盘事件：</span><br></pre></td></tr></table></figure>
-<h1 id="EventListenerTouchOneByOne-单点触摸"><a href="#EventListenerTouchOneByOne-单点触摸" class="headerlink" title="EventListenerTouchOneByOne 单点触摸"></a>EventListenerTouchOneByOne 单点触摸</h1><p>typedef std::function&lt;bool(Touch<em>, Event</em>)&gt; ccTouchBeganCallback;<br>typedef std::function&lt;void(Touch<em>, Event</em>)&gt; ccTouchCallback;</p>
+<p>// EventListenerTouchOneByOne 单点触摸<br>typedef std::function&lt;bool(Touch<em>, Event</em>)&gt; ccTouchBeganCallback;<br>typedef std::function&lt;void(Touch<em>, Event</em>)&gt; ccTouchCallback;</p>
 <p>// 触摸开始，同Android的DOWN事件<br>ccTouchBeganCallback onTouchBegan;<br>// 移动状态，同MOVE事件，这里有个坑，如果手指保持同一点位置将不会回调<br>ccTouchCallback onTouchMoved;<br>// 手抬起，同UP事件<br>ccTouchCallback onTouchEnded;<br>// 事件被取消，同CANCEL事件<br>ccTouchCallback onTouchCancelled;</p>
-<h1 id="EventListenerKeyboard-键盘事件"><a href="#EventListenerKeyboard-键盘事件" class="headerlink" title="EventListenerKeyboard 键盘事件"></a>EventListenerKeyboard 键盘事件</h1><p>// 按下时触发<br>std::function&lt;void(EventKeyboard::KeyCode, Event<em>)&gt; onKeyPressed;<br>// 按键被释放时触发<br>std::function&lt;void(EventKeyboard::KeyCode, Event</em>)&gt; onKeyReleased;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">还有一点忘记介绍了，就是事件分发的路线，大致是这样的，我们每次add一个节点的时候，可以传入第二个参数z-order，后者数值越大越先被分配事件，同样的cocos2d-x中也有事件拦截一说，通过返回bool判断，同Android，被拦截的事件将不会被下级节点接受。</span><br><span class="line"></span><br><span class="line">### UI系统</span><br><span class="line">#### 系统组件</span><br><span class="line">据说cocos2d时候是没有这么多GUI组件的，只能用用标签、菜单和精灵，据说能满足开发的需求。后面增加GUI组件是因为方便ide的各种拖拽，大哥你是不是搞错前后顺序了？</span><br><span class="line"></span><br><span class="line">![](/imgimg_shangtian.jpg)</span><br><span class="line"></span><br><span class="line">好了，废话不多说，UI系统无非是大量的UI组件罗列，本节会整理常用的组件结构图和一些使用例子。</span><br><span class="line"></span><br><span class="line">![](/img/img_cocos_ui.png)</span><br><span class="line"></span><br><span class="line">上面是常用的组件结构图，画的可真累啊。如果你对Android的UI系统有所了解话，肯定是能明白这些组件的具体功能，可能在cocos2d-x中如何使用不太清楚，这里会列举项目中几个例子供大家参考。</span><br></pre></td></tr></table></figure></p>
+<p>// EventListenerKeyboard 键盘事件<br>// 按下时触发<br>std::function&lt;void(EventKeyboard::KeyCode, Event<em>)&gt; onKeyPressed;<br>// 按键被释放时触发<br>std::function&lt;void(EventKeyboard::KeyCode, Event</em>)&gt; onKeyReleased;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">还有一点忘记介绍了，就是事件分发的路线，大致是这样的，我们每次add一个节点的时候，可以传入第二个参数z-order，后者数值越大越先被分配事件，同样的cocos2d-x中也有事件拦截一说，通过返回bool判断，同Android，被拦截的事件将不会被下级节点接受。</span><br><span class="line"></span><br><span class="line">### UI系统</span><br><span class="line">#### 系统组件</span><br><span class="line">据说cocos2d时候是没有这么多GUI组件的，只能用用标签、菜单和精灵，据说能满足开发的需求。后面增加GUI组件是因为方便ide的各种拖拽，大哥你是不是搞错前后顺序了？</span><br><span class="line"></span><br><span class="line">![](/imgimg_shangtian.jpg)</span><br><span class="line"></span><br><span class="line">好了，废话不多说，UI系统无非是大量的UI组件罗列，本节会整理常用的组件结构图和一些使用例子。</span><br><span class="line"></span><br><span class="line">![](/img/img_cocos_ui.png)</span><br><span class="line"></span><br><span class="line">上面是常用的组件结构图，画的可真累啊。如果你对Android的UI系统有所了解话，肯定是能明白这些组件的具体功能，可能在cocos2d-x中如何使用不太清楚，这里会列举项目中几个例子供大家参考。</span><br></pre></td></tr></table></figure></p>
 <p>// 创建失败后弹窗再来一把的按钮<br>auto btn = Button::create(“Images/CyanSquare.png”);<br>// 对按钮中添加文字<br>btn-&gt;setTitleText(“再搞一把”);<br>// 按钮可以添加触摸事件<br>btn-&gt;addTouchEventListener(CC_CALLBACK_2(NormalDialog::btnCallback, this));<br>// 创建得分文本，传入字符串，字体和字体大小<br>auto score = Text::create(text, “fonts/fangzheng.ttf”, 60);<br>// 创建一个导弹图片<br>ImageView *bullet = ImageView::create(“Images/icon_bullet.png”);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 自定义组件</span><br><span class="line">除了这些系统提供的之外，常常需要我们自定义组件，例如我们打游戏的时候经常会弹出对话框，但我们发现系统组件里面并没有很常见的Dialog，是不是很懵逼？因为cocos2d-x认为弹窗其实就是一个层，所以你自定义对话框样式的层之后添加到原来的层就行了。</span><br><span class="line"></span><br><span class="line">#### 3D</span><br><span class="line">cocos2d-x是支持3D的，但是如果要用3D我肯定不会用这个，就比如现在很多Android库功能是真TM全，但这样好吗？太笨重，很多功能我压根就不用，占包体积，很多方面都兼顾但做得都很烂等等原因，导致不得不修改源码把需要的提出来。同样的，你加入了3D的功能，OK，能不能单独提出来一个库？</span><br><span class="line"></span><br><span class="line">#### 坐标系</span><br><span class="line">cocos2d-x中坐标系有两种，我的天就不能统一一下吗？</span><br><span class="line"></span><br><span class="line">其中默认坐标原点是在左下角的即OpenGL的坐标系。</span><br><span class="line"></span><br><span class="line">![](/img/opengl_cs.png)</span><br><span class="line"></span><br><span class="line">但有时我们会用到同Android坐标系即坐标原点在左上角即UI坐标。</span><br></pre></td></tr></table></figure></p>
 <p>// class/Touch<br>// 这样获取的便是左上角<br>Vec2 getLocationInView() const;<br>// class Director<br>// UI坐标转OpenGL坐标<br>Vec2 convertToGL(const Vec2&amp; point);<br>// OpenGL坐标转UI坐标<br>Vec2 convertToUI(const Vec2&amp; point);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 屏幕适配</span><br><span class="line">只要是一个平台分辨率有多种，那必然存在适配问题。cocos2d-x中存在3种分辨率：</span><br><span class="line"></span><br><span class="line">* 屏幕分辨率：没啥好解释的</span><br><span class="line">* 资源分辨率：比如我们加载的资源图片，有兴趣的可以去研究下Android资源目录下的x,xx,xxx图片，即使同一张图片，系统加载的分辨率均不一样</span><br><span class="line">* 设计分辨率：可以认为是我们编程时的分辨率，也就是我们给它适配的分辨率，标准UI的分辨率，不知道这样说能否理解</span><br><span class="line"></span><br><span class="line">其中适配策略有5种：</span><br><span class="line"></span><br><span class="line">* ResolutionPolicy::NO_BORDER：无边策略，计算设计分辨率和屏幕分辨率的缩放因子，保证其中一个维度可以正好铺满屏幕，另一个维度是超出屏幕外的</span><br><span class="line">* ResolutionPolicy::FIXED_HEIGHT：NO_BORDER升级版，不是通过计算确定正好铺满的维度而是通过指定，该策略是指定高度，是的，就是炒的很火的今日头条方案，不知道几年前的东西了</span><br><span class="line">* ResolutionPolicy::FIXED_WIDTH：同上，指定宽度</span><br><span class="line">* ResolutionPolicy::FIXED_ALL：完全按设计分辨率来，上面的是填充一个维度之后，另一个维度是超出屏幕的，而这种策略是会留边的即会有黑边</span><br><span class="line">* ResolutionPolicy::FIXED_FIT：宽的维度等比例缩放，高的维度等比例缩放，可以精准适配，就是百分比布局，但是有个致命的缺点就是图片会变形（压缩或者拉伸）</span><br><span class="line"></span><br><span class="line">说了这么多，其实Android项目没有自己的适配方案的同学可以参考这个，总之，没有完美的适配，按照自己项目的实际情况进行适配。</span><br><span class="line"></span><br><span class="line">#### 其它</span><br><span class="line">其它例如音视频这种跟平台有关系的，比如在Android平台用的就是MediaPlayer，当然你可以改源码，毕竟开源嘛。音乐播放是通过[SimpleAudioEngine](https://docs.cocos2d-x.org/api-ref/cplusplus/V3.17/de/d8f/class_cocos_denshion_1_1_simple_audio_engine.html)控制：</span><br></pre></td></tr></table></figure></p>
 <p>// 预加载一段音频<br>SimpleAudioEngine::getInstance()-&gt;preloadBackgroundMusic(“audio/LuckyDay.mp3”);<br>// 播放一段音乐，第二个参数是控制音乐循环<br>SimpleAudioEngine::getInstance()-&gt;playBackgroundMusic(“audio/LuckyDay.mp3”, false);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 网络</span><br><span class="line">#### 基本原理</span><br><span class="line">像这种很明显是跟平台有关系的，cocos2d-x中添加了相应封装API。Android平台底层是HttpURLConnection，可以改相应源码或者覆盖，例如换成优秀的OkHttp。</span><br></pre></td></tr></table></figure></p>
@@ -374,7 +374,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cocos2d-x"><span class="toc-number">2.</span> <span class="toc-text">Cocos2d-x</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念"><span class="toc-number">2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核心"><span class="toc-number">2.2.</span> <span class="toc-text">核心</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#导演"><span class="toc-number">2.2.1.</span> <span class="toc-text">导演</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#场景"><span class="toc-number">2.2.2.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#层"><span class="toc-number">2.2.3.</span> <span class="toc-text">层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#精灵"><span class="toc-number">2.2.4.</span> <span class="toc-text">精灵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#菜单"><span class="toc-number">2.2.5.</span> <span class="toc-text">菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#节点"><span class="toc-number">2.2.6.</span> <span class="toc-text">节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动作"><span class="toc-number">2.2.7.</span> <span class="toc-text">动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#粒子"><span class="toc-number">2.2.8.</span> <span class="toc-text">粒子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#物理引擎"><span class="toc-number">2.2.9.</span> <span class="toc-text">物理引擎</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#事件分发"><span class="toc-number">2.2.10.</span> <span class="toc-text">事件分发</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EventListenerTouchOneByOne-单点触摸"><span class="toc-number"></span> <span class="toc-text">EventListenerTouchOneByOne 单点触摸</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EventListenerKeyboard-键盘事件"><span class="toc-number"></span> <span class="toc-text">EventListenerKeyboard 键盘事件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据持久化"><span class="toc-number">0.0.1.</span> <span class="toc-text">数据持久化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存管理"><span class="toc-number">0.1.</span> <span class="toc-text">内存管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">1.</span> <span class="toc-text">结束语</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cocos2d-x"><span class="toc-number">2.</span> <span class="toc-text">Cocos2d-x</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念"><span class="toc-number">2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核心"><span class="toc-number">2.2.</span> <span class="toc-text">核心</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#导演"><span class="toc-number">2.2.1.</span> <span class="toc-text">导演</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#场景"><span class="toc-number">2.2.2.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#层"><span class="toc-number">2.2.3.</span> <span class="toc-text">层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#精灵"><span class="toc-number">2.2.4.</span> <span class="toc-text">精灵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#菜单"><span class="toc-number">2.2.5.</span> <span class="toc-text">菜单</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#节点"><span class="toc-number">2.2.6.</span> <span class="toc-text">节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动作"><span class="toc-number">2.2.7.</span> <span class="toc-text">动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#粒子"><span class="toc-number">2.2.8.</span> <span class="toc-text">粒子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#物理引擎"><span class="toc-number">2.2.9.</span> <span class="toc-text">物理引擎</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#事件分发"><span class="toc-number">2.2.10.</span> <span class="toc-text">事件分发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据持久化"><span class="toc-number">2.2.11.</span> <span class="toc-text">数据持久化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内存管理"><span class="toc-number">2.3.</span> <span class="toc-text">内存管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">3.</span> <span class="toc-text">结束语</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -512,6 +512,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码规范</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">笔记</a>
               </li>
              
@@ -525,10 +529,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码规范</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -572,6 +572,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Cocos2d-x</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ViewPager</a>
               </li>
              
@@ -596,6 +604,22 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代理模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Weex</a>
               </li>
              
@@ -608,22 +632,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Cocos2d-x</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代理模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Helper</a>
               </li>
              
@@ -632,23 +640,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Http</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Expand</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Footer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -672,10 +668,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">对象</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Animator</a>
               </li>
              
@@ -692,15 +684,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">对象</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Framework</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Activity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -744,11 +744,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
+                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
+                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -776,6 +776,18 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ConcurrentHashMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并发</a>
               </li>
              
@@ -797,18 +809,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JMM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ConcurrentHashMap</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
               </li>
              
               <li class="article-tag-list-item">
