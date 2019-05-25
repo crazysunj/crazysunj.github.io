@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://yoursite.com/img/img_wo_dong_ni.jpg">
 <meta property="og:image" content="http://yoursite.com/img/img_zaijian_meizi.jpg">
 <meta property="og:image" content="http://yoursite.com/img/img_xingxing.jpg">
-<meta property="og:updated_time" content="2019-05-25T02:05:42.010Z">
+<meta property="og:updated_time" content="2019-05-25T02:08:00.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一起来玩Cocos2d-x">
 <meta name="twitter:description" content="前言首先，我先申明我是一名Android工程师，用到Cocos2d-x是工作需要，技术选型选择Cocos2d-x我想得益于它仅有的开源免费跨平台吧，其中跨平台还借力于OpenGL。如果你是一名游戏工程师不放去看看Unity，自己比较一下，我这里就简单吐槽一下Cocos2d-x，毕竟Unity没用过。最先接触的吐槽点就是官方文档，算了，不说了，看在提供了中文文档的份上；然后就是UI系统，能体系完整点">
@@ -242,7 +242,8 @@
 </li>
 </ul>
 <p>分发的事件，分发的事件监听，分发事件的监听地方都齐了，就缺一个分发的人了。通过前面物理引擎章节，我们已经知道分发器是什么了：</p>
-<p>这里介绍几个常见的事件监听单点触摸和键盘事件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Director::getInstance()-&gt;getEventDispatcher();</span><br><span class="line">// 分发一个事件，常用于自定义事件</span><br><span class="line">void dispatchEvent(Event* event);</span><br><span class="line">// 添加一个监听，传入监听事件和监听对象</span><br><span class="line">void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node);</span><br><span class="line">// 移除一个监听事件</span><br><span class="line">void removeEventListener(EventListener* listener);</span><br></pre></td></tr></table></figure>
+<p>OK，这里介绍几个常见的事件监听单点触摸和键盘事件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># EventListenerTouchOneByOne 单点触摸</span><br><span class="line">typedef std::function&lt;bool(Touch*, Event*)&gt; ccTouchBeganCallback;</span><br><span class="line">typedef std::function&lt;void(Touch*, Event*)&gt; ccTouchCallback;</span><br><span class="line"></span><br><span class="line">// 触摸开始，同Android的DOWN事件</span><br><span class="line">ccTouchBeganCallback onTouchBegan;</span><br><span class="line">// 移动状态，同MOVE事件，这里有个坑，如果手指保持同一点位置将不会回调</span><br><span class="line">ccTouchCallback onTouchMoved;</span><br><span class="line">// 手抬起，同UP事件</span><br><span class="line">ccTouchCallback onTouchEnded;</span><br><span class="line">// 事件被取消，同CANCEL事件</span><br><span class="line">ccTouchCallback onTouchCancelled;</span><br><span class="line"></span><br><span class="line"># EventListenerKeyboard 键盘事件</span><br><span class="line">// 按下时触发</span><br><span class="line">std::function&lt;void(EventKeyboard::KeyCode, Event*)&gt; onKeyPressed;</span><br><span class="line">// 按键被释放时触发</span><br><span class="line">std::function&lt;void(EventKeyboard::KeyCode, Event*)&gt; onKeyReleased;</span><br></pre></td></tr></table></figure>
 <p>还有一点忘记介绍了，就是事件分发的路线，大致是这样的，我们每次add一个节点的时候，可以传入第二个参数z-order，后者数值越大越先被分配事件，同样的cocos2d-x中也有事件拦截一说，通过返回bool判断，同Android，被拦截的事件将不会被下级节点接受。</p>
 <h3 id="UI系统"><a href="#UI系统" class="headerlink" title="UI系统"></a>UI系统</h3><h4 id="系统组件"><a href="#系统组件" class="headerlink" title="系统组件"></a>系统组件</h4><p>据说cocos2d时候是没有这么多GUI组件的，只能用用标签、菜单和精灵，据说能满足开发的需求。后面增加GUI组件是因为方便ide的各种拖拽，大哥你是不是搞错前后顺序了？</p>
@@ -627,15 +628,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Dart</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,15 +660,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代理模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Helper</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Error</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代理模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,18 +724,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Activity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Clean</a>
               </li>
              
@@ -747,6 +736,18 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Activity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
@@ -755,15 +756,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">泛型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -783,6 +780,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
               </li>
              
@@ -795,23 +796,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">接口</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">类</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">接口</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">装饰者模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -844,6 +837,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
