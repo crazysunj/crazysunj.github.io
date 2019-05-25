@@ -162,7 +162,7 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>首先，我先申明我是一名Android工程师，用到<a href="https://zh.wikipedia.org/wiki/Cocos2d" target="_blank" rel="noopener">Cocos2d-x</a>是工作需要，技术选型选择Cocos2d-x我想得益于它仅有的开源免费跨平台吧，其中跨平台还借力于OpenGL。如果你是一名游戏工程师不放去看看<a href="https://zh.wikipedia.org/wiki/Unity_\(%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E\" target="_blank" rel="noopener">Unity</a>)，自己比较一下，我这里就简单吐槽一下Cocos2d-x，毕竟Unity没用过。最先接触的吐槽点就是官方文档，算了，不说了，看在提供了中文文档的份上；然后就是UI系统，能体系完整点么？能文档里列全点吗？能使用人性化点吗？你们不考虑性能问题吗？还有一点就是版本的兼容，网上查资料api都变了，艹了个DJ，想查的内容根本找不到，不像我大Android，一查便知。这是我学了一周的感受。B话就讲到这，想玩一下Cocos2d-x的同学跟着我的节奏来吧！</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>首先，我先申明我是一名Android工程师，用到<a href="https://zh.wikipedia.org/wiki/Cocos2d" target="_blank" rel="noopener">Cocos2d-x</a>是工作需要，技术选型选择Cocos2d-x我想得益于它仅有的开源免费跨平台吧，其中跨平台还借力于OpenGL。如果你是一名游戏工程师不放去看看<a href="https://zh.wikipedia.org/wiki/Unity_%28%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%29" target="_blank" rel="noopener">Unity</a>，自己比较一下，我这里就简单吐槽一下Cocos2d-x，毕竟Unity没用过。最先接触的吐槽点就是官方文档，算了，不说了，看在提供了中文文档的份上；然后就是UI系统，能体系完整点么？能文档里列全点吗？能使用人性化点吗？你们不考虑性能问题吗？还有一点就是版本的兼容，网上查资料api都变了，艹了个DJ，想查的内容根本找不到，不像我大Android，一查便知。这是我学了一周的感受。B话就讲到这，想玩一下Cocos2d-x的同学跟着我的节奏来吧！</p>
 <p><img src="/img/img_xinlei.jpg" alt=""></p>
 <p><strong>注:</strong>本文Cocos2d-x基于C++，版本3.17.1；NDK版本15；代码内容均是我开发的打飞机项目的一部分。</p>
 <h2 id="Cocos2d-x"><a href="#Cocos2d-x" class="headerlink" title="Cocos2d-x"></a>Cocos2d-x</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>Cocos2d-x是MIT许可证下发布的一款功能强大的开源游戏引擎。允许开发人员使用C++、Javascript及Lua三种语言来进行游戏开发。支持所有常见平台，包括 iOS、Android、Windows、macOS、Linux。<br>
@@ -1093,6 +1093,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">代码规范</a>
               </li>
              
@@ -1121,14 +1129,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">用户态</a>
               </li>
              
@@ -1142,14 +1142,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ijkplayer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Cocos2d-x</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1177,14 +1169,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Http</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Weex</a>
               </li>
              
@@ -1197,11 +1181,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Cocos2d-x</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">代理模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1213,11 +1205,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Expand</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Footer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1261,7 +1265,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Activity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1277,43 +1289,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Activity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">内存管理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">泛型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">源码</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Retrofit</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1329,6 +1309,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">泛型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
               </li>
              
@@ -1337,11 +1325,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">类</a>
+                <a href="javascript:void(0)" class="js-tag color2">OkHttp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">源码</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Retrofit</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">接口</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">类</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1373,15 +1373,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ConcurrentHashMap</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
               </li>
              
               <li class="article-tag-list-item">
