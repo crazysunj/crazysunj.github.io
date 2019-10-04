@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>MTRVA使用说明书 | 欢迎来到crazysunjの博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="介绍MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑。 支持高灵活、低耦合、健壮性、高效性以及MVP。 架构">
+  <meta name="description" content="介绍MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑，对Adapter进行组件化封装（大型UI框架也可）效果更佳。 架构">
 <meta name="keywords" content="Android,RecyclerView,Adapter">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MTRVA使用说明书">
 <meta property="og:url" content="http://yoursite.com/2017/08/14/MTRVA使用说明书/index.html">
 <meta property="og:site_name" content="欢迎来到crazysunjの博客">
-<meta property="og:description" content="介绍MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑。 支持高灵活、低耦合、健壮性、高效性以及MVP。 架构">
+<meta property="og:description" content="介绍MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑，对Adapter进行组件化封装（大型UI框架也可）效果更佳。 架构">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/img/mtrva_logo.png">
 <meta property="og:image" content="http://yoursite.com/img/mtrva_architecture.png">
-<meta property="og:updated_time" content="2019-03-27T03:39:39.189Z">
+<meta property="og:updated_time" content="2019-10-04T06:23:26.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MTRVA使用说明书">
-<meta name="twitter:description" content="介绍MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑。 支持高灵活、低耦合、健壮性、高效性以及MVP。 架构">
+<meta name="twitter:description" content="介绍MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑，对Adapter进行组件化封装（大型UI框架也可）效果更佳。 架构">
 <meta name="twitter:image" content="http://yoursite.com/img/mtrva_logo.png">
   
     <link rel="alternative" href="/atom.xml" title="欢迎来到crazysunjの博客" type="application/atom+xml">
@@ -166,51 +166,48 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><img src="/img/mtrva_logo.png" alt=""></p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑。</p>
-<p>支持高灵活、低耦合、健壮性、高效性以及MVP。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑，对Adapter进行组件化封装（大型UI框架也可）效果更佳。</p>
 <h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p><img src="/img/mtrva_architecture.png" alt=""><br><a id="more"></a></p>
-<h2 id="gradle依赖"><a href="#gradle依赖" class="headerlink" title="gradle依赖"></a>gradle依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// support最后一个版本</span><br><span class="line">implementation &apos;com.crazysunj:multitypeadapter:2.3.1&apos;</span><br><span class="line">implementation &apos;com.android.support:recyclerview-v7:xxx&apos;</span><br><span class="line"></span><br><span class="line">AndroidX的同学：</span><br><span class="line">implementation &apos;com.crazysunj:multitypeadapter:2.4.0&apos;</span><br><span class="line">implementation &apos;androidx.recyclerview:recyclerview::xxx&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="gradle依赖"><a href="#gradle依赖" class="headerlink" title="gradle依赖"></a>gradle依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// support最后一个版本</span><br><span class="line">implementation &apos;com.crazysunj:multitypeadapter:2.3.1&apos;</span><br><span class="line">implementation &apos;com.android.support:recyclerview-v7:xxx&apos;</span><br><span class="line"></span><br><span class="line">AndroidX的同学：</span><br><span class="line">implementation &apos;com.crazysunj:multitypeadapter:2.5.0&apos;</span><br><span class="line">implementation &apos;androidx.recyclerview:recyclerview::xxx&apos;</span><br></pre></td></tr></table></figure>
 <p>后续版本更新只支持AndroidX，毕竟Google将停止维护support包，没有更新的小伙伴得抓紧了，不过项目大的同学慢慢来。</p>
 <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>使用简单快捷，支持大多数Adapter(高灵活、低耦合)</li>
-<li>一行代码刷新(附动画)单个level(可对应多个type)</li>
-<li>支持增删改查操作(健壮性)</li>
-<li>支持异步，高频率，链式刷新，可扩展(如配合RxJava，高效性)</li>
+<li>一行代码刷新(附动画)单个level(一个level可对应多个type)</li>
+<li>支持常规增删改查操作</li>
+<li>支持异步，高频率，链式刷新，可扩展(如配合RxJava)</li>
 <li>单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换</li>
 <li>单个level支持header，footer</li>
-<li>单个level支持展开和合拢(可设置合拢最小值)</li>
-<li>支持加载全局Loading(加载)页面</li>
-<li>支持注解生成类，减少工作量</li>
+<li>单个level支持展开和闭合(附动画)</li>
 <li>支持刷新生命周期回调</li>
-<li>兼容低版本RecyclerView</li>
-<li>进阶用法，比如在多种页面之间自由切换</li>
+<li>异步差量计算数据，只刷新改动部分，对比算法可自定义</li>
+<li>支持动态注册资源(根据服务端返回数据解析注册，不再静态写死)</li>
 </ul>
-<h3 id="使用简单快捷，支持大多数Adapter-高灵活、低耦合"><a href="#使用简单快捷，支持大多数Adapter-高灵活、低耦合" class="headerlink" title="使用简单快捷，支持大多数Adapter(高灵活、低耦合)"></a>使用简单快捷，支持大多数Adapter(高灵活、低耦合)</h3><p>Helper是Adapter的扩展类，会增加无畏的工作量，每个Adapter可能要创建一个Helper，所以要善于封装，复用等。这里提供BaseHelperAdapter的封装示例以示Helper与和Adapter的配合。</p>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>Helper是Adapter的扩展类，每个Adapter需要创建一个Helper，这样做是想把数据处理抽出来，不影响原有Adapter的使用。这里提供BaseHelperAdapter的封装示例以示Helper与和Adapter的配合。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public abstract class BaseHelperAdapter&lt;T extends MultiTypeEntity, VH extends BaseViewHolder, H extends RecyclerViewAdapterHelper&lt;T&gt;&gt; extends RecyclerView.Adapter&lt;VH&gt; &#123;</span><br><span class="line"></span><br><span class="line">    protected Context mContext;</span><br><span class="line">    protected LayoutInflater mLayoutInflater;</span><br><span class="line">    protected List&lt;T&gt; mData;</span><br><span class="line">    protected H mHelper;</span><br><span class="line"></span><br><span class="line">    public BaseHelperAdapter(H helper) &#123;</span><br><span class="line">        mData = helper.getData();</span><br><span class="line">        helper.bindAdapter(this);</span><br><span class="line">        mHelper = helper;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int getItemViewType(int position) &#123;</span><br><span class="line">        return mHelper.getItemViewType(position);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    @NonNull</span><br><span class="line">    @Override</span><br><span class="line">    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) &#123;</span><br><span class="line">        return createBaseViewHolder(parent, mHelper.getLayoutId(viewType));</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在构造函数中，与Adapter绑定，向Adapter提供资源和相应position对应的itemType(注意，一定要保证内外position一致，如果你是用的第三方Adapter，可能position等于0的时候是你Adapter的headView)，基本工作完成。这里省略无关代码，想看全部可到demo中查看。</p>
 <p>Helper简单示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class TestLevelAdapterHelper extends AsynAdapterHelper&lt;MultiTypeTitleEntity&gt; &#123;</span><br><span class="line">    ...</span><br><span class="line">    public TestLevelAdapterHelper(List&lt;MultiTypeTitleEntity&gt; data) &#123;</span><br><span class="line">        super(data);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void registerModule() &#123;</span><br><span class="line">        registerModule(LEVEL_FIRST)</span><br><span class="line">                .type(TypeOneItem.TYPE_ONE)</span><br><span class="line">                .layoutResId(R.layout.item_first)</span><br><span class="line">                .type(TypeTwoItem.TYPE_TWO)</span><br><span class="line">                .layoutResId(R.layout.item_second)</span><br><span class="line">                .headerResId(R.layout.item_header)</span><br><span class="line">                .footerResId(R.layout.item_footer)</span><br><span class="line">                .loading()</span><br><span class="line">                .loadingHeaderResId(R.layout.layout_default_shimmer_header_view)</span><br><span class="line">                .loadingLayoutResId(R.layout.layout_default_shimmer_view)</span><br><span class="line">                .register();</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>AsynAdapterHelper是继承于RecyclerViewAdapterHelper，内部是采用Handler实现异步处理。下文会说其它的实现方法。registerModule是抽象方法，大家可以通过调用registerModule进行链式注册，基本的level是必须的。level是type的序列等级，比如type1的level是0，type2的level是1，那么type1就在type2的前面。其它还有很多注册方法，例如loading,error等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class TestLevelAdapterHelper extends AsynAdapterHelper&lt;MultiTypeTitleEntity&gt; &#123;</span><br><span class="line">    ...</span><br><span class="line">    public TestLevelAdapterHelper(List&lt;MultiTypeTitleEntity&gt; data) &#123;</span><br><span class="line">        super(data);</span><br><span class="line">        registerModule();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void registerModule() &#123;</span><br><span class="line">        registerModule(LEVEL_FIRST)</span><br><span class="line">                .type(TypeOneItem.TYPE_ONE)</span><br><span class="line">                .layoutResId(R.layout.item_first)</span><br><span class="line">                .type(TypeTwoItem.TYPE_TWO)</span><br><span class="line">                .layoutResId(R.layout.item_second)</span><br><span class="line">                .headerResId(R.layout.item_header)</span><br><span class="line">                .footerResId(R.layout.item_footer)</span><br><span class="line">                .loading()</span><br><span class="line">                .loadingHeaderResId(R.layout.layout_default_shimmer_header_view)</span><br><span class="line">                .loadingLayoutResId(R.layout.layout_default_shimmer_view)</span><br><span class="line">                .register();</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>AsynAdapterHelper是继承于RecyclerViewAdapterHelper，内部是采用Handler实现异步处理。通过调用registerModule进行链式注册，基本的level是必须的。level是type的序列等级，比如type1的level是0，type2的level是1，那么type1就在type2的前面。</p>
+<p><strong>可在构造函数里面注册，也可根据服务端返回json动态解析注册。</strong></p>
 <p>实战Adapter中运用：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class TestLevelAdapter extends BaseHelperAdapter&lt;MultiTypeTitleEntity, BaseViewHolder, TestLevelAdapterHelper&gt; &#123;</span><br><span class="line">    ...</span><br><span class="line">    public TestLevelAdapter(List&lt;MultiTypeTitleEntity&gt; data) &#123;</span><br><span class="line">        super(new TestLevelAdapterHelper(data));</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void convert(BaseViewHolder holder, MultiTypeTitleEntity item) &#123;</span><br><span class="line">        final int itemType = item.getItemType();</span><br><span class="line">        switch (itemType) &#123;</span><br><span class="line">            case TypeOneItem.TYPE_ONE:</span><br><span class="line">            case TypeTwoItem.TYPE_TWO:</span><br><span class="line">            case TYPE_LEVEL_FIRST_HEADER:</span><br><span class="line">            case TYPE_LEVEL_FIRST_FOOTER:</span><br><span class="line">                mFirstItemConvert.convert(holder, item);</span><br><span class="line">                break;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	...</span><br><span class="line">    public void notifyLevelFirst(MultiTypeTitleEntity header, List&lt;MultiTypeTitleEntity&gt; data, MultiTypeTitleEntity footer) &#123;</span><br><span class="line">        mHelper.notifyModuleDataAndHeaderAndFooterChanged(data, header, footer, TestLevelAdapterHelper.LEVEL_FIRST);</span><br><span class="line">    &#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>只要根据返回data的itemType或者说item的类型进行判断，渲染相应的视图就行了。到此，与Adapter的配合就结束了，相当的简单。</p>
-<h3 id="一行代码刷新-附动画-单个level-可对应多个type"><a href="#一行代码刷新-附动画-单个level-可对应多个type" class="headerlink" title="一行代码刷新(附动画)单个level(可对应多个type)"></a>一行代码刷新(附动画)单个level(可对应多个type)</h3><p>回顾上面的示例代码，发现notifyLevelFirst方法，而里面调用的是Helper的notifyModuleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用DiffUtil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是DiffUtil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。由于底层是DiffUtil，所以刷新的时候是局部刷新并带有动画，原理可以看我这篇文章<a href="http://crazysunj.com/2017/08/14/BRVAH-MTRVA%EF%BC%8C%E5%A4%8D%E6%9D%82%EF%BC%9F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84/" target="_blank" rel="noopener">《BRVAH+MTRVA，复杂？不存在的》</a>。</p>
+<p><strong>友情提示，如果你觉得convert里面case分支过多，可以自己分装管理，每一种level是一个adapter，怎么实现取决你的项目，adapter的架构这里不多提。</strong></p>
+<h3 id="一行代码刷新-附动画-单个level-一个level可对应多个type"><a href="#一行代码刷新-附动画-单个level-一个level可对应多个type" class="headerlink" title="一行代码刷新(附动画)单个level(一个level可对应多个type)"></a>一行代码刷新(附动画)单个level(一个level可对应多个type)</h3><p>回顾上面的示例代码，发现notifyLevelFirst方法，而里面调用的是Helper的notifyModuleDataAndHeaderAndFooterChanged方法，这个方法，我们可以同时刷新data，header，footer。其它的还单刷data，或者header等，反正data,header,footer排列组合一下- -!同时还支持一般的set，add，remove，全局刷新等方法，具体可看方法注释，基本上每个方法都有相应注释。我们的刷新核心方法是利用DiffUtil实现了，但这个是24.2.0的时候出现的，下面会给出兼容方案。因为是底层是DiffUtil，所以要提供一个DiffCallBack，而它需要一个刷新比较的key，这里我们提供MultiTypeEntity接口，所有Bean实现它的id和itemType方法。由于底层是DiffUtil，所以刷新的时候是局部刷新并带有动画，原理可以看我这篇文章<a href="http://crazysunj.com/2017/08/14/BRVAH-MTRVA%EF%BC%8C%E5%A4%8D%E6%9D%82%EF%BC%9F%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84/" target="_blank" rel="noopener">《BRVAH+MTRVA，复杂？不存在的》</a>。</p>
 <p>库中默认提供DiffCallBack：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) &#123;</span><br><span class="line"></span><br><span class="line">    T oldItem = mOldDatas.get(oldItemPosition);</span><br><span class="line">    T newItem = mNewDatas.get(newItemPosition);</span><br><span class="line">    return !(oldItem == null || newItem == null) &amp;&amp; oldItem.getItemType() == newItem.getItemType();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) &#123;</span><br><span class="line"></span><br><span class="line">    T oldItem = mOldDatas.get(oldItemPosition);</span><br><span class="line">    T newItem = mNewDatas.get(newItemPosition);</span><br><span class="line">    return oldItem.getId() == newItem.getId();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>先用type过滤掉一部分，然后根据id比较。如果这没法满足你得需求，请重写getDiffCallBack方法，实现自己的DiffCallBack。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) &#123;</span><br><span class="line">    T oldItem = mOldData.get(oldItemPosition);</span><br><span class="line">    T newItem = mNewData.get(newItemPosition);</span><br><span class="line">    // 先把不同itemType过滤掉</span><br><span class="line">    return !(oldItem == null || newItem == null) &amp;&amp; oldItem.getItemType() == newItem.getItemType();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) &#123;</span><br><span class="line">    T oldItem = mOldData.get(oldItemPosition);</span><br><span class="line">    T newItem = mNewData.get(newItemPosition);</span><br><span class="line">    return oldItem.equals(newItem);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先用type过滤掉一部分，然后采用equals比较。如果这没法满足你得需求，请重写getDiffCallBack方法，实现自己的DiffCallBack。</p>
 <p>上面一节了解到资源的注册，其实可以多个type一起注册在一个level中，比如像这样：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">registerModule(LEVEL_FIRST)</span><br><span class="line">        .type(TypeOneItem.TYPE_ONE)</span><br><span class="line">        .layoutResId(R.layout.item_first)</span><br><span class="line">        .type(TypeTwoItem.TYPE_TWO)</span><br><span class="line">        .layoutResId(R.layout.item_second)</span><br><span class="line">        ...</span><br><span class="line">        .register();</span><br></pre></td></tr></table></figure>
 <p>刷新支持2种模式，一种是常规的数据源，就是说List是乱的，没有按level连在一起，另一种就是标准的，两者可以相互切换，但是要注意，并不是随便切换，具体看注释。</p>
-<p>此外，很多用户习惯直接操作数据，然后再调用我们的notify方法，但这样其实是不会通知Adapter的，因为引用没变，对比的是同一引用。故这里提供了3种刷新方法(底层均调用Adapter的notifyItemRangeChanged方法)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void notifyDataChanged(); //全局刷新一遍</span><br><span class="line">public void notifyDataChanged(@NonNull T data);//刷新单个数据</span><br><span class="line">public void notifyDataChanged(int level);//刷新整个level</span><br></pre></td></tr></table></figure>
-<h3 id="支持增删改查操作-健壮性"><a href="#支持增删改查操作-健壮性" class="headerlink" title="支持增删改查操作(健壮性)"></a>支持增删改查操作(健壮性)</h3><p>这个比较好理解，除了上面的add，remove，set（增删改）以外，你还可以进行查的操作，比如这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;T&gt; getData();</span><br><span class="line"></span><br><span class="line">public LevelData&lt;T&gt; getDataWithLevel(int level);</span><br><span class="line"></span><br><span class="line">public LevelData&lt;T&gt; getDataWithType(int type);</span><br></pre></td></tr></table></figure>
-<p>getData可以帮助我们查到原始数据源，而getDataWithType/getDataWithLevel可以帮助我们根据type/level查到对应的数据，而现在是可以对查到的数据进行直接操作修改，但大家尽量不要在这里直接操作数据。</p>
+<p>此外，很多用户习惯直接操作数据，然后再调用我们的notify方法，但这样其实是不会通知Adapter的，因为引用没变，对比的是同一引用。故这里提供了2种刷新方法或者调用AdapterHelper的链式刷新也可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 全局刷新一遍</span><br><span class="line">public void notifyDataChanged(); </span><br><span class="line">// 刷新整个level</span><br><span class="line">public void notifyDataChanged(int level);</span><br></pre></td></tr></table></figure>
+<h3 id="支持常规增删改查操作"><a href="#支持常规增删改查操作" class="headerlink" title="支持常规增删改查操作"></a>支持常规增删改查操作</h3><p>这个比较好理解，除了上面的add，remove，set（增删改）以外，你还可以进行查的操作，比如这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 获取level的起始位置</span><br><span class="line">public int getLevelPositionStart(int level)；</span><br><span class="line">// 获取整个数据集合</span><br><span class="line">public List&lt;T&gt; getData();</span><br><span class="line">// 获取level获取对应管理的数据集合，谨慎直接操作数据</span><br><span class="line">public LevelData&lt;T&gt; getDataWithLevel(int level)；</span><br></pre></td></tr></table></figure>
 <p>这里提供了强力的删操作：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void clearModule(int... level);</span><br><span class="line"></span><br><span class="line">public void remainModule(int... level);</span><br></pre></td></tr></table></figure>
 <p>从方法命名上我们可以知道clearModule可以清楚多个level的数据，而remainModule是保留多个level的数据，意味着没有保留的都会被删除。</p>
 <p>库中的增删改查做了很多兼容性，增强代码的健壮性，本来你以为会报错，结果没报错，可以具体查看代码中的逻辑。</p>
-<h3 id="支持异步，高频率，链式刷新，可扩展-如配合RxJava，高效性"><a href="#支持异步，高频率，链式刷新，可扩展-如配合RxJava，高效性" class="headerlink" title="支持异步，高频率，链式刷新，可扩展(如配合RxJava，高效性)"></a>支持异步，高频率，链式刷新，可扩展(如配合RxJava，高效性)</h3><p>能快速找到要刷新的数据，这里借用了DiffUtil，具体用法我就不介绍了，但是有个缺陷就是如果数据量过大的时候，计算的时候很费时，因此把它放在线程中不影响用户操作。库中的异步刷新实现是传统的handler方法，但是我把计算和处理结果的接口提供了，大家可以打造自己的异步处理，这里举个DEMO中例子，利用RxAndroid(这里是2.0)实现：</p>
+<h3 id="支持异步，高频率，链式刷新，可扩展-如配合RxJava"><a href="#支持异步，高频率，链式刷新，可扩展-如配合RxJava" class="headerlink" title="支持异步，高频率，链式刷新，可扩展(如配合RxJava)"></a>支持异步，高频率，链式刷新，可扩展(如配合RxJava)</h3><p>能快速找到要刷新的数据，这里借用了DiffUtil，具体用法我就不介绍了，但是有个缺陷就是如果数据量过大的时候，计算的时候很费时，因此把它放在线程中不影响用户操作。库中的异步刷新实现是传统的handler方法，但是我把计算和处理结果的接口提供了，大家可以打造自己的异步处理，这里举个DEMO中例子，利用RxAndroid(这里是2.0)实现：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Flowable.just(new HandleBase&lt;MultiHeaderEntity&gt;(newData, newHeader, type, refreshType))</span><br><span class="line">        .onBackpressureDrop()</span><br><span class="line">        .observeOn(Schedulers.computation())</span><br><span class="line">        .map(new Function&lt;HandleBase&lt;MultiHeaderEntity&gt;, DiffUtil.DiffResult&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public DiffUtil.DiffResult apply(@NonNull HandleBase&lt;MultiHeaderEntity&gt; handleBase) throws Exception &#123;</span><br><span class="line">                return handleRefresh(handleBase.getNewData(), handleBase.getNewHeader(), handleBase.getLevel(), handleBase.getRefreshType());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">        .subscribe(new Consumer&lt;DiffUtil.DiffResult&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void accept(@NonNull DiffUtil.DiffResult diffResult) throws Exception &#123;</span><br><span class="line">                handleResult(diffResult);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
 <p>之所以能实现高频率刷新而不错乱，是因为采用了串行的结构，内部有队列管理每次的刷新。</p>
 <p>如果你是喜欢链式的同学，那么你有福了，MTRVA也支持链式调用。例如这样：</p>
@@ -224,22 +221,14 @@
 <h3 id="单个level支持header，footer"><a href="#单个level支持header，footer" class="headerlink" title="单个level支持header，footer"></a>单个level支持header，footer</h3><p>在Helper注册资源的时候可以，添加。如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">registerModule(LEVEL_FIRST)</span><br><span class="line">        .type(FirstOCEntity.OC_FIRST_TYPE)</span><br><span class="line">        .layoutResId(R.layout.item_first)</span><br><span class="line">        .headerResId(R.layout.item_header)</span><br><span class="line">        .footerResId(R.layout.item_footer)</span><br><span class="line">        .isFolded(true)</span><br><span class="line">        .minSize(3)</span><br><span class="line">        .loading()</span><br><span class="line">        .loadingHeaderResId(R.layout.layout_default_shimmer_header_view)</span><br><span class="line">        .loadingLayoutResId(R.layout.layout_default_shimmer_view)</span><br><span class="line">        .error()</span><br><span class="line">        .errorLayoutResId(R.layout.layout_error_two)</span><br><span class="line">        .empty()</span><br><span class="line">        .emptyLayoutResId(R.layout.layout_empty)</span><br><span class="line">        .register();</span><br></pre></td></tr></table></figure>
 <p>这是比较全的注册资源链。</p>
-<h3 id="单个level支持展开和合拢-可设置合拢最小值"><a href="#单个level支持展开和合拢-可设置合拢最小值" class="headerlink" title="单个level支持展开和合拢(可设置合拢最小值)"></a>单个level支持展开和合拢(可设置合拢最小值)</h3><p>查看上面示例代码，发现isFolded和minSize方法，前者是设置是否合拢，默认为false，后者是合拢时候的最小值。使用方法：</p>
+<h3 id="单个level支持展开和闭合-附动画"><a href="#单个level支持展开和闭合-附动画" class="headerlink" title="单个level支持展开和闭合(附动画)"></a>单个level支持展开和闭合(附动画)</h3><p>查看上面示例代码，发现isFolded和minSize方法，前者是设置是否合拢，默认为false，后者是合拢时候的最小值。使用方法：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public boolean isDataFolded(int level);</span><br><span class="line"></span><br><span class="line">public void foldType(int level, boolean isFold);</span><br></pre></td></tr></table></figure>
 <p>isDataFolded方法是用来判断对应level所处的状态，foldType方法是用来展开和合拢用的。</p>
 <h3 id="支持加载全局Loading-加载-页面"><a href="#支持加载全局Loading-加载-页面" class="headerlink" title="支持加载全局Loading(加载)页面"></a>支持加载全局Loading(加载)页面</h3><p>如果你得项目页面有刚进入需要展示加载页面，可以参考<a href="https://www.pgyer.com/sOVg" target="_blank" rel="noopener">首页Demo</a>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void initGlobalLoadingConfig(LoadingConfig loadingConfig);</span><br><span class="line"></span><br><span class="line">public void notifyLoadingChanged(int level);</span><br><span class="line"></span><br><span class="line">public void notifyLoadingChanged();</span><br></pre></td></tr></table></figure>
 <p>如果是通过这种设置的，那么请调用下面的刷新方法，而在loading的小节中也有相应的刷新方法，细心的朋友会发现只是少了数量这个参数，因为在全局初始化的时候已经设置好了，因此这2种刷新方法可以结合使用，并不冲突。</p>
-<h3 id="支持注解生成类，减少工作量"><a href="#支持注解生成类，减少工作量" class="headerlink" title="支持注解生成类，减少工作量"></a>支持注解生成类，减少工作量</h3><p>这个东西不知道该不该介绍，主要用于简单注解，太多的并没有简单多数。在最新的版本1.7.0已结没有默认添加注解，如果需要使用则要另添加。具体添加方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">com.crazysunj:multitypeadapter-annotation:xxx //版本与库的版本一致</span><br><span class="line"></span><br><span class="line">apt &apos;com.crazysunj:multitypeadapter-compiler:xxx&apos;</span><br><span class="line">记得在项目gradle中添加</span><br><span class="line"></span><br><span class="line">classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.8&apos;</span><br><span class="line">主Module中添加</span><br><span class="line"></span><br><span class="line">apply plugin: &apos;com.neenbedankt.android-apt&apos;</span><br></pre></td></tr></table></figure>
-<p>具体使用方法戳<a href="http://crazysunj.com/2017/06/11/%E4%BC%98%E9%9B%85%E5%9C%B0%E5%88%B7%E6%96%B0RecyclerView%EF%BC%881-5-0%EF%BC%89/" target="_blank" rel="noopener">这里</a>，2.0.0版本布局架构改变，因此相应的注解也有所改变，但使用方法不变，可与之前的注解对比使用。</p>
-<p><strong>注意点:</strong>如果你使用的是as3.0，那么请移除上面的的插件依赖，且apt改为annotationProcessor。</p>
 <h3 id="支持刷新生命周期回调"><a href="#支持刷新生命周期回调" class="headerlink" title="支持刷新生命周期回调"></a>支持刷新生命周期回调</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protected void onStart();</span><br><span class="line">protected void onEnd();</span><br><span class="line">public int getCurrentRefreshLevel();</span><br></pre></td></tr></table></figure>
 <p>需要使用生命周期回调方法的时候重写，再熟悉不过了，我知道回调的时候比较依赖当前level，因此提供了getCurrentRefreshLevel，用例比如需要在刷新前清除缓存，刷新后需要通知其他界面等。</p>
-<h3 id="兼容低版本RecyclerView"><a href="#兼容低版本RecyclerView" class="headerlink" title="兼容低版本RecyclerView"></a>兼容低版本RecyclerView</h3><p>为什么产生兼容是因为我们底层用的是diffutil，然而这是在24.2.0出来了，低版本并没有。兼容方案如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.crazysunj:diffutil:0.0.2&apos; //diffutil支持库，24.2.0以上并不需要，不然会冲突</span><br></pre></td></tr></table></figure>
-<p>这还没完，在版本22的RecyclerViewAdapter并没有带3个参数的notifyItemRangeChanged方法，因此，想要兼容22(RecyclerView在22.0.0出现)，得重写Helper的getListUpdateCallback方法，并在onChanged方法回调中使用带两个参数的方法。如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected ListUpdateCallback getListUpdateCallback(final BaseAdapter adapter) &#123;</span><br><span class="line">    final int preDataCount = getPreDataCount();</span><br><span class="line"></span><br><span class="line">    return new ListUpdateCallback() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void onInserted(int position, int count) &#123;</span><br><span class="line">            adapter.notifyItemRangeInserted(position + preDataCount, count);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void onRemoved(int position, int count) &#123;</span><br><span class="line">            adapter.notifyItemRangeRemoved(position + preDataCount, count);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void onMoved(int fromPosition, int toPosition) &#123;</span><br><span class="line">            adapter.notifyItemMoved(fromPosition + preDataCount, toPosition + preDataCount);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void onChanged(int position, int count, Object payload) &#123;</span><br><span class="line">            adapter.notifyItemRangeChanged(position + preDataCount, count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h3><p>由于我们是多个level的定义，因此有没有想过，level最高级为headerView，level最低级为footerView，而且完全自定义封装；这还不是重点，作为一个Activity拥有一个RecyclerView就够了，很多情况，我们可能会有数据为空的情况，那么就需要一个展示空数据的页面，同理，错误页面也是这样。其实这，本库也能做到。比如像这样：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">registerModule(LEVEL_SWITCH)</span><br><span class="line">        .type(SwtichType.TYPE_A)</span><br><span class="line">        .layoutResId(R.layout.item_switch_type)</span><br><span class="line">        .type(SwtichType.TYPE_B)</span><br><span class="line">        .layoutResId(R.layout.item_switch_type)</span><br><span class="line">        .type(SwtichType.TYPE_C)</span><br><span class="line">        .layoutResId(R.layout.item_switch_type)</span><br><span class="line">        .type(SwtichType.TYPE_D)</span><br><span class="line">        .layoutResId(R.layout.item_switch_type)</span><br><span class="line">        .register();</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">public void notifyA() &#123;</span><br><span class="line">    mHelper.notifyDataByDiff(new SwtichType(SwtichType.TYPE_A, &quot;我是typeA&quot;));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void notifyB() &#123;</span><br><span class="line">    mHelper.notifyDataByDiff(new SwtichType(SwtichType.TYPE_B, &quot;我是typeB&quot;));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void notifyC() &#123;</span><br><span class="line">    mHelper.notifyDataByDiff(new SwtichType(SwtichType.TYPE_C, &quot;我是typeC&quot;));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void notifyD() &#123;</span><br><span class="line">    mHelper.notifyDataByDiff(new SwtichType(SwtichType.TYPE_D, &quot;我是typeD&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>代码共展示了4种类型，一个空和错误页面根本不在话下，甚至你可以定义更多种异常情况的页面。使用notifyDataByDiff方法可以在多个列表页面自由切换。</p>
@@ -253,13 +242,11 @@
 <li>empty类型 [-5000,-4000)</li>
 <li>footer类型 [-6000,-5000)</li>
 </ul>
-<h3 id="差值常量"><a href="#差值常量" class="headerlink" title="差值常量"></a>差值常量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//header类型差值</span><br><span class="line">public static final int HEADER_TYPE_DIFFER = 1000;</span><br><span class="line">//loading-data类型差值</span><br><span class="line">public static final int LOADING_DATA_TYPE_DIFFER = 2000;</span><br><span class="line">//loading-header类型差值</span><br><span class="line">public static final int LOADING_HEADER_TYPE_DIFFER = 3000;</span><br><span class="line">//error类型差值</span><br><span class="line">public static final int ERROR_TYPE_DIFFER = 4000;</span><br><span class="line">//empty类型差值</span><br><span class="line">public static final int EMPTY_TYPE_DIFFER = 5000;</span><br><span class="line">//footer类型差值</span><br><span class="line">public static final int FOOTER_TYPE_DIFFER = 6000;</span><br></pre></td></tr></table></figure>
+<h3 id="差值常量"><a href="#差值常量" class="headerlink" title="差值常量"></a>差值常量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// header类型差值</span><br><span class="line">public static final int HEADER_TYPE_DIFFER = 1000;</span><br><span class="line">// loading-data类型差值</span><br><span class="line">public static final int LOADING_DATA_TYPE_DIFFER = 2000;</span><br><span class="line">// loading-header类型差值</span><br><span class="line">public static final int LOADING_HEADER_TYPE_DIFFER = 3000;</span><br><span class="line">// error类型差值</span><br><span class="line">public static final int ERROR_TYPE_DIFFER = 4000;</span><br><span class="line">// empty类型差值</span><br><span class="line">public static final int EMPTY_TYPE_DIFFER = 5000;</span><br><span class="line">// footer类型差值</span><br><span class="line">public static final int FOOTER_TYPE_DIFFER = 6000;</span><br></pre></td></tr></table></figure>
 <h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected int getPreDataCount();</span><br></pre></td></tr></table></figure>
 <p>保持数据position与Adapter一致，比如Adapter的position=0添加的是headerView，如果你的Adapter有这样的条件，请重写该方法或者自己处理数据的时候注意，否则数据混乱。</p>
 <p>调用刷新方法的时候请注意刷新模式，当前支持两种模式。</p>
-<p>关于entity的id为long类型是考虑刷新效率，倘若支持不了你的数据，例如服务器返回的主键是字符串类型的，你又不想把String转化为long，就自定义DiffCallback(可参考demo)。</p>
 <p>建议把helper封装在Adapter中，不刷新时考虑一下DiffCallback的比较key，最常见的可能是同一引用引起的，建议接口返回的时候可以用刷新方法，因为都新对象，如果是针对单个或者部分数据操作，可以采用普通的add，set，remove等方法。当然了，如果是2.4.0版本以上的直接使用AdapterHelper类去刷新，会兼容此场景。</p>
-<p>不必在意库名MultiType这个字眼，当时自己也陷入了type的思维定势陷阱中并取了这样的名字（后缀为Adapter是因为早期是继承Adapter，但这样并不灵活），虽然讲道理也并没有错，RecyclerView不就是拿来支持多type的吗？但我们负责的是Adapter中的资源和数据源，利用规范的数据去驱动UI，像什么多类型Adapter，动画Adapter，下拉刷新上拉加载Adapter等等都是支持的。</p>
 <p><strong>欢迎大家的star(fork)和反馈(可发issues或者我的邮箱）。</strong></p>
 <h2 id="传送门"><a href="#传送门" class="headerlink" title="传送门"></a>传送门</h2><p>Github：<a href="https://github.com/crazysunj/MultiTypeRecyclerViewAdapter" target="_blank" rel="noopener">https://github.com/crazysunj/MultiTypeRecyclerViewAdapter</a></p>
 <p>谷歌邮箱：<a href="mailto:twsunj@gmail.com" target="_blank" rel="noopener">twsunj@gmail.com</a></p>
@@ -393,7 +380,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#架构"><span class="toc-number">2.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gradle依赖"><span class="toc-number">3.</span> <span class="toc-text">gradle依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特点"><span class="toc-number">4.</span> <span class="toc-text">特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用简单快捷，支持大多数Adapter-高灵活、低耦合"><span class="toc-number">4.1.</span> <span class="toc-text">使用简单快捷，支持大多数Adapter(高灵活、低耦合)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一行代码刷新-附动画-单个level-可对应多个type"><span class="toc-number">4.2.</span> <span class="toc-text">一行代码刷新(附动画)单个level(可对应多个type)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持增删改查操作-健壮性"><span class="toc-number">4.3.</span> <span class="toc-text">支持增删改查操作(健壮性)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持异步，高频率，链式刷新，可扩展-如配合RxJava，高效性"><span class="toc-number">4.4.</span> <span class="toc-text">支持异步，高频率，链式刷新，可扩展(如配合RxJava，高效性)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单个level支持Loading-加载-，Empty-空-，Error-错误-页面切换"><span class="toc-number">4.5.</span> <span class="toc-text">单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单个level支持header，footer"><span class="toc-number">4.6.</span> <span class="toc-text">单个level支持header，footer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单个level支持展开和合拢-可设置合拢最小值"><span class="toc-number">4.7.</span> <span class="toc-text">单个level支持展开和合拢(可设置合拢最小值)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持加载全局Loading-加载-页面"><span class="toc-number">4.8.</span> <span class="toc-text">支持加载全局Loading(加载)页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持注解生成类，减少工作量"><span class="toc-number">4.9.</span> <span class="toc-text">支持注解生成类，减少工作量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持刷新生命周期回调"><span class="toc-number">4.10.</span> <span class="toc-text">支持刷新生命周期回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#兼容低版本RecyclerView"><span class="toc-number">4.11.</span> <span class="toc-text">兼容低版本RecyclerView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进阶用法"><span class="toc-number">4.12.</span> <span class="toc-text">进阶用法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意点"><span class="toc-number">5.</span> <span class="toc-text">注意点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-取值范围"><span class="toc-number">5.1.</span> <span class="toc-text">Type 取值范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#差值常量"><span class="toc-number">5.2.</span> <span class="toc-text">差值常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">5.3.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#传送门"><span class="toc-number">6.</span> <span class="toc-text">传送门</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#架构"><span class="toc-number">2.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gradle依赖"><span class="toc-number">3.</span> <span class="toc-text">gradle依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特点"><span class="toc-number">4.</span> <span class="toc-text">特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本使用"><span class="toc-number">4.1.</span> <span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一行代码刷新-附动画-单个level-一个level可对应多个type"><span class="toc-number">4.2.</span> <span class="toc-text">一行代码刷新(附动画)单个level(一个level可对应多个type)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持常规增删改查操作"><span class="toc-number">4.3.</span> <span class="toc-text">支持常规增删改查操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持异步，高频率，链式刷新，可扩展-如配合RxJava"><span class="toc-number">4.4.</span> <span class="toc-text">支持异步，高频率，链式刷新，可扩展(如配合RxJava)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单个level支持Loading-加载-，Empty-空-，Error-错误-页面切换"><span class="toc-number">4.5.</span> <span class="toc-text">单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单个level支持header，footer"><span class="toc-number">4.6.</span> <span class="toc-text">单个level支持header，footer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#单个level支持展开和闭合-附动画"><span class="toc-number">4.7.</span> <span class="toc-text">单个level支持展开和闭合(附动画)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持加载全局Loading-加载-页面"><span class="toc-number">4.8.</span> <span class="toc-text">支持加载全局Loading(加载)页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#支持刷新生命周期回调"><span class="toc-number">4.9.</span> <span class="toc-text">支持刷新生命周期回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进阶用法"><span class="toc-number">4.10.</span> <span class="toc-text">进阶用法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意点"><span class="toc-number">5.</span> <span class="toc-text">注意点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type-取值范围"><span class="toc-number">5.1.</span> <span class="toc-text">Type 取值范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#差值常量"><span class="toc-number">5.2.</span> <span class="toc-text">差值常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-number">5.3.</span> <span class="toc-text">其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#传送门"><span class="toc-number">6.</span> <span class="toc-text">传送门</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -551,30 +538,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">用户态</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">内核态</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ViewPager</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CardView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Card</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">PageTransformer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Butterknife</a>
               </li>
              
@@ -599,14 +562,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Cocos2d-x</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
               </li>
              
@@ -615,19 +570,39 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
+                <a href="javascript:void(0)" class="js-tag color4">用户态</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Dart</a>
+                <a href="javascript:void(0)" class="js-tag color4">内核态</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Http</a>
+                <a href="javascript:void(0)" class="js-tag color5">ViewPager</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+                <a href="javascript:void(0)" class="js-tag color4">CardView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Card</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">PageTransformer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Cocos2d-x</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -643,7 +618,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
+                <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Dart</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -656,6 +635,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Error</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -687,6 +674,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">对象</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Animator</a>
               </li>
              
@@ -703,15 +694,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">对象</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -720,6 +703,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Activity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,6 +730,22 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lottie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">3D</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Transition</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">泛型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
               </li>
              
@@ -760,22 +763,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Retrofit</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">泛型</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lottie</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">3D</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Transition</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -819,15 +806,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ConcurrentHashMap</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
               </li>
              
               <li class="article-tag-list-item">
