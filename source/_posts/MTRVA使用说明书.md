@@ -19,7 +19,7 @@ implementation 'com.crazysunj:multitypeadapter:2.3.1'
 implementation 'com.android.support:recyclerview-v7:xxx'
 
 AndroidX的同学：
-implementation 'com.crazysunj:multitypeadapter:2.5.0'
+implementation 'com.crazysunj:multitypeadapter:2.5.1'
 implementation 'androidx.recyclerview:recyclerview::xxx'
 ```
 
@@ -265,6 +265,7 @@ AdapterHelper.action()
         .add(data)
         .all(list)
         .all(data)
+        .allDiff(list)
         .into(helper);
 ```
 最后一种虽然调起来很爽，但是得注意position哦，别想当然了。
