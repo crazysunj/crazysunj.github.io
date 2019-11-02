@@ -139,6 +139,116 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-模板方法模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/13/模板方法模式/">模板方法模式</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/13/模板方法模式/" class="archive-article-date">
+  	<time datetime="2017-02-13T06:17:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-13</time>
+</a>
+        
+      </header>
+    
+
+
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>首先，我们先来个小场景：冲泡咖啡和茶</p>
+<p>那么冲泡方法：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">咖啡</th>
+<th style="text-align:center">茶</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1.把水煮沸</td>
+<td style="text-align:center">1.把水煮沸</td>
+</tr>
+<tr>
+<td style="text-align:center">2.用沸水冲泡咖啡</td>
+<td style="text-align:center">2.用沸水浸泡茶叶</td>
+</tr>
+<tr>
+<td style="text-align:center">3.把咖啡倒进杯子</td>
+<td style="text-align:center">3.把茶倒进杯子</td>
+</tr>
+<tr>
+<td style="text-align:center">4.加糖和咖啡</td>
+<td style="text-align:center">4.加柠檬</td>
+</tr>
+</tbody>
+</table>
+<p>现在我们代码简单实现</p>
+        
+          <a class="article-more-a" href="/2017/02/13/模板方法模式/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">模板方法模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-史上最炫酷控件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1006,115 +1116,9 @@
 
 
   
-    <article id="post-IOC思想" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/29/IOC思想/">IOC思想</a>
-    </h1>
-  
-
-        
-        <a href="/2016/12/29/IOC思想/" class="archive-article-date">
-  	<time datetime="2016-12-29T05:19:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-29</time>
-</a>
-        
-      </header>
-    
-
-
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h3><pre><code>Spring容器来实现这些相互依赖对象的创建、协调工作。
-</code></pre><h3 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h3><p>西游记中六小龄童大闹天宫。</p>
-<h3 id="一般实现："><a href="#一般实现：" class="headerlink" title="一般实现："></a>一般实现：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class XiYouJi&#123;</span><br><span class="line">   public void tianGong()&#123;</span><br><span class="line">       //①演员直接侵入剧本</span><br><span class="line">       LiuXiaoLingTong lxlt = new LiuXiaoLingTong();</span><br><span class="line">       lxlt.action(&quot;大闹天宫！&quot;);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们会发现以上剧本在①处，作为具体角色饰演者的六小龄童直接侵入到剧本中，使剧本和演员直接耦合在一起。<br><img src="/img/ioc1.png" alt=""></p>
-<h3 id="改善："><a href="#改善：" class="headerlink" title="改善："></a>改善：</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个明智的编剧在剧情创作时应围绕故事的角色进行，而不应考虑角色的具体饰演者，这样才可能在剧本投拍时自由地遴选任何适合的演员，而非绑定在六小龄童一人身上。通过以上的分析，我们知道需要为该剧本主人公孙悟空定义一个接口：<br>
-        
-          <a class="article-more-a" href="/2016/12/29/IOC思想/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Butterknife</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DI</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Dagger2</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">IOC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">xUtils</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 
@@ -1250,6 +1254,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Butterknife</a>
               </li>
              
@@ -1274,27 +1286,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">用户态</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">内核态</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ijkplayer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1314,23 +1310,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Cocos2d-x</a>
+                <a href="javascript:void(0)" class="js-tag color5">ijkplayer</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
+                <a href="javascript:void(0)" class="js-tag color1">MTRVA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Dart</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
+                <a href="javascript:void(0)" class="js-tag color5">Component</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1346,7 +1338,27 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Cocos2d-x</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">代理模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Dart</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1358,19 +1370,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Http</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Expand</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Footer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1398,10 +1410,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Animator</a>
               </li>
              
@@ -1415,6 +1423,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1442,7 +1454,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">内存管理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1458,11 +1474,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内存管理</a>
+                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1470,7 +1482,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
+                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">接口</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1486,27 +1506,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ConcurrentHashMap</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">类</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">接口</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">装饰者模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1538,10 +1546,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">适配器模式</a>
               </li>
              
@@ -1555,6 +1559,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">SSL/TLS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ConcurrentHashMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
               </li>
             
             <div class="clearfix"></div>
