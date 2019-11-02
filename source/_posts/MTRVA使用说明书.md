@@ -14,13 +14,16 @@ MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功�
 ## gradle依赖
 
 ```
-// support最后一个版本
+support最后一个版本
 implementation 'com.crazysunj:multitypeadapter:2.3.1'
 implementation 'com.android.support:recyclerview-v7:xxx'
 
 AndroidX的同学：
-implementation 'com.crazysunj:multitypeadapter:2.5.1'
+implementation 'com.crazysunj:multitypeadapter:2.5.2'
 implementation 'androidx.recyclerview:recyclerview::xxx'
+
+需要组件化的同学
+implementation 'com.crazysunj:component:2.5.2'
 ```
 
 后续版本更新只支持AndroidX，毕竟Google将停止维护support包，没有更新的小伙伴得抓紧了，不过项目大的同学慢慢来。
@@ -28,6 +31,7 @@ implementation 'androidx.recyclerview:recyclerview::xxx'
 
 * 一行代码刷新(附动画)单个level(一个level可对应多个type)
 * 支持常规增删改查操作
+* 支持RecyclerView组件化
 * 支持异步，高频率，链式刷新，可扩展(如配合RxJava)
 * 单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换
 * 单个level支持header，footer
@@ -204,6 +208,9 @@ public void remainModule(int... level);
 从方法命名上我们可以知道clearModule可以清楚多个level的数据，而remainModule是保留多个level的数据，意味着没有保留的都会被删除。
 
 库中的增删改查做了很多兼容性，增强代码的健壮性，本来你以为会报错，结果没报错，可以具体查看代码中的逻辑。
+
+### 支持RecyclerView组件化
+详细请看[RecyclerView组件化](RecyclerView组件化.md)。
 
 ### 支持异步，高频率，链式刷新，可扩展(如配合RxJava)
 能快速找到要刷新的数据，这里借用了DiffUtil，具体用法我就不介绍了，但是有个缺陷就是如果数据量过大的时候，计算的时候很费时，因此把它放在线程中不影响用户操作。库中的异步刷新实现是传统的handler方法，但是我把计算和处理结果的接口提供了，大家可以打造自己的异步处理，这里举个DEMO中例子，利用RxAndroid(这里是2.0)实现：
