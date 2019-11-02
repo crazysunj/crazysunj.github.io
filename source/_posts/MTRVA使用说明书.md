@@ -210,7 +210,7 @@ public void remainModule(int... level);
 库中的增删改查做了很多兼容性，增强代码的健壮性，本来你以为会报错，结果没报错，可以具体查看代码中的逻辑。
 
 ### 支持RecyclerView组件化
-详细请看[RecyclerView组件化](RecyclerView组件化.md)。
+详细请看[RecyclerView组件化](http://crazysunj.com/2019/11/02/RecyclerView%E7%BB%84%E4%BB%B6%E5%8C%96/)。
 
 ### 支持异步，高频率，链式刷新，可扩展(如配合RxJava)
 能快速找到要刷新的数据，这里借用了DiffUtil，具体用法我就不介绍了，但是有个缺陷就是如果数据量过大的时候，计算的时候很费时，因此把它放在线程中不影响用户操作。库中的异步刷新实现是传统的handler方法，但是我把计算和处理结果的接口提供了，大家可以打造自己的异步处理，这里举个DEMO中例子，利用RxAndroid(这里是2.0)实现：
