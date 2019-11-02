@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/img/mtrva_logo.png">
 <meta property="og:image" content="http://yoursite.com/img/mtrva_architecture.png">
-<meta property="og:updated_time" content="2019-10-04T06:23:26.922Z">
+<meta property="og:updated_time" content="2019-11-02T07:49:27.960Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MTRVA使用说明书">
 <meta name="twitter:description" content="介绍MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑，对Adapter进行组件化封装（大型UI框架也可）效果更佳。 架构">
@@ -168,7 +168,7 @@
         <p><img src="/img/mtrva_logo.png" alt=""></p>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功能是接管了Adapter中的资源和数据源，处理了大量与业务无关的数据计算，让用户真正的在Adapter中关心自己的业务逻辑，对Adapter进行组件化封装（大型UI框架也可）效果更佳。</p>
 <h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p><img src="/img/mtrva_architecture.png" alt=""><br><a id="more"></a></p>
-<h2 id="gradle依赖"><a href="#gradle依赖" class="headerlink" title="gradle依赖"></a>gradle依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// support最后一个版本</span><br><span class="line">implementation &apos;com.crazysunj:multitypeadapter:2.3.1&apos;</span><br><span class="line">implementation &apos;com.android.support:recyclerview-v7:xxx&apos;</span><br><span class="line"></span><br><span class="line">AndroidX的同学：</span><br><span class="line">implementation &apos;com.crazysunj:multitypeadapter:2.5.0&apos;</span><br><span class="line">implementation &apos;androidx.recyclerview:recyclerview::xxx&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="gradle依赖"><a href="#gradle依赖" class="headerlink" title="gradle依赖"></a>gradle依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// support最后一个版本</span><br><span class="line">implementation &apos;com.crazysunj:multitypeadapter:2.3.1&apos;</span><br><span class="line">implementation &apos;com.android.support:recyclerview-v7:xxx&apos;</span><br><span class="line"></span><br><span class="line">AndroidX的同学：</span><br><span class="line">implementation &apos;com.crazysunj:multitypeadapter:2.5.1&apos;</span><br><span class="line">implementation &apos;androidx.recyclerview:recyclerview::xxx&apos;</span><br></pre></td></tr></table></figure>
 <p>后续版本更新只支持AndroidX，毕竟Google将停止维护support包，没有更新的小伙伴得抓紧了，不过项目大的同学慢慢来。</p>
 <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
 <li>一行代码刷新(附动画)单个level(一个level可对应多个type)</li>
@@ -211,7 +211,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Flowable.just(new HandleBase&lt;MultiHeaderEntity&gt;(newData, newHeader, type, refreshType))</span><br><span class="line">        .onBackpressureDrop()</span><br><span class="line">        .observeOn(Schedulers.computation())</span><br><span class="line">        .map(new Function&lt;HandleBase&lt;MultiHeaderEntity&gt;, DiffUtil.DiffResult&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public DiffUtil.DiffResult apply(@NonNull HandleBase&lt;MultiHeaderEntity&gt; handleBase) throws Exception &#123;</span><br><span class="line">                return handleRefresh(handleBase.getNewData(), handleBase.getNewHeader(), handleBase.getLevel(), handleBase.getRefreshType());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">        .subscribe(new Consumer&lt;DiffUtil.DiffResult&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void accept(@NonNull DiffUtil.DiffResult diffResult) throws Exception &#123;</span><br><span class="line">                handleResult(diffResult);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
 <p>之所以能实现高频率刷新而不错乱，是因为采用了串行的结构，内部有队列管理每次的刷新。</p>
 <p>如果你是喜欢链式的同学，那么你有福了，MTRVA也支持链式调用。例如这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">AdapterHelper.with(level)</span><br><span class="line">        .data(data|list)</span><br><span class="line">        .header(header)</span><br><span class="line">        .footer(footer)</span><br><span class="line">        .into(helper);</span><br><span class="line"></span><br><span class="line">AdapterHelper.with(level)</span><br><span class="line">        .empty(|empty)</span><br><span class="line">        .into(helper);</span><br><span class="line"></span><br><span class="line">AdapterHelper.with(level)</span><br><span class="line">        .error(|error)</span><br><span class="line">        .into(helper);</span><br><span class="line"></span><br><span class="line">AdapterHelper.with(level)</span><br><span class="line">        .loading()</span><br><span class="line">        .header()</span><br><span class="line">        .data(count)</span><br><span class="line">        .into(helper);</span><br><span class="line"></span><br><span class="line">AdapterHelper.action()</span><br><span class="line">        .clear()</span><br><span class="line">        .remainModule(level)</span><br><span class="line">        .clearModule(level)</span><br><span class="line">        .set(position,data)</span><br><span class="line">        .remove(position,count)</span><br><span class="line">        .remove(position)</span><br><span class="line">        .add(position,list)</span><br><span class="line">        .add(position,data)</span><br><span class="line">        .add(list)</span><br><span class="line">        .add(data)</span><br><span class="line">        .all(list)</span><br><span class="line">        .all(data)</span><br><span class="line">        .into(helper);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">AdapterHelper.with(level)</span><br><span class="line">        .data(data|list)</span><br><span class="line">        .header(header)</span><br><span class="line">        .footer(footer)</span><br><span class="line">        .into(helper);</span><br><span class="line"></span><br><span class="line">AdapterHelper.with(level)</span><br><span class="line">        .empty(|empty)</span><br><span class="line">        .into(helper);</span><br><span class="line"></span><br><span class="line">AdapterHelper.with(level)</span><br><span class="line">        .error(|error)</span><br><span class="line">        .into(helper);</span><br><span class="line"></span><br><span class="line">AdapterHelper.with(level)</span><br><span class="line">        .loading()</span><br><span class="line">        .header()</span><br><span class="line">        .data(count)</span><br><span class="line">        .into(helper);</span><br><span class="line"></span><br><span class="line">AdapterHelper.action()</span><br><span class="line">        .clear()</span><br><span class="line">        .remainModule(level)</span><br><span class="line">        .clearModule(level)</span><br><span class="line">        .set(position,data)</span><br><span class="line">        .remove(position,count)</span><br><span class="line">        .remove(position)</span><br><span class="line">        .add(position,list)</span><br><span class="line">        .add(position,data)</span><br><span class="line">        .add(list)</span><br><span class="line">        .add(data)</span><br><span class="line">        .all(list)</span><br><span class="line">        .all(data)</span><br><span class="line">        .allDiff(list)</span><br><span class="line">        .into(helper);</span><br></pre></td></tr></table></figure>
 <p>最后一种虽然调起来很爽，但是得注意position哦，别想当然了。</p>
 <h3 id="单个level支持Loading-加载-，Empty-空-，Error-错误-页面切换"><a href="#单个level支持Loading-加载-，Empty-空-，Error-错误-页面切换" class="headerlink" title="单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换"></a>单个level支持Loading(加载)，Empty(空)，Error(错误)页面切换</h3><p>如果你想在单个level中进行Loading，Empty，Error之间的切换，请调用如下方法。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public void setLoadingAdapter(LoadingEntityAdapter&lt;T&gt; adapter) &#123;</span><br><span class="line">    mLoadingEntityAdapter = adapter;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void setEmptyAdapter(EmptyEntityAdapter&lt;T&gt; adapter) &#123;</span><br><span class="line">    mEmptyEntityAdapter = adapter;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void setErrorAdapter(ErrorEntityAdapter&lt;T&gt; adapter) &#123;</span><br><span class="line">    mErrorEntityAdapter = adapter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -530,14 +530,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Butterknife</a>
               </li>
              
@@ -562,11 +554,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+                <a href="javascript:void(0)" class="js-tag color3">RecyclerView</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ijkplayer</a>
+                <a href="javascript:void(0)" class="js-tag color3">Adapter</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,6 +567,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">内核态</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ijkplayer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,6 +602,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Dart</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
               </li>
              
@@ -615,14 +623,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Vue</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Dart</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,6 +678,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Animator</a>
               </li>
              
@@ -691,10 +695,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">onTouchEvent</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -722,11 +722,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内存管理</a>
+                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -742,15 +738,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">内存管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">泛型</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">模板方法模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
+                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -766,15 +766,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ConcurrentHashMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">类</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">接口</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -803,14 +811,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JMM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ConcurrentHashMap</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
               </li>
              
               <li class="article-tag-list-item">
