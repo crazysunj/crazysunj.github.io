@@ -139,6 +139,221 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-玩一玩Lottie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/09/玩一玩Lottie/">玩一玩Lottie</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/09/玩一玩Lottie/" class="archive-article-date">
+  	<time datetime="2020-08-09T01:25:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-09</time>
+</a>
+        
+      </header>
+    
+
+
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我是一名Android开发者，以Android视角讲解。Lottie这玩意，我不记得几年前玩过，当时还是1.x版本，自己还通过AE鼓捣了很多好玩的动画，为此沾沾自喜，这可能就是学习的快感吧！最近项目需使用Lottie配合设计师实现各种复杂动画而再次被捡起。值得一提是Lottie的idea真的很棒，使用简单，是一个非常优秀的动画库。接下来大家跟我一起揭开她神秘的面纱。</p>
+<p><img src="/img/lottie_ciji.png" alt=""></p>
+<h2 id="Lottie"><a href="#Lottie" class="headerlink" title="Lottie"></a>Lottie</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><blockquote>
+<p>Lottie是Airbnb开源的一个适用于Android、iOS、Web和Windows的动画库，解析Adobe After Effects（简称AE）通过Bodymovin导出的json，并以原生态在移动设备和Web上渲染。</p>
+</blockquote>
+<p>百度翻译是真的不靠谱，还要我这个英语渣渣二次翻译。AE是什么？Bodymovin是什么？这个你不需要了解，让你用Lottie动画的设计师肯定懂 。什么，你主动提出来的？这都不知道，你提个毛线啊。</p>
+<p><img src="/img/lottie_hehe.jpg" alt=""></p>
+<p>OK，现在就带你走进Android世界里的Lottie。</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><p>为什么要用Lottie？传统的动画不香吗？传统动画大致分为帧动画、补间动画、属性动画和组合动画，甚至是gif。</p>
+<p>现在我们就来吐槽一下这些动画，都2020年，应该很少人再用补间动画了吧，直接略过；如果是简单的动画属性动画是一个非常不错的选择，但复杂起来，不得不通过属性动画组合实现，而这套动画代码维护起来是非常操蛋的；如果直接使用gif，除开省事外，体验很差不说，占用的大内存和资源使用和回收时机是件让人头疼的事情，稍不小心就会引起内存溢出和卡顿，还有让Android开发大军跪下的分辨率适配工作；最后的帧动画如gif一样糟糕，gif其实就是帧动画。</p>
+<p>再来看看我们今天的主角Lottie，Lottie只要一个json文件，文件可以来自网络，也可以来自本地，一份文件可以同时运行在Android、iOS、Web和Windows，实打实的跨平台，极大降低开发成本；几乎不需要额外的适配工作；占用内存小；可以控制动画速度和动态修改动画属性，用过的都说好，真的是碉堡了。</p>
+<p><img src="/img/lottie_zz.jpeg" alt=""></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>Lottie在Android上支持的最低版本是<strong>16</strong>，其中AndroidX版本<strong>2.8.0</strong>及以上，我现在的项目还在使用support，只能用2.8.0以下的，故以下的讲解内容都是基于<strong>2.7.0</strong>版本，无论是哪个版本，原理性的内容是不会变的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// build.gradle依赖对应的版本就可以玩起来了</span><br><span class="line">implementation &quot;com.airbnb.android:lottie:$lottieVersion&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h3><p>结构真的简单，核心三个类。</p>
+<ul>
+<li>LottieAnimationView：展示动画的View</li>
+<li>LottieDrawable: 展示动画的Drawable</li>
+<li>LottieComposition：动画资源管理者</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>使用真的简单。</p>
+<h4 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h4><p>加载大致分为这么几个场景：</p>
+<p>本地Assets目录存放json/zip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#LottieAnimationView</span><br><span class="line">public void setAnimation(final String assetName);</span><br></pre></td></tr></table></figure>
+<p>远程json/zip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#LottieAnimationView</span><br><span class="line">public void setAnimationFromUrl(String url);</span><br></pre></td></tr></table></figure>
+<p>这是最常用的两种场景，但是作为高手，肯定不会用这两个方法，而是组合。Lottie提供这样的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#LottieAnimationView</span><br><span class="line">public void setComposition(@NonNull LottieComposition composition);</span><br></pre></td></tr></table></figure>
+<p>也就是说只要拿到LottieComposition，动画就可以跑起来。LottieComposition产生的唯一渠道，虽然有好多分支，但最终都到一个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#LottieCompositionFactory</span><br><span class="line">public static LottieResult&lt;LottieComposition&gt; fromXXXSync(XXX xxx  ...);</span><br><span class="line"></span><br><span class="line">#LottieCompositionFactory</span><br><span class="line">// 最终方法</span><br><span class="line">public static LottieResult&lt;LottieComposition&gt; fromJsonReaderSync(JsonReader reader, @Nullable String cacheKey);</span><br><span class="line"></span><br><span class="line">#LottieResult&lt;LottieComposition&gt;</span><br><span class="line">@Nullable public LottieComposition getValue();</span><br></pre></td></tr></table></figure>
+<p>由方法名可知，方法是同步的，放在主线程肯定不行，必须自己实现一套异步加载，优化的时候必须安排各种缓存策略，总不能每次都io操作吧？这谁顶得住啊。</p>
+<p><img src="/img/lottie_ddz.jpg" alt=""></p>
+<p>资深老Android肯定早就猜到Lottie自身已经提供，不然常见加载岂不是都重新加载io，别人可不这么low，当然你也可以自己实现一套加载机制（手动狗头）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#LottieCompositionFactory</span><br><span class="line">public static LottieTask&lt;LottieComposition&gt; fromXXX(XXX xxx ...);</span><br><span class="line"></span><br><span class="line">#LottieTask&lt;LottieComposition</span><br><span class="line">public synchronized LottieTask&lt;LottieComposition&gt; addListener(LottieListener&lt;LottieComposition&gt; listener)</span><br><span class="line"></span><br><span class="line">public interface LottieListener&lt;LottieComposition&gt; &#123;</span><br><span class="line">  void onResult(LottieComposition result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由代码推导，LottieTask内部线程池启动线程通过前面介绍方法加载LottieComposition，通过LottieListener回调。</p>
+<h4 id="基础功能"><a href="#基础功能" class="headerlink" title="基础功能"></a>基础功能</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class LottieDrawable extends Drawable implements Drawable.Callback, Animatable</span><br></pre></td></tr></table></figure>
+<p>LottieDrawable实现了Animatable，同时提供了动画常见的系列方法：</p>
+<ul>
+<li>addAnimatorUpdateListener：进度监听</li>
+<li>addAnimatorListener：周期监听</li>
+<li>playAnimation：开始动画</li>
+<li>endAnimation：结束动画</li>
+<li>resumeAnimation：恢复动画</li>
+<li>pauseAnimation：暂停动画</li>
+<li>cancelAnimation：取消动画</li>
+<li>setProgress：设置进度</li>
+</ul>
+<p>是不是没有看到最常见的setDuration？这个也很好解释，Lottie本身是执行json文件，json本身包括一段动画，起始到结束，当时不需要设置什么时长。那我偏要设置时长呢？虽是有固定时长，说到底还是动画，必然是按帧执行，那么我通过addAnimatorUpdateListener和setProgress，当然方法执行的对象并不是同一个，相信聪明的你已经懂了。</p>
+<h4 id="修改属性"><a href="#修改属性" class="headerlink" title="修改属性"></a>修改属性</h4><p>Lottie虽支持属性修改，但修改属性有限，可能有些属性一脸懵逼，是AE中名词，设计师肯定懂，讨论动画时，把词抛出来就行了。</p>
+<ul>
+<li>Transform：变换<ul>
+<li>TRANSFORM_ANCHOR_POINT：锚点</li>
+<li>TRANSFORM_POSITION：位置</li>
+<li>TRANSFORM_OPACITY：透明度</li>
+<li>TRANSFORM_SCALE：缩放</li>
+<li>TRANSFORM_ROTATION：旋转</li>
+</ul>
+</li>
+<li>Fill：填充<ul>
+<li>COLOR：颜色，不支持渐变</li>
+<li>STROKE_WIDTH：线宽</li>
+<li>OPACITY：透明度</li>
+<li>COLOR_FILTER：滤镜</li>
+</ul>
+</li>
+<li>Ellipse：椭圆<ul>
+<li>POSITION：位置</li>
+<li>ELLIPSE_SIZE：大小</li>
+</ul>
+</li>
+<li>Polystar：多边形<ul>
+<li>POLYSTAR_POINTS：点的集合</li>
+<li>POLYSTAR_ROTATION：旋转角度</li>
+<li>POSITION：位置</li>
+<li>POLYSTAR_OUTER_RADIUS：外圆角</li>
+<li>POLYSTAR_OUTER_ROUNDEDNESS：外圆角度</li>
+<li>POLYSTAR_INNER_RADIUS：内圆角，用于星形</li>
+<li>POLYSTAR_INNER_ROUNDEDNESS：内圆角度，用于星形</li>
+</ul>
+</li>
+<li>Repeater：类似镜像，复制<ul>
+<li>REPEATER_COPIES：复制</li>
+<li>REPEATER_OFFSET：偏移</li>
+<li>TRANSFORM_ROTATION：旋转</li>
+<li>TRANSFORM_START_OPACITY：开始透明度</li>
+<li>TRANSFORM_END_OPACITY：结束透明度   </li>
+</ul>
+</li>
+<li>Layers：图层<ul>
+<li>包含Transform所有属性</li>
+<li>TIME_REMAP：时间重置</li>
+</ul>
+</li>
+</ul>
+<p>列了这么多，那么代码怎么写呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#LottieAnimationView</span><br><span class="line">public &lt;T&gt; void addValueCallback(KeyPath keyPath, T property, LottieValueCallback&lt;T&gt; callback);</span><br><span class="line"></span><br><span class="line">#LottieAnimationView</span><br><span class="line">// 通过此方法可以获取传参相关的所有KeyPath，可传通配符*和全匹配符**</span><br><span class="line">public List&lt;KeyPath&gt; resolveKeyPath(KeyPath keyPath);</span><br></pre></td></tr></table></figure>
+<h4 id="修改资源"><a href="#修改资源" class="headerlink" title="修改资源"></a>修改资源</h4><p>除了修改属性，还可以修改资源，或者说用自己项目的工具加载资源，Lottie提供了各种各样的代理。</p>
+<h5 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h5><p>图片是最常用的代理，可以通过LottieImageAsset提供的属性映射创建对应bitmap，不管是本地还是远程，甚至还可以做一下压缩。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mPetActionCore.setImageAssetDelegate(new ImageAssetDelegate() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public Bitmap fetchBitmap(LottieImageAsset asset) &#123;</span><br><span class="line">		// 如果传null，Lottie会不断获取，知道不为null为止，原理在后面会讲解</span><br><span class="line">		return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// LottieImageAsset属性</span><br><span class="line">public class LottieImageAsset &#123;</span><br><span class="line">  private final int width;</span><br><span class="line">  private final int height;</span><br><span class="line">  private final String id;</span><br><span class="line">  private final String fileName;</span><br><span class="line">  private final String dirName;</span><br><span class="line">  @Nullable private Bitmap bitmap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mPetActionCore.setFontAssetDelegate(new FontAssetDelegate()&#123;</span><br><span class="line">    // 可以通过fontFamily加载对应Typeface</span><br><span class="line">    public Typeface fetchFont(String fontFamily) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    // 可以通过fontFamily返回assets的字体文件路径</span><br><span class="line">    public String getFontPath(String fontFamily) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mPetActionCore.setTextDelegate(new TextDelegate(mPetActionCore) &#123;</span><br><span class="line">    // 一些列替换文本的方法</span><br><span class="line">    ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>无论玩什么，这都是无法逃避的话题。除了Android日常开发所使用的性能检测工具外，Lottie还给咱们提供建议和工具。</p>
+<p>Lottie建议尽量不要在动画中加入遮罩/蒙版，这会大大降低性能，如果非要使用，最好开启硬件加速。说到这，顺便提一下，目前Lottie支持AE中的哪些特性呢？点击<a href="http://airbnb.io/lottie/#/supported-features" target="_blank" rel="noopener">这里</a>。</p>
+<p>Lottie还给咱们提供了渲染性能检测工具。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// 开启性能检测，最好判断环境，例如在测试环境才开启</span><br><span class="line">// 这里需要注意，该设置必须在设置LottieComposition之后，源码是最好的老师，不懂就去看看，这个后面源码分析就不作分析了</span><br><span class="line">PerformanceTracker performanceTracker = mPetActionCore.getPerformanceTracker();</span><br><span class="line">if (performanceTracker != null) &#123;</span><br><span class="line">    mPetActionCore.setPerformanceTrackingEnabled(true);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 通过该方法可以打印每个图层渲染所需要的时间</span><br><span class="line">// 注意，该方法必须在执行动画之后调用</span><br><span class="line">PerformanceTracker performanceTracker = mPetActionCore.getPerformanceTracker();</span><br><span class="line">if (performanceTracker != null) &#123;</span><br><span class="line">    List&lt;Pair&lt;String, Float&gt;&gt; sortedRenderTimes = performanceTracker.getSortedRenderTimes();</span><br><span class="line">    Log.d(TAG, &quot;各图层渲染时间:&quot;);</span><br><span class="line">    for (int i = 0; i &lt; sortedRenderTimes.size(); i++) &#123;</span><br><span class="line">        Pair&lt;String, Float&gt; layer = sortedRenderTimes.get(i);</span><br><span class="line">        Log.d(TAG, String.format(&quot;\t\t%30s:%.2f&quot;, layer.first, layer.second));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 这里传授一个动画帧率是否稳定的黑科技，就是打印动画执行进度，如果打印的内容比平时少，说明就是丢帧了</span><br><span class="line">// 也可以通过Choreographer，Lottie内部就是通过它刷新的</span><br><span class="line">mPetActionCore.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onAnimationUpdate(ValueAnimator animation) &#123;</span><br><span class="line">        Log.d(TAG, &quot;ActionType:&quot; + mRunningActionType + &quot; onAnimationUpdate---&gt;&quot; + animation.getAnimatedFraction());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>Lottie本身已经做的非常优秀了，如果真出了什么问题，也是无能为力的事情，只能放弃动画或者换动画，甚至放弃通过Lottie加载，不过咱们还是可以对一些小细节做优化的。</p>
+<ul>
+<li>最常见的是首次执行丢帧。这个别无它法，资源就这么多，大家都在抢占，必然会引起卡顿或者丢帧。要么你把引起Lottie丢帧的罪魁祸首找出来，要么你就作延迟 ，一定时间后再执行。一般会选择后者，中间空档期会通过首帧占位图掩盖过去，首帧图自己想办法。</li>
+<li>还有一个比较常见的就是动画素材本身有问题，不是设计师导出的文件有问题就是动画采用了Lottie不支持的特性，直接找设计师就完事了，常见的有元素丢失，空档期，效果与预览差异，元素位置偏移等等。</li>
+<li>在动画的高频使用中可能会出现闪一下消失的情况，这往往是Lottie在加载资源时候，做了动画操作，所以维护好周期和状态是非常费脑的事情。</li>
+<li>动画元素可能在执行的时候出现乱码情况，一般是多套json之间切换切位图存放目录不一样导致的，处理这种情况可在切换的时候通过setImageAssetDelegate来重新设置图片获取方式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Log.w(VIEW_LOG_TAG, getClass().getSimpleName() + &quot; not displayed because it is&quot;</span><br><span class="line">            + &quot; too large to fit into a software layer (or drawing cache), needs &quot;</span><br><span class="line">            + projectedBitmapSize + &quot; bytes, only &quot;</span><br><span class="line">            + drawingCacheSize + &quot; available&quot;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>出现上面这种情况一般是图片太大了，超出了规范的大小，有两种做法，一种做法是减小图片尺寸，还有一种做法是通过硬件加速绕过检测。好奇为什么做的宝宝可以去看源码，这属于原生的范畴，不止是lottie。</li>
+</ul>
+<p>像这种涉及资源使用的玩意，必然逃不掉RecyclerView的禁忌，尽量不要用，不然你会疯了的。非要作死？那你必须好好思考资源的使用和回收，动画的执行和取消时机，看似简单，其实要命。</p>
+<p><img src="/img/lottie_ym.png" alt=""></p>
+<h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3><p>其实对于Lottie来说，只要知道上面的内容就行了，源码理解的意义并不大，如果你是跟我一样是个有追求的程序员，那么咱们继续。</p>
+<p>我分析源码还是喜欢从一个简单例子切入，整理各个分支流程，最后总结整个流程。当然知道结果再去看源码心境会不一样，这不是屁话么？我知道答案去考试和不知道答案去考试，这心境能一样吗？哪个更深刻呢？你应该知道答案了。</p>
+<p><img src="/img/lottie_ryss.jpg" alt=""></p>
+<h4 id="加载-1"><a href="#加载-1" class="headerlink" title="加载"></a>加载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lottieAnimationView.setAnimation(&quot;xxx.json&quot;);</span><br><span class="line">lottieAnimationView.playAnimation();</span><br></pre></td></tr></table></figure>
+<p>最简单的示例。xxx.json是assets目录下文件，OK，就从这入手。</p>
+<p>一个多年开发经验的同学肯定立马判断setAnimation方法是初始化资源的。How？How？How？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#LottieAnimationView</span><br><span class="line">public void setAnimation(final String assetName) &#123;</span><br><span class="line">    ...</span><br><span class="line">    setCompositionTask(LottieCompositionFactory.fromAsset(getContext(), assetName));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void setCompositionTask(LottieTask&lt;LottieComposition&gt; compositionTask) &#123;</span><br><span class="line">    ...</span><br><span class="line">    this.compositionTask = compositionTask</span><br><span class="line">            .addListener(loadedListener)</span><br><span class="line">            .addFailureListener(failureListener);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从命名以及结构上大致判断，LottieTask是个资源加载任务，addListener和addFailureListener分别回调资源加载成功和失败。</p>
+<p>要论证自己的猜想正确与否还是得从LottieTask的实际结构和创建流程出发。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">#LottieCompositionFactory</span><br><span class="line">public static LottieTask&lt;LottieComposition&gt; fromAsset(Context context, final String fileName) &#123;</span><br><span class="line">    final Context appContext = context.getApplicationContext();</span><br><span class="line">    // 这里大致判断是个异步任务，call里是个同步获取</span><br><span class="line">    return cache(fileName, new Callable&lt;LottieResult&lt;LottieComposition&gt;&gt;() &#123;</span><br><span class="line">      @Override public LottieResult&lt;LottieComposition&gt; call() &#123;</span><br><span class="line">        return fromAssetSync(appContext, fileName);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">#LottieCompositionFactory</span><br><span class="line">private static LottieTask&lt;LottieComposition&gt; cache(</span><br><span class="line">          @Nullable final String cacheKey, Callable&lt;LottieResult&lt;LottieComposition&gt;&gt; callable) &#123;</span><br><span class="line">    final LottieComposition cachedComposition = LottieCompositionCache.getInstance().get(cacheKey);</span><br><span class="line">    //  LottieCompositionCache是一个根据cacheKey存储LottieComposition的缓存类，内部实现是LruCache</span><br><span class="line">    if (cachedComposition != null) &#123;</span><br><span class="line">      return new LottieTask&lt;&gt;(new Callable&lt;LottieResult&lt;LottieComposition&gt;&gt;() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public LottieResult&lt;LottieComposition&gt; call() &#123;</span><br><span class="line">          // 读取到缓存直接封装成LottieResult，LottieTask直接返回</span><br><span class="line">          return new LottieResult&lt;&gt;(cachedComposition);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    // 可以认为是二级缓存，但不完全是，taskCache是用于防止LottieTask重复创建的缓存</span><br><span class="line">    if (taskCache.containsKey(cacheKey)) &#123;</span><br><span class="line">      // 如果当前cacheKey已存在创建的LottieTask正在执行任务就直接返回</span><br><span class="line">      return taskCache.get(cacheKey);</span><br><span class="line">    &#125;</span><br><span class="line">    // 如果都没缓存的情况，创建LottieTask，传入callable</span><br><span class="line">    LottieTask&lt;LottieComposition&gt; task = new LottieTask&lt;&gt;(callable);</span><br><span class="line">    task.addListener(new LottieListener&lt;LottieComposition&gt;() &#123;</span><br><span class="line">      @Override public void onResult(LottieComposition result) &#123;</span><br><span class="line">        if (cacheKey != null) &#123;</span><br><span class="line">          // 对应开头，任务加载成功根据cacheKey缓存</span><br><span class="line">          LottieCompositionCache.getInstance().put(cacheKey, result);</span><br><span class="line">        &#125;</span><br><span class="line">        // 任务结束，正在执行任务缓存移除</span><br><span class="line">        taskCache.remove(cacheKey);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    task.addFailureListener(new LottieListener&lt;Throwable&gt;() &#123;</span><br><span class="line">      @Override public void onResult(Throwable result) &#123;</span><br><span class="line">        // 任务失败，正在执行任务缓存移除</span><br><span class="line">        taskCache.remove(cacheKey);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    // 把当前任务存储正在执行列表，保证正在执行不重复创建</span><br><span class="line">    taskCache.put(cacheKey, task);</span><br><span class="line">    return task;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面看lottie在任务管理做的不错，so，没必要自己再建一套。LottieTask创建方式我们已经很清楚，下一步是结构和任务执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#LottieTask</span><br><span class="line">public LottieTask(Callable&lt;LottieResult&lt;T&gt;&gt; runnable) &#123;</span><br><span class="line">    this(runnable, false);</span><br><span class="line">&#125;</span><br><span class="line">#LottieTask</span><br><span class="line">LottieTask(Callable&lt;LottieResult&lt;T&gt;&gt; runnable, boolean runNow) &#123;</span><br><span class="line">    task = new FutureTask&lt;&gt;(runnable);</span><br><span class="line">    if (runNow) &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        setResult(runnable.call());</span><br><span class="line">      &#125; catch (Throwable e) &#123;</span><br><span class="line">        setResult(new LottieResult&lt;T&gt;(e));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      // 必然会走else，通过线程池执行任务</span><br><span class="line">      EXECUTOR.execute(task);</span><br><span class="line">      startTaskObserverIfNeeded();</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>正常情况下，task执行完就宣布任务结束，产生结果，但这里不一样，task是通过外部传入，需要一个检测线程不断去检测是否已经执行完毕，选用FutureTask不就是这个目的吗？而下面的startTaskObserverIfNeeded检测的开始。</p>
+<p><img src="/img/lottie_nb.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">#LottieTask</span><br><span class="line">private synchronized void startTaskObserverIfNeeded() &#123;</span><br><span class="line">    // 如果线程存活或者已经知道结果，直接return</span><br><span class="line">    if (taskObserverAlive() || result != null) &#123;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    taskObserver = new Thread(&quot;LottieTaskObserver&quot;) &#123;</span><br><span class="line">      private boolean taskComplete = false;</span><br><span class="line">      @Override public void run() &#123;</span><br><span class="line">        // 死循环</span><br><span class="line">        while (true) &#123;</span><br><span class="line">          // 线程被中断或者任务完成直接结束循环</span><br><span class="line">          if (isInterrupted() || taskComplete) &#123;</span><br><span class="line">            return;</span><br><span class="line">          &#125;</span><br><span class="line">          // 判断任务是否执行完成</span><br><span class="line">          if (task.isDone()) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">              // 赋值结果</span><br><span class="line">              setResult(task.get());</span><br><span class="line">            &#125; catch (InterruptedException | ExecutionException e) &#123;</span><br><span class="line">              setResult(new LottieResult&lt;T&gt;(e));</span><br><span class="line">            &#125;</span><br><span class="line">            taskComplete = true;</span><br><span class="line">            // 停止检测任务</span><br><span class="line">            stopTaskObserverIfNeeded();</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    // 线程开始执行</span><br><span class="line">    taskObserver.start();</span><br><span class="line">&#125;</span><br><span class="line">#LottieTask</span><br><span class="line">private void setResult(@Nullable LottieResult&lt;T&gt; result) &#123;</span><br><span class="line">    // 本地缓存并通知回调</span><br><span class="line">    this.result = result;</span><br><span class="line">    notifyListeners();</span><br><span class="line">&#125;</span><br><span class="line">#LottieTask</span><br><span class="line">private void notifyListeners() &#123;</span><br><span class="line">    // 执行是在子线程，所以需要切到主线程</span><br><span class="line">    handler.post(new Runnable() &#123;</span><br><span class="line">      @Override public void run() &#123;</span><br><span class="line">        if (result == null || task.isCancelled()) &#123;</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">        // 通知回调</span><br><span class="line">        LottieResult&lt;T&gt; result = LottieTask.this.result;</span><br><span class="line">        if (result.getValue() != null) &#123;</span><br><span class="line">          notifySuccessListeners(result.getValue());</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          notifyFailureListeners(result.getException());</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">#LottieTask</span><br><span class="line">private void notifySuccessListeners(T value) &#123;</span><br><span class="line">    // 通知回调</span><br><span class="line">    List&lt;LottieListener&lt;T&gt;&gt; listenersCopy = new ArrayList&lt;&gt;(successListeners);</span><br><span class="line">    for (LottieListener&lt;T&gt; l : listenersCopy) &#123;</span><br><span class="line">      l.onResult(value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">#LottieTask</span><br><span class="line">public synchronized LottieTask&lt;T&gt; addListener(LottieListener&lt;T&gt; listener) &#123;</span><br><span class="line">    if (result != null &amp;&amp; result.getValue() != null) &#123;</span><br><span class="line">      listener.onResult(result.getValue());</span><br><span class="line">    &#125;</span><br><span class="line">    successListeners.add(listener);</span><br><span class="line">    // 这里解释下为什么addListener也会开启检测任务，在stopTaskObserverIfNeeded会判断successListeners为空就会中断检测任务，作者想的挺多</span><br><span class="line">    startTaskObserverIfNeeded();</span><br><span class="line">    return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>整个资源的加载还是很巧妙的，值得学习。接下来介绍资源到底如何解析的。</p>
+<h4 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line">#LottieCompositionFactory</span><br><span class="line">public static LottieResult&lt;LottieComposition&gt; fromAssetSync(Context context, String fileName) &#123;</span><br><span class="line">	...</span><br><span class="line">	// 创建cacheKey</span><br><span class="line">	String cacheKey = &quot;asset_&quot; + fileName;</span><br><span class="line">	if (fileName.endsWith(&quot;.zip&quot;)) &#123;</span><br><span class="line">		// 通过zip加载，其实内部还是fromJsonInputStreamSync</span><br><span class="line">		return fromZipStreamSync(new ZipInputStream(context.getAssets().open(fileName)), cacheKey);</span><br><span class="line">	&#125;</span><br><span class="line">	return fromJsonInputStreamSync(context.getAssets().open(fileName), cacheKey);</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line">#LottieCompositionFactory</span><br><span class="line">public static LottieResult&lt;LottieComposition&gt; fromJsonInputStreamSync(InputStream stream, @Nullable String cacheKey) &#123;</span><br><span class="line">    return fromJsonInputStreamSync(stream, cacheKey, true);</span><br><span class="line">&#125;</span><br><span class="line">#LottieCompositionFactory</span><br><span class="line">private static LottieResult&lt;LottieComposition&gt; fromJsonInputStreamSync(InputStream stream, @Nullable String cacheKey, boolean close) &#123;</span><br><span class="line">	...</span><br><span class="line">	// 无论你是通过什么类型加载，最后都是通过fromJsonReaderSync</span><br><span class="line">	return fromJsonReaderSync(new JsonReader(new InputStreamReader(stream)), cacheKey);</span><br><span class="line">&#125;</span><br><span class="line">#LottieCompositionFactory</span><br><span class="line">public static LottieResult&lt;LottieComposition&gt; fromJsonReaderSync(JsonReader reader, @Nullable String cacheKey) &#123;</span><br><span class="line">	...</span><br><span class="line">	// 开始解析，核心部分</span><br><span class="line">	LottieComposition composition = LottieCompositionParser.parse(reader);</span><br><span class="line">	// 这里又一次缓存</span><br><span class="line">	LottieCompositionCache.getInstance().put(cacheKey, composition);</span><br><span class="line">	return new LottieResult&lt;&gt;(composition);</span><br><span class="line">&#125;</span><br><span class="line">#LottieCompositionParser</span><br><span class="line">// JsonReader可能很多人很少用，这是Android提供用来解析json</span><br><span class="line">public static LottieComposition parse(JsonReader reader) throws IOException &#123;</span><br><span class="line">    // 屏幕密度，用来适配</span><br><span class="line">    float scale = Utils.dpScale();</span><br><span class="line">    // 首帧</span><br><span class="line">    float startFrame = 0f;</span><br><span class="line">    // 结束帧</span><br><span class="line">    float endFrame = 0f;</span><br><span class="line">    // 帧率</span><br><span class="line">    float frameRate = 0f;</span><br><span class="line">    // 根据Layer的id存储Layer</span><br><span class="line">    final LongSparseArray&lt;Layer&gt; layerMap = new LongSparseArray&lt;&gt;();</span><br><span class="line">    // 首层能解析出来的Layer</span><br><span class="line">    final List&lt;Layer&gt; layers = new ArrayList&lt;&gt;();</span><br><span class="line">    // 动画宽高</span><br><span class="line">    int width = 0;</span><br><span class="line">    int height = 0;</span><br><span class="line">    // 根据assets层id存储Layer集合</span><br><span class="line">    Map&lt;String, List&lt;Layer&gt;&gt; precomps = new HashMap&lt;&gt;();</span><br><span class="line">    // 根据assets层id存储assets相关信息</span><br><span class="line">    Map&lt;String, LottieImageAsset&gt; images = new HashMap&lt;&gt;();</span><br><span class="line">    // 根据字体名字存储字体相关信息，不作介绍</span><br><span class="line">    Map&lt;String, Font&gt; fonts = new HashMap&lt;&gt;();</span><br><span class="line">    // 根据编码hashcode存储编码相关信息，不作介绍</span><br><span class="line">    SparseArrayCompat&lt;FontCharacter&gt; characters = new SparseArrayCompat&lt;&gt;();</span><br><span class="line">    // 初始化LottieComposition</span><br><span class="line">    LottieComposition composition = new LottieComposition();</span><br><span class="line">    reader.beginObject();</span><br><span class="line">    while (reader.hasNext()) &#123;</span><br><span class="line">      // 根据json解析，没写注解的参考上方注解</span><br><span class="line">      switch (reader.nextName()) &#123;</span><br><span class="line">        case &quot;w&quot;:</span><br><span class="line">          width = reader.nextInt();</span><br><span class="line">          break;</span><br><span class="line">        case &quot;h&quot;:</span><br><span class="line">          height = reader.nextInt();</span><br><span class="line">          break;</span><br><span class="line">        case &quot;ip&quot;:</span><br><span class="line">          startFrame = (float) reader.nextDouble();</span><br><span class="line">          break;</span><br><span class="line">        case &quot;op&quot;:</span><br><span class="line">          endFrame = (float) reader.nextDouble() - 0.01f;</span><br><span class="line">          break;</span><br><span class="line">        case &quot;fr&quot;:</span><br><span class="line">          frameRate = (float) reader.nextDouble();</span><br><span class="line">          break;</span><br><span class="line">        case &quot;v&quot;:</span><br><span class="line">          // 解析bodymovin版本</span><br><span class="line">          break;</span><br><span class="line">        case &quot;layers&quot;:</span><br><span class="line">          // 解析图层，不作分析，意义不大，重要的类Layer</span><br><span class="line">          parseLayers(reader, composition, layers, layerMap);</span><br><span class="line">          break;</span><br><span class="line">        case &quot;assets&quot;:</span><br><span class="line">          // 解析位图信息，重要的类LottieImageAsset</span><br><span class="line">          parseAssets(reader, composition, precomps, images);</span><br><span class="line">          break;</span><br><span class="line">        case &quot;fonts&quot;:</span><br><span class="line">          parseFonts(reader, fonts);</span><br><span class="line">          break;</span><br><span class="line">        case &quot;chars&quot;:</span><br><span class="line">          parseChars(reader, composition, characters);</span><br><span class="line">          break;</span><br><span class="line">        default:</span><br><span class="line">          reader.skipValue();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    reader.endObject();</span><br><span class="line">    // 根据屏幕密度重新调整宽高</span><br><span class="line">    int scaledWidth = (int) (width * scale);</span><br><span class="line">    int scaledHeight = (int) (height * scale);</span><br><span class="line">    Rect bounds = new Rect(0, 0, scaledWidth, scaledHeight);</span><br><span class="line">    // composition开始初始化，至此composition结构也不用看了，就是这些</span><br><span class="line">    composition.init(bounds, startFrame, endFrame, frameRate, layers, layerMap, precomps,</span><br><span class="line">        images, characters, fonts);</span><br><span class="line">    return composition;</span><br><span class="line">&#125;</span><br><span class="line">// 具体怎么解析出来不贴代码，真的很繁琐，看看上面就懂了，而且这个意义并不大</span><br><span class="line">public class Layer &#123;</span><br><span class="line">	// 就是shape，各种形状</span><br><span class="line">	private final List&lt;ContentModel&gt; shapes;</span><br><span class="line">	// 内部引用LottieComposition，可能是想单layer获取全局信息，只看到了字体有用到</span><br><span class="line">	private final LottieComposition composition;</span><br><span class="line">	// 图层命名</span><br><span class="line">	private final String layerName;</span><br><span class="line">	// 图层id</span><br><span class="line">	private final long layerId;</span><br><span class="line">	// 图层类型，目前有组合，固态（纯色填充），位图，Null（不作任何事情），Shape，文本，Unknown（不认识，可能手动改的吧）</span><br><span class="line">	private final LayerType layerType;</span><br><span class="line">	// 父层id</span><br><span class="line">	private final long parentId;</span><br><span class="line">	// 引用id，用于获取位图</span><br><span class="line">	@Nullable private final String refId;</span><br><span class="line">	// 蒙版信息，支持3种模式，相加，相减，交集模式</span><br><span class="line">	private final List&lt;Mask&gt; masks;</span><br><span class="line">	// 变化属性，锚点，位置，旋转，缩放，透明度</span><br><span class="line">	private final AnimatableTransform transform;</span><br><span class="line">	// 填充宽度</span><br><span class="line">	private final int solidWidth;</span><br><span class="line">	// 填充高度</span><br><span class="line">	private final int solidHeight;</span><br><span class="line">	// 填充色</span><br><span class="line">	private final int solidColor;</span><br><span class="line">	// 快进比例</span><br><span class="line">	private final float timeStretch;</span><br><span class="line">	// 开始帧</span><br><span class="line">	private final float startFrame;</span><br><span class="line">	// 组合层宽度</span><br><span class="line">	private final int preCompWidth;</span><br><span class="line">	// 组合层高度</span><br><span class="line">	private final int preCompHeight;</span><br><span class="line">	// 文本关键帧动画</span><br><span class="line">	@Nullable private final AnimatableTextFrame text;</span><br><span class="line">	// 文本颜色，边框宽，边框颜色，追踪关键帧动画</span><br><span class="line">	@Nullable private final AnimatableTextProperties textProperties;</span><br><span class="line">	// 时间重置关键帧动画</span><br><span class="line">	@Nullable private final AnimatableFloatValue timeRemapping;</span><br><span class="line">	// 起始结束关键帧动画</span><br><span class="line">	private final List&lt;Keyframe&lt;Float&gt;&gt; inOutKeyframes;</span><br><span class="line">	// 遮罩类型，支持两种，正常和反转</span><br><span class="line">	private final MatteType matteType;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class LottieImageAsset &#123;</span><br><span class="line">	// 位图宽度</span><br><span class="line">	private final int width;</span><br><span class="line">	// 位图高度</span><br><span class="line">	private final int height;</span><br><span class="line">	// 位图id</span><br><span class="line">	private final String id;</span><br><span class="line">	// 位图命名</span><br><span class="line">	private final String fileName;</span><br><span class="line">	// 位图相对目录名，这个是相对设计师给你文件</span><br><span class="line">	private final String dirName;</span><br><span class="line">	// 当前已缓存的bitmap</span><br><span class="line">	@Nullable private Bitmap bitmap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面一系列信息的管家是Composition。而拥有这些信息就可以轻松实现复杂的动画。</p>
+<p><img src="/img/lottie_mb.jpg" alt=""></p>
+<h4 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#LottieAnimationView</span><br><span class="line">private final LottieListener&lt;LottieComposition&gt; loadedListener = new LottieListener&lt;LottieComposition&gt;() &#123;</span><br><span class="line">    @Override public void onResult(LottieComposition composition) &#123;</span><br><span class="line">      // 突然到这里，一直云里雾里的同学可能更加懵逼了</span><br><span class="line">      // 加载并解析构建成LottieComposition，LottieAnimationView设置</span><br><span class="line">      setComposition(composition);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#LottieAnimationView</span><br><span class="line">public void setComposition(@NonNull LottieComposition composition) &#123;</span><br><span class="line">    ...</span><br><span class="line">    // lottieDrawable设置composition</span><br><span class="line">    boolean isNewComposition = lottieDrawable.setComposition(composition);</span><br><span class="line">    ...</span><br><span class="line">    // LottieAnimationView设置drawable</span><br><span class="line">    setImageDrawable(lottieDrawable);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>万事俱备，只欠渲染。</p>
+<h4 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h4><p>很显然我们直接跟踪lottieDrawable的渲染逻辑即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line">#LottieDrawable</span><br><span class="line">@Override public void draw(@NonNull Canvas canvas) &#123;</span><br><span class="line">    ...</span><br><span class="line">    // 核心渲染，compositionLayer怎么来的？貌似LottieDrawable的setComposition还有一些文章</span><br><span class="line">    compositionLayer.draw(canvas, matrix, alpha);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">#LottieDrawable</span><br><span class="line">public boolean setComposition(LottieComposition composition) &#123;</span><br><span class="line">    ...</span><br><span class="line">    buildCompositionLayer();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">#LottieDrawable</span><br><span class="line">private void buildCompositionLayer() &#123;</span><br><span class="line">    // 又构建了个新玩意CompositionLayer，这就是组合/合成图层</span><br><span class="line">    compositionLayer = new CompositionLayer(</span><br><span class="line">        this, LayerParser.parse(composition), composition.getLayers(), composition);</span><br><span class="line">&#125;</span><br><span class="line">// CompositionLayer集成BaseLayer</span><br><span class="line">public class CompositionLayer extends BaseLayer &#123;</span><br><span class="line">	...</span><br><span class="line">	private final List&lt;BaseLayer&gt; layers = new ArrayList&lt;&gt;();</span><br><span class="line">	...</span><br><span class="line">	// layerModel是手动构建命名为__container，当然指的是LottieDrawable里边的</span><br><span class="line">	public CompositionLayer(LottieDrawable lottieDrawable, Layer layerModel, List&lt;Layer&gt; layerModels,</span><br><span class="line">      LottieComposition composition) &#123;</span><br><span class="line">		...</span><br><span class="line">		// 把所有layer转化成BaseLayer</span><br><span class="line">		for (int i = layerModels.size() - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">		  Layer lm = layerModels.get(i);</span><br><span class="line">		  BaseLayer layer = BaseLayer.forModel(lm, lottieDrawable, composition);</span><br><span class="line">		  ...</span><br><span class="line">		  layers.add(0, layer);</span><br><span class="line">		  ...</span><br><span class="line">		&#125;</span><br><span class="line">		...</span><br><span class="line">      &#125;</span><br><span class="line">      ...</span><br><span class="line">&#125;</span><br><span class="line">#BaseLayer</span><br><span class="line">static BaseLayer forModel(</span><br><span class="line">    Layer layerModel, LottieDrawable drawable, LottieComposition composition) &#123;</span><br><span class="line">    // 这些类型之前已经介绍过了</span><br><span class="line">    switch (layerModel.getLayerType()) &#123;</span><br><span class="line">      case Shape:</span><br><span class="line">        return new ShapeLayer(drawable, layerModel);</span><br><span class="line">      case PreComp:</span><br><span class="line">        return new CompositionLayer(drawable, layerModel,</span><br><span class="line">            composition.getPrecomps(layerModel.getRefId()), composition);</span><br><span class="line">      case Solid:</span><br><span class="line">        return new SolidLayer(drawable, layerModel);</span><br><span class="line">      case Image:</span><br><span class="line">        return new ImageLayer(drawable, layerModel);</span><br><span class="line">      case Null:</span><br><span class="line">        return new NullLayer(drawable, layerModel);</span><br><span class="line">      case Text:</span><br><span class="line">        return new TextLayer(drawable, layerModel);</span><br><span class="line">      case Unknown:</span><br><span class="line">      default:</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">#BaseLayer</span><br><span class="line">// 再回到LottieDrawable的draw方法，里边通过CompositionLayer调用draw方法，而CompositionLayer继承BaseLayer</span><br><span class="line">@Override</span><br><span class="line">public void draw(Canvas canvas, Matrix parentMatrix, int parentAlpha) &#123;</span><br><span class="line">	...</span><br><span class="line">	drawLayer(canvas, matrix, alpha);</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line">#CompositionLayer</span><br><span class="line">@Override void drawLayer(Canvas canvas, Matrix parentMatrix, int parentAlpha) &#123;</span><br><span class="line">    ...</span><br><span class="line">    for (int i = layers.size() - 1; i &gt;= 0 ; i--) &#123;</span><br><span class="line">		...</span><br><span class="line">		// 这里BaseLayer就是上边通过layer转化后的</span><br><span class="line">		BaseLayer layer = layers.get(i);</span><br><span class="line">		layer.draw(canvas, parentMatrix, parentAlpha);</span><br><span class="line">		...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">// 这里只挑选场景Image作讲解，主要为了解释前面的坑，其它的感兴趣可以看源码</span><br><span class="line">public class ImageLayer extends BaseLayer &#123;</span><br><span class="line">	...</span><br><span class="line">	@Override public void drawLayer(@NonNull Canvas canvas, Matrix parentMatrix, int parentAlpha) &#123;</span><br><span class="line">	    // 获取bitmap</span><br><span class="line">	    Bitmap bitmap = getBitmap();</span><br><span class="line">	    ...</span><br><span class="line">	    // 最后作draw，很简单</span><br><span class="line">	    canvas.drawBitmap(bitmap, src, dst , paint);</span><br><span class="line">	    ...</span><br><span class="line">	&#125;</span><br><span class="line">	@Nullable</span><br><span class="line">	private Bitmap getBitmap() &#123;</span><br><span class="line">		// refId前面介绍的引用id</span><br><span class="line">		String refId = layerModel.getRefId();</span><br><span class="line">		return lottieDrawable.getImageAsset(refId);</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line">#LottieDrawable</span><br><span class="line">@Nullable public Bitmap getImageAsset(String id) &#123;</span><br><span class="line">	ImageAssetManager bm = getImageAssetManager();</span><br><span class="line">	if (bm != null) &#123;</span><br><span class="line">	  return bm.bitmapForId(id);</span><br><span class="line">	&#125;</span><br><span class="line">	return null;</span><br><span class="line">&#125;</span><br><span class="line">#LottieDrawable</span><br><span class="line">private ImageAssetManager getImageAssetManager() &#123;</span><br><span class="line">	...</span><br><span class="line">	// 注意这，一旦创建过，不会第二次构建</span><br><span class="line">	if (imageAssetManager == null) &#123;</span><br><span class="line">	  imageAssetManager = new ImageAssetManager(getCallback(),</span><br><span class="line">	      imageAssetsFolder, imageAssetDelegate, composition.getImages());</span><br><span class="line">	&#125;</span><br><span class="line">	return imageAssetManager;</span><br><span class="line">&#125;</span><br><span class="line">#ImageAssetManager</span><br><span class="line">@Nullable public Bitmap bitmapForId(String id) &#123;</span><br><span class="line">	// 解析的时候存储的</span><br><span class="line">	LottieImageAsset asset = imageAssets.get(id);</span><br><span class="line">	// 如果LottieImageAsset已经有缓存bitmap直接返回</span><br><span class="line">	Bitmap bitmap = asset.getBitmap();</span><br><span class="line">	if (bitmap != null) &#123;</span><br><span class="line">	  return bitmap;</span><br><span class="line">	&#125;</span><br><span class="line">	// 如果有设置代理直接从代理里面取</span><br><span class="line">	// 这也为什么声称可以一直取直到取到，不停绘制不停取，不是废话吗，太让我失望了（手动狗头）</span><br><span class="line">	if (delegate != null) &#123;</span><br><span class="line">	  bitmap = delegate.fetchBitmap(asset);</span><br><span class="line">	  if (bitmap != null) &#123;</span><br><span class="line">	    // 就是上面的缓存</span><br><span class="line">	    putBitmap(id, bitmap);</span><br><span class="line">	  &#125;</span><br><span class="line">	  return bitmap;</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">	if (filename.startsWith(&quot;data:&quot;) &amp;&amp; filename.indexOf(&quot;base64,&quot;) &gt; 0) &#123;</span><br><span class="line">	  // 解析到base64格式创建返回</span><br><span class="line">	  byte[] data = Base64.decode(filename.substring(filename.indexOf(&apos;,&apos;) + 1), Base64.DEFAULT);</span><br><span class="line">	  ...</span><br><span class="line">	  bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, opts);</span><br><span class="line">	  return putBitmap(id, bitmap);</span><br><span class="line">	&#125;</span><br><span class="line">	...</span><br><span class="line">	// 默认通过assets目录</span><br><span class="line">	InputStream is = context.getAssets().open(imagesFolder + filename);</span><br><span class="line">	...</span><br><span class="line">	bitmap = BitmapFactory.decodeStream(is, null, opts);</span><br><span class="line">	// 综上可知，通过外部设置一共就两种，通过设置aseets图片目录，设置图片代理，那么在这两种方式切换就很容易出问题，出现乱码，为什么？因为ImageAssetManager只有setDelegate方法而没有setImagesFolder方法</span><br><span class="line">	// imagesFolder只能通过构造方法传入，只能一次机会，所以你前一次通过delegate方式获取图片，而第二次通过imagesFolder方式获取图片是有问题的，imagesFolder并不会改变</span><br><span class="line">	return putBitmap(id, bitmap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="感慨"><a href="#感慨" class="headerlink" title="感慨"></a>感慨</h4><p>整个源码分析到这就结束了，省略了很多烦杂的源码，主要是解析那部分，我们只分析了主架构的解析。其本身是没有意义的，什么时候你必须去研究研究呢？那就是出问题的时候！设计师只负责效果，发现根本跑不起来，这时候就到你装逼的时候了，前提是你也得略懂AE知识。</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>今天讲解的Lottie圆满结束，完结撒花。能从头看到这的同学我也挺佩服的，而那些直接拉到这的我只能嗤之以鼻。本篇文章对lottie知识点算是罗列的非常详细了，当你忘了就过来看看。当然，你放心，我不会根据lottie升级而调整的。我想核心点是不会变的，机制说改就改的，rubbish！！！</p>
+<p><img src="/img/lottie_bd.jpg" alt=""></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">lottie</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-RecyclerView组件化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -918,81 +1133,6 @@
 
 
   
-    <article id="post-玩一玩Okio源码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/08/玩一玩Okio源码/">玩一玩Okio源码</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/08/玩一玩Okio源码/" class="archive-article-date">
-  	<time datetime="2018-07-08T10:42:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-08</time>
-</a>
-        
-      </header>
-    
-
-
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前篇<a href="http://crazysunj.com/2018/06/24/%E7%8E%A9%E4%B8%80%E7%8E%A9OkHttp%E7%BC%93%E5%AD%98%E6%BA%90%E7%A0%81/" target="_blank" rel="noopener">《玩一玩OkHttp缓存源码》</a>分析OkHttp缓存源码的时候涉及到缓存的读写，而OkHttp底层采用Okio实现，所以特地写了一篇文章介绍Okio，也算自己的一个总结。我们现在主要知道它是怎么一个工作过程，至于架构之美有点难度，即使你总结出Okio的架构，运用自如，举一反三还是很难。很多优秀框架亦是如此，最重要的还是创意。</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>废话不多说，老规矩，从实际到理论，不太喜欢上来就直接架构分析，所以跟着我的思路一边阅读文章一边阅读源码更佳。可能一开始比较懵逼，但是过了一遍再过一遍时就很清晰了。由于读和写是一个反过程，因此我们这里只以写为例。<br>
-        
-          <a class="article-more-a" href="/2018/07/08/玩一玩Okio源码/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">【Okio,源码】</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1007,7 +1147,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 crazysunj
+    		&copy; 2020 crazysunj
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1111,15 +1251,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码规范</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">学习</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码规范</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1171,6 +1311,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ijkplayer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ViewPager</a>
               </li>
              
@@ -1187,14 +1335,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ijkplayer</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MTRVA</a>
               </li>
              
@@ -1203,23 +1343,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Flutter</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Dart</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Weex</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Js</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1235,7 +1367,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RxJava</a>
+                <a href="javascript:void(0)" class="js-tag color5">Weex</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1244,14 +1384,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Error</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Http</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1283,6 +1415,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">缓存</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">对象</a>
               </li>
              
@@ -1307,10 +1447,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Clean</a>
               </li>
              
@@ -1323,19 +1459,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Activity</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">内存管理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工厂模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Framework</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Activity</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1359,7 +1499,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
+                <a href="javascript:void(0)" class="js-tag color2">lottie</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1375,7 +1515,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">类</a>
+                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1383,7 +1523,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">下载框架</a>
+                <a href="javascript:void(0)" class="js-tag color2">类</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Choreographer</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1391,7 +1535,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color3">ConcurrentHashMap</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1419,15 +1571,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ConcurrentHashMap</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">红黑树</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">【Okio,源码】</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
