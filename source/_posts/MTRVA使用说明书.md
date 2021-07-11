@@ -14,16 +14,16 @@ MTRVA是对RecyclerViewAdapter的扩展，支持大多数的Adapter，核心功�
 ## gradle依赖
 
 ```
-support最后一个版本
+support最后一个版本，基于jcenter
 implementation 'com.crazysunj:multitypeadapter:2.3.1'
 implementation 'com.android.support:recyclerview-v7:xxx'
 
-AndroidX的同学：
-implementation 'com.crazysunj:multitypeadapter:2.5.2'
+AndroidX的同学，基于mavenCentral
+implementation 'com.crazysunj:mtrva:2.5.2'
 implementation 'androidx.recyclerview:recyclerview::xxx'
 
-需要组件化的同学
-implementation 'com.crazysunj:component:2.5.2'
+需要组件化的同学，基于mavenCentral
+implementation 'com.crazysunj:mtrva-component:2.5.2'
 ```
 
 后续版本更新只支持AndroidX，毕竟Google将停止维护support包，没有更新的小伙伴得抓紧了，不过项目大的同学慢慢来。
